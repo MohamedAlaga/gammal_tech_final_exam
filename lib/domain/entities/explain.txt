@@ -1,0 +1,1 @@
+this folder will contain all entities and base models
