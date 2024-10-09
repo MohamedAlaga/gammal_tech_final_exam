@@ -40,7 +40,7 @@ class LoginScreen extends StatelessWidget {
                   textColor: Colors.white,
                   buttonColor: const Color(0xff094546),
                   borderColor: const Color(0xff094546),
-                  height: 44,
+                  height: 55,
                   width: 312,
                   borderRadius: 8,
                   onTap: () {},
