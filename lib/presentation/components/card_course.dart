@@ -10,7 +10,8 @@ class CardCourse extends StatelessWidget {
   final String buttonText;
   final void Function()? onTap;
 
-  const CardCourse({super.key, 
+  const CardCourse({
+    super.key,
     required this.quizzes,
     required this.courseTitle,
     required this.subtitle,
@@ -99,7 +100,7 @@ class CardCourse extends StatelessWidget {
             child: Column(
               children: [
                 Image.asset(
-                  'assets/img.png',
+                  'assets/login_photo.png',
                   width: 48,
                   height: 56,
                 ),
