@@ -13,7 +13,7 @@ class LoginScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(24),
         child: Center(
           child: SingleChildScrollView(
             child: Column(
@@ -25,21 +25,21 @@ class LoginScreen extends StatelessWidget {
                   height: 270,
                 ),
                 const SizedBox(height: 24),
-                Text(
+                const Text(
                   "Login",
                   style: TextStyle(fontSize: 48, fontWeight: FontWeight.bold),
                   textAlign: TextAlign.start,
                 ),
                 const SizedBox(height: 24),
-                CustomTextField(hint: "email..."),
+                const CustomTextField(hint: "email..."),
                 const SizedBox(height: 12),
-                CustomTextField(hint: "password...", isPassword: true),
+                const CustomTextField(hint: "password...", isPassword: true),
                 const SizedBox(height: 24),
                 CustomButton(
                   text: "Login",
                   textColor: Colors.white,
-                  buttonColor: Color(0xff094546),
-                  borderColor: Color(0xff094546),
+                  buttonColor: const Color(0xff094546),
+                  borderColor: const Color(0xff094546),
                   height: 44,
                   width: 312,
                   borderRadius: 8,
@@ -68,7 +68,7 @@ class LoginScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const Text("Don't have an account?"),
-                        SizedBox(width: 4),
+                        const SizedBox(width: 4),
                         GestureDetector(
                           onTap: () {
                             // Navigate to SignUpScreen

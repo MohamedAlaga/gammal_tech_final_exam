@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gammal_tech_final_exam/presentation/components/custom_text_field.dart';
-import 'package:gammal_tech_final_exam/presentation/screens/forget_password_screen.dart';
+import 'package:gammal_tech_final_exam/presentation/screens/login_screen.dart';
 
 import '../components/custom_button.dart';
 
@@ -12,33 +12,36 @@ class SignUpScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(24),
         child: Center(
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Image.asset(
-                  'assets/login_photo.png',
+                  'assets/signup_photo.png',
                   width: 256,
                   height: 270,
                 ),
                 const SizedBox(height: 24),
-                Text(
-                  "Login",
+                const Text(
+                  "Sign Up",
                   style: TextStyle(fontSize: 48, fontWeight: FontWeight.bold),
                   textAlign: TextAlign.start,
                 ),
                 const SizedBox(height: 24),
-                CustomTextField(hint: "email..."),
+                const CustomTextField(hint: "email..."),
                 const SizedBox(height: 12),
-                CustomTextField(hint: "password...", isPassword: true),
+                const CustomTextField(hint: "password...", isPassword: true),
+                const SizedBox(height: 12),
+                const CustomTextField(
+                    hint: "confirm password...", isPassword: true),
                 const SizedBox(height: 24),
                 CustomButton(
                   text: "Login",
                   textColor: Colors.white,
-                  buttonColor: Color(0xff094546),
-                  borderColor: Color(0xff094546),
+                  buttonColor: const Color(0xff094546),
+                  borderColor: const Color(0xff094546),
                   height: 44,
                   width: 312,
                   borderRadius: 8,
@@ -47,39 +50,23 @@ class SignUpScreen extends StatelessWidget {
                 const SizedBox(height: 24),
                 Column(
                   children: [
-                    GestureDetector(
-                      onTap: () {
-                        // Navigate to ForgetPasswordScreen
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const ForgetPasswordScreen(),
-                          ),
-                        );
-                      },
-                      child: const Text(
-                        'Forget Password?',
-                        style: TextStyle(color: Color(0xff094546)),
-                      ),
-                    ),
-                    const SizedBox(height: 12),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Text("Don't have an account?"),
-                        SizedBox(width: 4),
+                        const Text("Already have an account?"),
+                        const SizedBox(width: 4),
                         GestureDetector(
                           onTap: () {
                             // Navigate to SignUpScreen
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => const SignUpScreen(),
+                                builder: (context) => const LoginScreen(),
                               ),
                             );
                           },
                           child: const Text(
-                            'Sign up',
+                            'Login',
                             style: TextStyle(color: Color(0xff094546)),
                           ),
                         ),
