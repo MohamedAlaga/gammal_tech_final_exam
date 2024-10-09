@@ -15,7 +15,7 @@ class FilterDialog extends StatefulWidget {
   final void Function()? onNoPressed;
 
   const FilterDialog({
-    Key? key,
+    super.key,
     required this.filters,
     required this.initialSelection,
     required this.title,
@@ -26,7 +26,7 @@ class FilterDialog extends StatefulWidget {
     required this.onApply,
     this.onYesPressed,
     this.onNoPressed,
-  }) : super(key: key);
+  });
 
   @override
   _FilterDialogState createState() => _FilterDialogState();
@@ -51,7 +51,7 @@ class _FilterDialogState extends State<FilterDialog> {
       title: Center(
         child: Text(
           widget.title,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
             color: Color(0xff094546),
@@ -70,9 +70,9 @@ class _FilterDialogState extends State<FilterDialog> {
                   _selectedFilters[i] = value ?? false;
                 });
               },
-              activeColor: Color(0xff0A7AFF),
+              activeColor: const Color(0xff0A7AFF),
             ),
-          SizedBox(height: 12),
+          const SizedBox(height: 12),
           Padding(
             padding: const EdgeInsets.all(12),
             child: Row(
@@ -91,7 +91,7 @@ class _FilterDialogState extends State<FilterDialog> {
                         Navigator.of(context).pop();
                       },
                 ),
-                SizedBox(width: 24),
+                const SizedBox(width: 24),
                 CustomButton(
                   text: widget.yesButtonText,
                   textColor: Colors.white,

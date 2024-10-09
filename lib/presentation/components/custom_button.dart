@@ -10,7 +10,7 @@ class CustomButton extends StatelessWidget {
   final double borderRadius;
   final VoidCallback onTap;
 
-  CustomButton({
+  const CustomButton({super.key, 
     required this.text,
     required this.textColor,
     required this.buttonColor,

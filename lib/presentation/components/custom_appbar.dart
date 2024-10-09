@@ -7,7 +7,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final VoidCallback onLeftIconPressed;
   final VoidCallback onRightIconPressed;
 
-  CustomAppBar({
+  const CustomAppBar({super.key, 
     required this.isProfileVisible,
     required this.leftIcon,
     required this.rightIcon,
@@ -30,7 +30,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               onPressed: onLeftIconPressed,
             ),
       title: isProfileVisible
-          ? CircleAvatar(
+          ? const CircleAvatar(
               backgroundImage: NetworkImage('https://via.placeholder.com/150'),
             )
           : null, // No title if profile isn't visible
@@ -47,5 +47,5 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }

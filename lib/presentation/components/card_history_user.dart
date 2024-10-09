@@ -7,12 +7,12 @@ class CardHistoryUser extends StatelessWidget {
   final String courseImage;
 
   const CardHistoryUser({
-    Key? key,
+    super.key,
     required this.dateTime,
     required this.title,
     required this.info,
     required this.courseImage,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class CardHistoryUser extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Color(0xffFF904D),
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(8),
@@ -37,7 +37,7 @@ class CardHistoryUser extends StatelessWidget {
                     const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 child: Text(
                   dateTime,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
@@ -55,12 +55,12 @@ class CardHistoryUser extends StatelessWidget {
                   children: [
                     Text(
                       title,
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.w700,
                           color: Color(0xff094546)),
                     ),
-                    SizedBox(height: 3),
+                    const SizedBox(height: 3),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: info.map((item) {
@@ -68,7 +68,7 @@ class CardHistoryUser extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(vertical: 3),
                           child: Text(
                             item,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 14,
                               color: Color(0xff094546),
                             ),
@@ -78,7 +78,7 @@ class CardHistoryUser extends StatelessWidget {
                     ),
                   ],
                 ),
-                Spacer(),
+                const Spacer(),
                 Image.asset(
                   courseImage,
                   width: 84,

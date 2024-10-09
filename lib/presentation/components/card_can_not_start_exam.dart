@@ -6,7 +6,7 @@ class CardCanNotStartExam extends StatelessWidget {
   final String courseImage;
   final void Function()? onTap;
 
-  CardCanNotStartExam({
+  const CardCanNotStartExam({super.key, 
     required this.quizzes,
     required this.courseTitle,
     required this.courseImage,
@@ -18,7 +18,7 @@ class CardCanNotStartExam extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Card(
-        color: Color(0xff094546),
+        color: const Color(0xff094546),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -60,7 +60,7 @@ class CardCanNotStartExam extends StatelessWidget {
                     ),
                   ],
                 ),
-                Spacer(),
+                const Spacer(),
                 Padding(
                   padding: const EdgeInsets.only(right: 12, top: 12),
                   child: Image.asset(

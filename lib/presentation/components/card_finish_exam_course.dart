@@ -6,7 +6,7 @@ class CardFinishExamCourse extends StatelessWidget {
   final String courseImage;
   final void Function()? onTap;
 
-  CardFinishExamCourse({
+  const CardFinishExamCourse({super.key, 
     required this.quizzes,
     required this.courseTitle,
     required this.courseImage,
@@ -60,7 +60,7 @@ class CardFinishExamCourse extends StatelessWidget {
                     ),
                   ],
                 ),
-                Spacer(),
+                const Spacer(),
                 Padding(
                   padding: const EdgeInsets.only(right: 12, top: 12),
                   child: Image.asset(

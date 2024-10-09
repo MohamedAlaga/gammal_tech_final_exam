@@ -7,8 +7,8 @@ class GetCourseTopicsByIdUsecase {
   BaseTopicRepository baseTopicRepository;
   GetCourseTopicsByIdUsecase(this.baseTopicRepository);
 
-  Future<Either<Failure,List<Topic>>> getCourseTopicsById(String courseId) {
-    return baseTopicRepository.getCourseTopicsById(courseId);
+  Future<Either<Failure, List<Topic>>> getCourseTopicsById(
+      String courseId, String userToken) {
+    return baseTopicRepository.getCourseTopicsById(courseId, userToken);
   }
-  
 }

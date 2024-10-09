@@ -5,13 +5,13 @@ import 'package:gammal_tech_final_exam/domain/entities/course.dart';
 import 'package:gammal_tech_final_exam/core/utils/dummy.dart' as dummy;
 
 abstract class BaseRemoteCourseDataSource {
-  Future<List<Course>> getAllCourses();
-  Future<List<Course>> getCoursesSuggetions();
+  Future<List<Course>> getAllCourses(String userToken);
+  Future<List<Course>> getCoursesSuggetions(String userToken);
 }
 
 class RemoteCourseDataSource extends BaseRemoteCourseDataSource {
   @override
-  Future<List<CourseModel>> getAllCourses() async {
+  Future<List<CourseModel>> getAllCourses(String userToken) async {
     try {
       return Future.delayed(const Duration(seconds: 2), () => dummy.allCourses);
     } catch (e) {
@@ -22,8 +22,9 @@ class RemoteCourseDataSource extends BaseRemoteCourseDataSource {
               success: false));
     }
   }
-
-  Future<List<CourseModel>> getCoursesSuggetions() async {
+  
+  @override
+  Future<List<CourseModel>> getCoursesSuggetions(String userToken) async {
     try {
       return Future.delayed(
           const Duration(seconds: 2), () => dummy.suggestedCourses);

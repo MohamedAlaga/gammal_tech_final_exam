@@ -7,7 +7,7 @@ class GetAllCoursesUsecase {
   final BaseCourseRepository baseCourseRepository;
   GetAllCoursesUsecase(this.baseCourseRepository);
 
-  Future<Either<Failure, List<Course>>> execute() {
-    return baseCourseRepository.getAllCourses();
+  Future<Either<Failure, List<Course>>> execute(String userToken) {
+    return baseCourseRepository.getAllCourses(userToken);
   }
 }

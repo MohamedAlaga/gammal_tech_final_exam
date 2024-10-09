@@ -4,13 +4,15 @@ import 'package:gammal_tech_final_exam/data/models/topic_model.dart';
 import 'package:gammal_tech_final_exam/core/utils/dummy.dart' as dummy;
 
 abstract class BaseRemoteTopicDataSource {
-  Future<List<TopicModel>> getCourseTopicsById(String courseId);
+  Future<List<TopicModel>> getCourseTopicsById(
+      String courseId, String userToken);
   Future<List<TopicModel>> upNextTopics(String userToken);
 }
 
 class RemoteTopicDataSource extends BaseRemoteTopicDataSource {
   @override
-  Future<List<TopicModel>> getCourseTopicsById(String courseId) {
+  Future<List<TopicModel>> getCourseTopicsById(
+      String courseId, String userToken) {
     try {
       return Future.delayed(const Duration(seconds: 1), () => dummy.allTopics);
     } catch (e) {

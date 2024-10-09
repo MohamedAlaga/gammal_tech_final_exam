@@ -9,7 +9,8 @@ class CardContinueCourse extends StatelessWidget {
   final String courseImage;
   final void Function()? onTap;
 
-  CardContinueCourse({
+  const CardContinueCourse({
+    super.key,
     required this.quizzes,
     required this.courseTitle,
     required this.progress,
@@ -63,7 +64,7 @@ class CardContinueCourse extends StatelessWidget {
                   ),
                 ],
               ),
-              Spacer(),
+              const Spacer(),
               Padding(
                 padding: const EdgeInsets.only(right: 12, top: 12),
                 child: Image.asset(
@@ -84,7 +85,7 @@ class CardContinueCourse extends StatelessWidget {
                     value: progress,
                     backgroundColor: Colors.grey.shade300,
                     valueColor:
-                        AlwaysStoppedAnimation<Color>(Color(0xffFF904D)),
+                        const AlwaysStoppedAnimation<Color>(Color(0xffFF904D)),
                   ),
                 ),
                 const SizedBox(width: 6),

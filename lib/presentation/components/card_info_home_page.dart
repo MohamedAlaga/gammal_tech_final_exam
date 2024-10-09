@@ -6,7 +6,8 @@ class CardInfoHomePage extends StatelessWidget {
   final int rank;
   final int points;
 
-  CardInfoHomePage({
+  const CardInfoHomePage({
+    super.key,
     required this.name,
     required this.solvedExams,
     required this.rank,
@@ -33,13 +34,13 @@ class CardInfoHomePage extends StatelessWidget {
                   children: [
                     Text(
                       'Good\nEvening,\n$name',
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
                         color: Color(0xff094546),
                       ),
                     ),
-                    SizedBox(height: 6),
+                    const SizedBox(height: 6),
                     Text(
                       "Let's Exam!",
                       style: TextStyle(
@@ -49,7 +50,7 @@ class CardInfoHomePage extends StatelessWidget {
                     ),
                   ],
                 ),
-                Spacer(),
+                const Spacer(),
                 Image.asset(
                   'assets/img_4.png',
                   width: 150,
@@ -57,7 +58,7 @@ class CardInfoHomePage extends StatelessWidget {
                 )
               ],
             ),
-            SizedBox(height: 24),
+            const SizedBox(height: 24),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -65,14 +66,14 @@ class CardInfoHomePage extends StatelessWidget {
                   children: [
                     Text(
                       '$solvedExams',
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.bold,
                         color: Color(0xff094546),
                       ),
                     ),
-                    SizedBox(height: 3),
-                    Text(
+                    const SizedBox(height: 3),
+                    const Text(
                       'Solved exams',
                       style: TextStyle(
                         fontSize: 12,
@@ -85,14 +86,14 @@ class CardInfoHomePage extends StatelessWidget {
                   children: [
                     Text(
                       '$rank',
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 26,
                         fontWeight: FontWeight.bold,
                         color: Color(0xff094546),
                       ),
                     ),
-                    SizedBox(height: 6),
-                    Text(
+                    const SizedBox(height: 6),
+                    const Text(
                       'Out of 2000',
                       style: TextStyle(
                         fontSize: 16,
@@ -105,14 +106,14 @@ class CardInfoHomePage extends StatelessWidget {
                   children: [
                     Text(
                       '$points',
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.bold,
                         color: Color(0xff094546),
                       ),
                     ),
-                    SizedBox(height: 3),
-                    Text(
+                    const SizedBox(height: 3),
+                    const Text(
                       'Points',
                       style: TextStyle(
                         fontSize: 16,

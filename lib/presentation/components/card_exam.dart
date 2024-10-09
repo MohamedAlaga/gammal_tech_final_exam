@@ -14,7 +14,7 @@ class CardExam extends StatelessWidget {
   final void Function()? onStartPressed;
 
   const CardExam({
-    Key? key,
+    super.key,
     required this.questions,
     required this.courseTitle,
     required this.subtitle,
@@ -25,7 +25,7 @@ class CardExam extends StatelessWidget {
     required this.timerImage,
     this.onMorePressed,
     this.onStartPressed,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +39,7 @@ class CardExam extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Color(0xffFF904D),
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(8),
@@ -50,7 +50,7 @@ class CardExam extends StatelessWidget {
                     const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 child: Text(
                   questions,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
@@ -68,7 +68,7 @@ class CardExam extends StatelessWidget {
                     ),
                     Text(
                       time,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 20,
                         color: Color(0xff094546),
                       ),
@@ -78,7 +78,7 @@ class CardExam extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 12),
+          const SizedBox(height: 12),
           Padding(
             padding: const EdgeInsets.only(left: 12, right: 12),
             child: Row(
@@ -88,22 +88,22 @@ class CardExam extends StatelessWidget {
                   children: [
                     Text(
                       courseTitle,
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.w700,
                           color: Color(0xff094546)),
                     ),
-                    SizedBox(height: 3),
+                    const SizedBox(height: 3),
                     Text(
                       subtitle,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 14,
                         color: Colors.grey,
                       ),
                     ),
                   ],
                 ),
-                Spacer(),
+                const Spacer(),
                 Image.asset(
                   courseImage,
                   width: 48,
@@ -119,19 +119,19 @@ class CardExam extends StatelessWidget {
                 CustomButton(
                   text: buttonMoreText,
                   textColor: Colors.white,
-                  buttonColor: Color(0xff094546),
-                  borderColor: Color(0xff094546),
+                  buttonColor: const Color(0xff094546),
+                  borderColor: const Color(0xff094546),
                   height: 30,
                   width: 83,
                   borderRadius: 3,
                   onTap: onMorePressed ?? () {},
                 ),
-                Spacer(),
+                const Spacer(),
                 CustomButton(
                   text: buttonStartText,
                   textColor: Colors.white,
-                  buttonColor: Color(0xff094546),
-                  borderColor: Color(0xff094546),
+                  buttonColor: const Color(0xff094546),
+                  borderColor: const Color(0xff094546),
                   height: 30,
                   width: 83,
                   borderRadius: 3,

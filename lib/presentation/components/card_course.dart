@@ -10,7 +10,7 @@ class CardCourse extends StatelessWidget {
   final String buttonText;
   final void Function()? onTap;
 
-  CardCourse({
+  const CardCourse({super.key, 
     required this.quizzes,
     required this.courseTitle,
     required this.subtitle,
@@ -107,8 +107,8 @@ class CardCourse extends StatelessWidget {
                 CustomButton(
                   text: buttonText,
                   textColor: Colors.white,
-                  buttonColor: Color(0xff094546),
-                  borderColor: Color(0xff094546),
+                  buttonColor: const Color(0xff094546),
+                  borderColor: const Color(0xff094546),
                   height: 30,
                   width: 80,
                   borderRadius: 8,
