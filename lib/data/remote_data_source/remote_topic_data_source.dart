@@ -7,6 +7,7 @@ abstract class BaseRemoteTopicDataSource {
   Future<List<TopicModel>> getCourseTopicsById(
       String courseId, String userToken);
   Future<List<TopicModel>> upNextTopics(String userToken);
+  Future<bool> saveAnswer(String userToken, String topicId, Map<String, String> userAnswer);
 }
 
 class RemoteTopicDataSource extends BaseRemoteTopicDataSource {
@@ -35,6 +36,17 @@ class RemoteTopicDataSource extends BaseRemoteTopicDataSource {
               message: "error accured getting up next  topics",
               statusCode: 404,
               success: false));
+    }
+  }
+
+  @override
+  Future<bool> saveAnswer(String userToken, String topicId, Map<String, String> userAnswer) {
+    try {
+      return Future.delayed(const Duration(seconds: 1), () => true);
+    } catch (e) {
+      throw const ServerException(
+          errorMessageModel: ErrorMessageModel(
+              message: "error accured saving answer", statusCode: 404, success: false));
     }
   }
 }

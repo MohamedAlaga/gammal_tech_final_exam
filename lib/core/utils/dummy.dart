@@ -1,7 +1,11 @@
 import 'package:gammal_tech_final_exam/data/models/answer_model.dart';
+import 'package:gammal_tech_final_exam/data/models/contact_info_model.dart';
 import 'package:gammal_tech_final_exam/data/models/course_model.dart';
 import 'package:gammal_tech_final_exam/data/models/questions_model.dart';
 import 'package:gammal_tech_final_exam/data/models/topic_model.dart';
+import 'package:gammal_tech_final_exam/data/models/user_log_model.dart';
+import 'package:gammal_tech_final_exam/data/models/user_model.dart';
+import 'package:gammal_tech_final_exam/data/models/welcome_data_model.dart';
 
 List<CourseModel> allCourses = [
   const CourseModel(
@@ -118,3 +122,32 @@ int main() {
      printf("%d\n", y);
      return 0; 
 }''';
+
+List<UserLogModel> userHistoryList = [userLog, userLog, userLog, userLog];
+UserLogModel userLog = const UserLogModel(
+  dateTime: "10:00 Am 10/10/2024",
+  operationName: "exam Completed",
+  description: ['Learn the basic concepts of programming', "5/5 in exam"],
+  imageUrl: 'https://i.imgur.com/1YCMYgS.png',
+);
+
+UserModel user = UserModel(
+    bio: "hello , i am a software engineer",
+    collegeName: "faculty of computers and information",
+    contactInfo: contactsInfo,
+    imageUrl: "https://i.imgur.com/1YCMYgS.png",
+    name: "mohamed",
+    progress: const {"c++": 100, "c": 100, "oop": 72.5},
+    skills: const ["c++", "java", "python"]);
+
+List<ContactInfoModel> contactsInfo = [contact, contact, contact, contact];
+ContactInfoModel contact = const ContactInfoModel(
+    link: "www.facebook.com", socialMedia: "facebook", userTag: "mohamed");
+
+WelcomeDataModel welcomeData = const WelcomeDataModel(
+    imageUrl: "https://i.imgur.com/1YCMYgS.png",
+    points: 100,
+    rank: 1,
+    solvedExams: 10,
+    title: "mohamed",
+    totalRanks: 100);

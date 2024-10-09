@@ -26,4 +26,13 @@ class TopicRepository extends BaseTopicRepository {
       return left(ServerFailure(faliure.errorMessageModel.message));
     }
   }
+  @override
+  Future<Either<Failure, bool>> saveUserAnswer(String userToken, String topicId, Map<String, String> userAnswer) async{
+    try {
+      return right(await baseRemoteTopicDataSource.saveAnswer(userToken, topicId, userAnswer));
+    }
+    on ServerException catch (faliure) {
+      return left(ServerFailure(faliure.errorMessageModel.message));
+    }
+  }
 }

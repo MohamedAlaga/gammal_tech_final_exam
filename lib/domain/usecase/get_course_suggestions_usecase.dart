@@ -7,7 +7,7 @@ class GetCourseSuggestionsUsecase {
   final BaseCourseRepository baseCourseRepository;
   GetCourseSuggestionsUsecase(this.baseCourseRepository);
 
-  Future<Either<Failure, List<Course>>> execute(String userToken) {
-    return  baseCourseRepository.getCoursesSuggetions(userToken);
+  Future<Either<Failure, List<Course>>> execute(String userToken) async{
+    return await baseCourseRepository.getCoursesSuggetions(userToken);
   }
 }
