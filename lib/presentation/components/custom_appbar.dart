@@ -7,7 +7,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final VoidCallback onLeftIconPressed;
   final VoidCallback onRightIconPressed;
 
-  const CustomAppBar({super.key, 
+  const CustomAppBar({
+    super.key,
     required this.isProfileVisible,
     required this.leftIcon,
     required this.rightIcon,
@@ -20,6 +21,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       backgroundColor: Colors.white,
       elevation: 0,
+      shadowColor: Colors.transparent,
       leading: isProfileVisible
           ? null
           : IconButton(

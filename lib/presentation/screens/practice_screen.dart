@@ -5,25 +5,22 @@ import 'package:gammal_tech_final_exam/presentation/components/card_finish_exam_
 
 import '../components/custom_appbar.dart';
 
+List<List<dynamic>> finishExamCourse = [
+  ['6 Questions', 'printf', 'assets/course.png'],
+  ['6 Questions', 'scanf', 'assets/course.png'],
+  ['6 Questions', 'if condition', 'assets/course.png']
+];
+
+List<dynamic> cardExam = [
+  '6 Questions',
+  'printf(“gammal tech”);',
+  'Master programming basics',
+  '10sec',
+  'assets/course.png',
+];
+
 class PracticeScreen extends StatelessWidget {
-  PracticeScreen({super.key});
-
-  List<List<dynamic>> finishExamCourse = [
-    ['6 Questions', 'C programming', 'assets/login_photo.png'],
-    ['6 Questions', 'C programming', 'assets/login_photo.png'],
-    ['6 Questions', 'C programming', 'assets/login_photo.png']
-  ];
-
-  List<dynamic> cardExam = [
-    '6 Questions',
-    'printf(“gammal tech”);',
-    'Master programming basics',
-    '10sec',
-    'More',
-    'Start',
-    'assets/login_photo.png',
-    'assets/login_photo.png'
-  ];
+  const PracticeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +35,7 @@ class PracticeScreen extends StatelessWidget {
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(24),
+          padding: const EdgeInsets.all(24),
           child: Center(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -47,17 +44,13 @@ class PracticeScreen extends StatelessWidget {
                   CardFinishExamCourse(
                     quizzes: finishExamCourse[i][0],
                     courseTitle: finishExamCourse[i][1],
-                    courseImage: finishExamCourse[i][2],
                   ),
                 CardExam(
                   questions: cardExam[0],
                   courseTitle: cardExam[1],
                   subtitle: cardExam[2],
                   time: cardExam[3],
-                  buttonMoreText: cardExam[4],
-                  buttonStartText: cardExam[5],
                   courseImage: cardExam[6],
-                  timerImage: cardExam[7],
                 ),
                 for (int i = 0; i < finishExamCourse.length; i++)
                   CardCanNotStartExam(

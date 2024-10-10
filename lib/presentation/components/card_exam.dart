@@ -6,10 +6,7 @@ class CardExam extends StatelessWidget {
   final String courseTitle;
   final String subtitle;
   final String time;
-  final String buttonMoreText;
-  final String buttonStartText;
   final String courseImage;
-  final String timerImage;
   final void Function()? onMorePressed;
   final void Function()? onStartPressed;
 
@@ -19,10 +16,7 @@ class CardExam extends StatelessWidget {
     required this.courseTitle,
     required this.subtitle,
     required this.time,
-    required this.buttonMoreText,
-    required this.buttonStartText,
     required this.courseImage,
-    required this.timerImage,
     this.onMorePressed,
     this.onStartPressed,
   });
@@ -62,7 +56,7 @@ class CardExam extends StatelessWidget {
                 child: Row(
                   children: [
                     Image.asset(
-                      timerImage,
+                      'assets/timer.png',
                       width: 25,
                       height: 28,
                     ),
@@ -117,23 +111,23 @@ class CardExam extends StatelessWidget {
             child: Row(
               children: [
                 CustomButton(
-                  text: buttonMoreText,
+                  text: 'More',
                   textColor: Colors.white,
                   buttonColor: const Color(0xff094546),
                   borderColor: const Color(0xff094546),
-                  height: 30,
-                  width: 83,
+                  height: 35,
+                  width: 85,
                   borderRadius: 3,
                   onTap: onMorePressed ?? () {},
                 ),
                 const Spacer(),
                 CustomButton(
-                  text: buttonStartText,
+                  text: 'Start',
                   textColor: Colors.white,
                   buttonColor: const Color(0xff094546),
                   borderColor: const Color(0xff094546),
-                  height: 30,
-                  width: 83,
+                  height: 35,
+                  width: 85,
                   borderRadius: 3,
                   onTap: onStartPressed ?? () {},
                 ),

@@ -3,13 +3,12 @@ import 'package:flutter/material.dart';
 class CardFinishExamCourse extends StatelessWidget {
   final String quizzes;
   final String courseTitle;
-  final String courseImage;
   final void Function()? onTap;
 
-  const CardFinishExamCourse({super.key, 
+  const CardFinishExamCourse({
+    super.key,
     required this.quizzes,
     required this.courseTitle,
-    required this.courseImage,
     this.onTap,
   });
 
@@ -64,7 +63,7 @@ class CardFinishExamCourse extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(right: 12, top: 12),
                   child: Image.asset(
-                    courseImage,
+                    'assets/done.png',
                     width: 54,
                   ),
                 ),

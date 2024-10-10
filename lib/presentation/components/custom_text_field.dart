@@ -25,42 +25,45 @@ class _CustomTextFieldState extends State<CustomTextField> {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      onChanged: widget.onChanged,
-      onSaved: widget.onSaved,
-      validator: (value) {
-        if (value?.isEmpty ?? true) {
-          return 'Field is required';
-        } else {
-          return null;
-        }
-      },
-      cursorColor: const Color(0xff094546),
-      maxLines: widget.isPassword ? 1 : widget.maxLines,
-      obscureText: widget.isPassword
-          ? _obscureText
-          : false, // Toggle obscureText for password
-      decoration: InputDecoration(
-        hintText: widget.hint,
-        hintStyle: const TextStyle(
-          color: Color(0xff094546),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 6),
+      child: TextFormField(
+        onChanged: widget.onChanged,
+        onSaved: widget.onSaved,
+        validator: (value) {
+          if (value?.isEmpty ?? true) {
+            return 'Field is required';
+          } else {
+            return null;
+          }
+        },
+        cursorColor: const Color(0xff094546),
+        maxLines: widget.isPassword ? 1 : widget.maxLines,
+        obscureText: widget.isPassword
+            ? _obscureText
+            : false, // Toggle obscureText for password
+        decoration: InputDecoration(
+          hintText: widget.hint,
+          hintStyle: const TextStyle(
+            color: Colors.grey,
+          ),
+          border: buildBorder(Colors.grey),
+          enabledBorder: buildBorder(Colors.grey),
+          focusedBorder: buildBorder(const Color(0xff094546)),
+          suffixIcon: widget.isPassword
+              ? IconButton(
+                  icon: Icon(
+                    _obscureText ? Icons.visibility_off : Icons.visibility,
+                    color: const Color(0xff094546),
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      _obscureText = !_obscureText;
+                    });
+                  },
+                )
+              : null,
         ),
-        border: buildBorder(Colors.grey),
-        enabledBorder: buildBorder(Colors.grey),
-        focusedBorder: buildBorder(const Color(0xff094546)),
-        suffixIcon: widget.isPassword
-            ? IconButton(
-                icon: Icon(
-                  _obscureText ? Icons.visibility_off : Icons.visibility,
-                  color: const Color(0xff094546),
-                ),
-                onPressed: () {
-                  setState(() {
-                    _obscureText = !_obscureText;
-                  });
-                },
-              )
-            : null,
       ),
     );
   }

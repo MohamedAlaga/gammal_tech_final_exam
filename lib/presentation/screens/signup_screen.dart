@@ -57,7 +57,6 @@ class SignUpScreen extends StatelessWidget {
                         const SizedBox(width: 4),
                         GestureDetector(
                           onTap: () {
-                            // Navigate to SignUpScreen
                             Navigator.push(
                               context,
                               MaterialPageRoute(
