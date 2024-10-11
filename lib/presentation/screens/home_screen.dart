@@ -3,7 +3,21 @@ import 'package:gammal_tech_final_exam/presentation/components/card_info_home_pa
 import 'package:gammal_tech_final_exam/presentation/components/custom_button.dart';
 import 'package:gammal_tech_final_exam/presentation/components/main_app_bar.dart';
 import 'package:gammal_tech_final_exam/presentation/screens/course_screen.dart';
+import 'package:gammal_tech_final_exam/presentation/screens/practice_screen.dart';
 import 'package:gammal_tech_final_exam/presentation/screens/user_history.dart';
+
+import '../components/card_continue_course.dart';
+import '../components/course_card.dart';
+
+List<List<dynamic>> continueCourse = [
+  ['30/83 Quiz', 'C programming', 0.3, 'Continue', ''],
+  ['15/83 Quiz', 'C++', 0.6, 'Continue', '']
+];
+
+List<List<dynamic>> course = [
+  ['83 Quizzes', 'Data Structures', 'Structure Your Code!', 5.0, 15, 'Start'],
+  ['83 Quizzes', 'Data Structures', 'Structure Your Code!', 4.0, 6, 'Start']
+];
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -56,6 +70,62 @@ class HomeScreen extends StatelessWidget {
                   },
                 ),
                 SizedBox(height: 24),
+                const Row(
+                  children: [
+                    Text(
+                      'Up next quizzes :',
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: Color(0xff094546),
+                        fontFamily: 'SourceSans3',
+                        fontWeight: FontWeight.bold,
+                      ),
+                      textAlign: TextAlign.start,
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 6),
+                for (int i = 0; i < continueCourse.length; i++)
+                  CardContinueCourse(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const PracticeScreen(),
+                        ),
+                      );
+                    },
+                    quizzes: continueCourse[i][0],
+                    courseTitle: continueCourse[i][1],
+                    progress: continueCourse[i][2],
+                    buttonText: continueCourse[i][3],
+                    courseImage: continueCourse[i][4],
+                  ),
+                const SizedBox(height: 24),
+                const Row(
+                  children: [
+                    Text(
+                      'course suggestions :',
+                      style: TextStyle(
+                          fontSize: 16,
+                          color: Color(0xff094546),
+                          fontFamily: 'SourceSans3',
+                          fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.start,
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 12),
+                for (int i = 0; i < course.length; i++)
+                  CourseCard(
+                    quizzes: course[i][0],
+                    courseTitle: course[i][1],
+                    subtitle: course[i][2],
+                    image: '',
+                    rating: course[i][3],
+                    ratingCount: course[i][4],
+                    buttonText: course[i][5],
+                  )
               ],
             ),
           ),
