@@ -1,24 +1,31 @@
 import 'package:flutter/material.dart';
 
-class CardHistoryUser extends StatelessWidget {
-  final String dateTime;
-  final String title;
-  final List<String> info;
-  final String courseImage;
-
-  const CardHistoryUser({
+class UserHistoryCard extends StatelessWidget {
+  const UserHistoryCard({
     super.key,
     required this.dateTime,
     required this.title,
     required this.info,
-    required this.courseImage,
+    required this.image,
   });
+
+  final String dateTime;
+  final String title;
+  final List<String> info;
+  final String image;
 
   @override
   Widget build(BuildContext context) {
     return Card(
+      shadowColor: Colors.transparent,
       color: Colors.white,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8),
+        side: const BorderSide(
+          color: Color(0xffE3E5E8),
+          width: 1,
+        ),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -39,26 +46,29 @@ class CardHistoryUser extends StatelessWidget {
                   dateTime,
                   style: const TextStyle(
                     fontSize: 16,
-                    fontWeight: FontWeight.bold,
+                    fontFamily: 'Quicksand',
+                    fontWeight: FontWeight.w600,
                     color: Colors.white,
                   ),
                 ),
               ),
             ],
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 12, right: 12, bottom: 12),
-            child: Row(
-              children: [
-                Column(
+          Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 12),
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       title,
                       style: const TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.w700,
-                          color: Color(0xff094546)),
+                        fontSize: 18,
+                        fontFamily: 'SourceSans3',
+                        fontWeight: FontWeight.w600,
+                        color: Color(0xff094546),
+                      ),
                     ),
                     const SizedBox(height: 3),
                     Column(
@@ -69,7 +79,8 @@ class CardHistoryUser extends StatelessWidget {
                           child: Text(
                             item,
                             style: const TextStyle(
-                              fontSize: 14,
+                              fontSize: 16,
+                              fontFamily: 'SourceSans3',
                               color: Color(0xff094546),
                             ),
                           ),
@@ -78,17 +89,37 @@ class CardHistoryUser extends StatelessWidget {
                     ),
                   ],
                 ),
-                const Spacer(),
-                Image.asset(
-                  courseImage,
+              ),
+              const Spacer(),
+              Padding(
+                padding: const EdgeInsets.only(right: 12, bottom: 18),
+                child: Container(
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: _getImageProvider(image),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                   width: 84,
-                  height: 98,
+                  height: 96,
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ],
       ),
     );
+  }
+
+  ImageProvider _getImageProvider(String imageUrl) {
+    try {
+      if (imageUrl.isNotEmpty) {
+        return NetworkImage(imageUrl);
+      } else {
+        return const AssetImage('assets/course.png');
+      }
+    } catch (e) {
+      return const AssetImage('assets/course.png');
+    }
   }
 }

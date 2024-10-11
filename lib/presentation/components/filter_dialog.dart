@@ -6,26 +6,16 @@ class FilterDialog extends StatefulWidget {
   final List<String> filters;
   final List<bool> initialSelection;
   final String title;
-  final String yesButtonText;
-  final String noButtonText;
-  final Color yesButtonColor;
-  final Color noButtonColor;
   final void Function(List<bool>) onApply;
   final void Function()? onYesPressed;
-  final void Function()? onNoPressed;
 
   const FilterDialog({
     super.key,
     required this.filters,
     required this.initialSelection,
     required this.title,
-    required this.yesButtonText,
-    required this.noButtonText,
-    required this.yesButtonColor,
-    required this.noButtonColor,
     required this.onApply,
     this.onYesPressed,
-    this.onNoPressed,
   });
 
   @override
@@ -43,73 +33,87 @@ class _FilterDialogState extends State<FilterDialog> {
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
+    return Dialog(
+      shadowColor: Colors.transparent,
       backgroundColor: Colors.white,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(8),
       ),
-      title: Center(
-        child: Text(
-          widget.title,
-          style: const TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-            color: Color(0xff094546),
+      child: SizedBox(
+        width: MediaQuery.of(context).size.width,
+        child: Padding(
+          padding: const EdgeInsets.only(top: 12),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                widget.title,
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                  fontFamily: 'SourceSans3',
+                  color: Colors.black,
+                ),
+              ),
+              const SizedBox(height: 12),
+              for (int i = 0; i < widget.filters.length; i++)
+                CheckboxListTile(
+                  title: Text(
+                    widget.filters[i],
+                    style: const TextStyle(
+                      fontFamily: 'SourceSans3',
+                      color: Colors.black,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  value: _selectedFilters[i],
+                  onChanged: (bool? value) {
+                    setState(() {
+                      _selectedFilters[i] = value ?? false;
+                    });
+                  },
+                  activeColor: const Color(0xff0A7AFF),
+                  controlAffinity: ListTileControlAffinity.leading,
+                ),
+              Padding(
+                padding: const EdgeInsets.only(
+                    left: 24, right: 24, bottom: 24, top: 12),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    CustomButton(
+                      text: 'No',
+                      textColor: Colors.white,
+                      buttonColor: Color(0xffDA1E28),
+                      borderColor: Color(0xffDA1E28),
+                      width: MediaQuery.of(context).size.width / 3.25,
+                      borderRadius: 6,
+                      fontSize: 18,
+                      onTap: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                    CustomButton(
+                      text: 'Yes',
+                      textColor: Colors.white,
+                      buttonColor: Color(0xff094546),
+                      borderColor: Color(0xff094546),
+                      width: MediaQuery.of(context).size.width / 3.25,
+                      borderRadius: 6,
+                      fontSize: 18,
+                      onTap: widget.onYesPressed ??
+                          () {
+                            widget.onApply(_selectedFilters);
+                            Navigator.of(context).pop();
+                          },
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
         ),
-      ),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          for (int i = 0; i < widget.filters.length; i++)
-            CheckboxListTile(
-              title: Text(widget.filters[i]),
-              value: _selectedFilters[i],
-              onChanged: (bool? value) {
-                setState(() {
-                  _selectedFilters[i] = value ?? false;
-                });
-              },
-              activeColor: const Color(0xff0A7AFF),
-            ),
-          const SizedBox(height: 12),
-          Padding(
-            padding: const EdgeInsets.all(12),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                CustomButton(
-                  text: widget.noButtonText,
-                  textColor: Colors.white,
-                  buttonColor: widget.noButtonColor,
-                  borderColor: widget.noButtonColor,
-                  height: 38,
-                  width: 126,
-                  borderRadius: 6,
-                  onTap: widget.onNoPressed ??
-                      () {
-                        Navigator.of(context).pop();
-                      },
-                ),
-                const SizedBox(width: 24),
-                CustomButton(
-                  text: widget.yesButtonText,
-                  textColor: Colors.white,
-                  buttonColor: widget.yesButtonColor,
-                  borderColor: widget.yesButtonColor,
-                  height: 38,
-                  width: 126,
-                  borderRadius: 6,
-                  onTap: widget.onYesPressed ??
-                      () {
-                        widget.onApply(_selectedFilters);
-                        Navigator.of(context).pop();
-                      },
-                ),
-              ],
-            ),
-          ),
-        ],
       ),
     );
   }

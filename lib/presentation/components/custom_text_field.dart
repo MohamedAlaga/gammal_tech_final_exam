@@ -44,11 +44,11 @@ class _CustomTextFieldState extends State<CustomTextField> {
             : false, // Toggle obscureText for password
         decoration: InputDecoration(
           hintText: widget.hint,
-          hintStyle: const TextStyle(
-            color: Colors.grey,
+          hintStyle: TextStyle(
+            color: Colors.black.withOpacity(0.5),
           ),
-          border: buildBorder(Colors.grey),
-          enabledBorder: buildBorder(Colors.grey),
+          border: buildBorder(const Color(0xffE3E5E8)),
+          enabledBorder: buildBorder(const Color(0xffE3E5E8)),
           focusedBorder: buildBorder(const Color(0xff094546)),
           suffixIcon: widget.isPassword
               ? IconButton(

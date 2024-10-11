@@ -24,8 +24,15 @@ class CardExam extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      shadowColor: Colors.transparent,
       color: Colors.white,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8),
+        side: const BorderSide(
+          color: Color(0xffE3E5E8),
+          width: 1,
+        ),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -45,8 +52,9 @@ class CardExam extends StatelessWidget {
                 child: Text(
                   questions,
                   style: const TextStyle(
-                    fontSize: 16,
+                    fontSize: 18,
                     fontWeight: FontWeight.bold,
+                    fontFamily: 'Quicksand',
                     color: Colors.white,
                   ),
                 ),
@@ -64,6 +72,8 @@ class CardExam extends StatelessWidget {
                       time,
                       style: const TextStyle(
                         fontSize: 20,
+                        fontFamily: 'Quicksand',
+                        fontWeight: FontWeight.w600,
                         color: Color(0xff094546),
                       ),
                     ),
@@ -83,23 +93,31 @@ class CardExam extends StatelessWidget {
                     Text(
                       courseTitle,
                       style: const TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.w700,
-                          color: Color(0xff094546)),
+                        fontSize: 22,
+                        fontWeight: FontWeight.w700,
+                        fontFamily: 'SourceSans3',
+                        color: Color(0xff094546),
+                      ),
                     ),
                     const SizedBox(height: 3),
                     Text(
                       subtitle,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 14,
-                        color: Colors.grey,
+                        fontFamily: 'SourceSans3',
+                        color: const Color(0xff094546).withOpacity(0.6),
                       ),
                     ),
                   ],
                 ),
                 const Spacer(),
-                Image.asset(
-                  courseImage,
+                Container(
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: _getImageProvider(courseImage),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                   width: 48,
                   height: 56,
                 ),
@@ -115,9 +133,9 @@ class CardExam extends StatelessWidget {
                   textColor: Colors.white,
                   buttonColor: const Color(0xff094546),
                   borderColor: const Color(0xff094546),
-                  height: 35,
                   width: 85,
                   borderRadius: 3,
+                  fontSize: 16,
                   onTap: onMorePressed ?? () {},
                 ),
                 const Spacer(),
@@ -126,9 +144,9 @@ class CardExam extends StatelessWidget {
                   textColor: Colors.white,
                   buttonColor: const Color(0xff094546),
                   borderColor: const Color(0xff094546),
-                  height: 35,
                   width: 85,
                   borderRadius: 3,
+                  fontSize: 16,
                   onTap: onStartPressed ?? () {},
                 ),
               ],
@@ -137,5 +155,17 @@ class CardExam extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  ImageProvider _getImageProvider(String imageUrl) {
+    try {
+      if (imageUrl.isNotEmpty) {
+        return NetworkImage(imageUrl);
+      } else {
+        return const AssetImage('assets/course.png');
+      }
+    } catch (e) {
+      return const AssetImage('assets/course.png');
+    }
   }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:gammal_tech_final_exam/presentation/components/custom_appbar.dart';
 import 'package:gammal_tech_final_exam/presentation/components/custom_text_field.dart';
-import 'package:gammal_tech_final_exam/presentation/screens/result_screen.dart';
+import 'package:gammal_tech_final_exam/presentation/components/sub_app_bar.dart';
+import 'package:gammal_tech_final_exam/presentation/screens/user_profile_screen.dart';
 
 import '../components/custom_button.dart';
 
@@ -23,11 +23,8 @@ class EditUserProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
-        isProfileVisible: false,
-        leftIcon: Icons.navigate_before,
+      appBar: SubAppBar(
         rightIcon: Icons.notifications_none,
-        onLeftIconPressed: () {},
         onRightIconPressed: () {},
       ),
       backgroundColor: Colors.white,
@@ -149,14 +146,14 @@ class EditUserProfileScreen extends StatelessWidget {
                   textColor: Colors.white,
                   buttonColor: Color(0xff094546),
                   borderColor: Color(0xff094546),
-                  height: 45,
                   width: MediaQuery.of(context).size.width,
                   borderRadius: 8,
+                  fontSize: 20,
                   onTap: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const ResultScreen(grad: 100),
+                        builder: (context) => const UserProfileScreen(),
                       ),
                     );
                   },
