@@ -33,6 +33,7 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
           },
           child: CircleAvatar(
             backgroundImage: _getImageProvider(image),
+            backgroundColor: Colors.grey[400],
           ),
         ),
       ),

@@ -1,10 +1,1 @@
 this folder will contain app component
-
-//solve CardInfoHomePage
-// - fix text alignment , size
-
-//CustomTextField
-// - change the hint text style to be the same as figma
-
-//FilterDialog
-// - solve the responsiveness of the screen

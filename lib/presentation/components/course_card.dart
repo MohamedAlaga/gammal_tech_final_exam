@@ -13,7 +13,7 @@ class CourseCard extends StatelessWidget {
     this.ratingCount,
     required this.buttonText,
     this.onTap,
-    this.fontFamily = 'Quicksand',
+    this.fontFamily = 'SourceSans3',
   });
 
   final String quizzes;
@@ -63,7 +63,7 @@ class CourseCard extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
-                          fontFamily: fontFamily,
+                          fontFamily: 'Quicksand',
                           color: Colors.white,
                         ),
                       ),
@@ -126,7 +126,7 @@ class CourseCard extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(12),
+              padding: const EdgeInsets.only(top: 24, right: 12, bottom: 12),
               child: Column(
                 children: [
                   Container(
@@ -139,7 +139,7 @@ class CourseCard extends StatelessWidget {
                     width: 48,
                     height: 56,
                   ),
-                  const SizedBox(height: 36),
+                  const SizedBox(height: 18),
                   CustomButton(
                     text: buttonText,
                     textColor: Colors.white,

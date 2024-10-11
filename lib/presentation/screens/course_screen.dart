@@ -38,12 +38,14 @@ class CourseScreen extends StatelessWidget {
                 const Text(
                   'Progress :',
                   style: TextStyle(
-                      fontSize: 16,
-                      color: Color(0xff094546),
-                      fontWeight: FontWeight.bold),
+                    fontSize: 16,
+                    color: Color(0xff094546),
+                    fontFamily: 'SourceSans3',
+                    fontWeight: FontWeight.bold,
+                  ),
                   textAlign: TextAlign.start,
                 ),
-                const SizedBox(height: 12),
+                const SizedBox(height: 6),
                 for (int i = 0; i < continueCourse.length; i++)
                   CardContinueCourse(
                     onTap: () {
@@ -66,6 +68,7 @@ class CourseScreen extends StatelessWidget {
                   style: TextStyle(
                       fontSize: 16,
                       color: Color(0xff094546),
+                      fontFamily: 'SourceSans3',
                       fontWeight: FontWeight.bold),
                   textAlign: TextAlign.start,
                 ),

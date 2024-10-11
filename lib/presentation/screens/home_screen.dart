@@ -21,7 +21,8 @@ class HomeScreen extends StatelessWidget {
             ),
           );
         },
-        image: 'https://avatars.githubusercontent.com/u/109886112?s=48&v=4',
+        image:
+            'https://media.licdn.com/dms/image/v2/D5603AQGyqO71BGTIQA/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1724595865968?e=1733961600&v=beta&t=axj8aNdvToysiogWaZR7Fddi1NjwWSx82HAsviFNy2w',
       ),
       backgroundColor: Colors.white,
       body: SingleChildScrollView(

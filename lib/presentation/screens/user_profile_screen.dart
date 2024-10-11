@@ -14,7 +14,7 @@ List<dynamic> info = [
   ['points', 5000]
 ];
 List<dynamic> user = [
-  'assets/user_photo.png',
+  'https://media.licdn.com/dms/image/v2/D5603AQGyqO71BGTIQA/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1724595865968?e=1733961600&v=beta&t=axj8aNdvToysiogWaZR7Fddi1NjwWSx82HAsviFNy2w',
   'Mohamed Al-Azab',
   'Alexandria University',
   'I’m Software Engneer focus on Mobile develobment',
@@ -53,9 +53,10 @@ class UserProfileScreen extends StatelessWidget {
           child: Center(
             child: Column(
               children: [
-                Image.asset(
-                  user[0],
-                  width: 120,
+                CircleAvatar(
+                  radius: 60,
+                  backgroundImage: _getImageProvider(user[0]),
+                  backgroundColor: Colors.grey[400],
                 ),
                 const SizedBox(height: 12),
                 Text(
@@ -132,5 +133,17 @@ class UserProfileScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  ImageProvider _getImageProvider(String imageUrl) {
+    try {
+      if (imageUrl.isNotEmpty) {
+        return NetworkImage(imageUrl);
+      } else {
+        return const AssetImage('assets/user_photo.png');
+      }
+    } catch (e) {
+      return const AssetImage('assets/user_photo.png');
+    }
   }
 }
