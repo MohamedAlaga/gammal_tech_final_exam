@@ -1,3 +1,4 @@
+import 'package:gammal_tech_final_exam/core/utils/env.dart';
 import 'package:gammal_tech_final_exam/domain/entities/course.dart';
 
 class CourseModel extends Course {
@@ -13,13 +14,13 @@ class CourseModel extends Course {
 
   factory CourseModel.fromJson(Map<String, dynamic> json) {
     return CourseModel(
-      id: json['id'],
-      name: json['name'],
+      id: json['course_id'].toString(),
+      name: json['course_name'],
       description: json['description'],
-      imageUrl: json['imageUrl'],
-      quizzes: json['quizzes'],
-      rating: json['rating'],
-      numberOfRatings: json['numberOfRatings'],
+      imageUrl: courseImageUrl,
+      quizzes: json['total_quizzes'],
+      rating: 4,
+      numberOfRatings: 15,
     );
   }
 
