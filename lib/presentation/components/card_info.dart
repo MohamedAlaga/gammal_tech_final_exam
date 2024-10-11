@@ -29,7 +29,8 @@ class CardInfo extends StatelessWidget {
               style: TextStyle(
                 color: Colors.black,
                 fontSize: 16,
-                fontWeight: FontWeight.bold,
+                fontFamily: 'SourceSans3',
+                fontWeight: FontWeight.w600,
               ),
             ),
             Text(
@@ -37,7 +38,8 @@ class CardInfo extends StatelessWidget {
               style: TextStyle(
                 color: Colors.black,
                 fontSize: 16,
-                fontWeight: FontWeight.bold,
+                fontFamily: 'SourceSans3',
+                fontWeight: FontWeight.w600,
               ),
             ),
           ],

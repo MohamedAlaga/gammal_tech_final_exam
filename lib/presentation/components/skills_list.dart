@@ -20,6 +20,7 @@ class SkillsList extends StatelessWidget {
                   labelStyle: TextStyle(
                     color: Colors.white,
                     fontSize: 16,
+                    fontFamily: 'SourceSans3',
                     fontWeight: FontWeight.bold,
                   ),
                 ),

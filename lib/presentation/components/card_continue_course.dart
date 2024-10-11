@@ -22,8 +22,15 @@ class CardContinueCourse extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      shadowColor: Colors.transparent,
       color: Colors.white,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8),
+        side: const BorderSide(
+          color: Color(0xffE3E5E8),
+          width: 1,
+        ),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -47,6 +54,7 @@ class CardContinueCourse extends StatelessWidget {
                       style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
+                        fontFamily: 'Quicksand',
                         color: Colors.white,
                       ),
                     ),
@@ -59,6 +67,7 @@ class CardContinueCourse extends StatelessWidget {
                       style: const TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
+                          fontFamily: 'SourceSans3',
                           color: Color(0xff094546)),
                     ),
                   ),
@@ -67,8 +76,13 @@ class CardContinueCourse extends StatelessWidget {
               const Spacer(),
               Padding(
                 padding: const EdgeInsets.only(right: 12, top: 12),
-                child: Image.asset(
-                  courseImage,
+                child: Container(
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: _getImageProvider(courseImage),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                   width: 48,
                   height: 56,
                 ),
@@ -81,11 +95,16 @@ class CardContinueCourse extends StatelessWidget {
             child: Row(
               children: [
                 Expanded(
-                  child: LinearProgressIndicator(
-                    value: progress,
-                    backgroundColor: Colors.grey.shade300,
-                    valueColor:
-                        const AlwaysStoppedAnimation<Color>(Color(0xffFF904D)),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(
+                        12), // Circular border with a radius of 12
+                    child: LinearProgressIndicator(
+                      value: progress,
+                      minHeight: 8,
+                      backgroundColor: Colors.grey.shade300,
+                      valueColor: const AlwaysStoppedAnimation<Color>(
+                          Color(0xffFF904D)),
+                    ),
                   ),
                 ),
                 const SizedBox(width: 6),
@@ -93,7 +112,8 @@ class CardContinueCourse extends StatelessWidget {
                   '${(progress * 100).toInt()}%',
                   style: const TextStyle(
                       fontSize: 16,
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.w600,
+                      fontFamily: 'Quicksand', // Use SourceSans3
                       color: Color(0xff094546)),
                 ),
               ],
@@ -106,14 +126,26 @@ class CardContinueCourse extends StatelessWidget {
               textColor: Colors.white,
               buttonColor: const Color(0xff094546),
               borderColor: const Color(0xff094546),
-              height: 40,
               width: double.infinity,
               borderRadius: 3,
+              fontSize: 16,
               onTap: onTap ?? () {},
             ),
           ),
         ],
       ),
     );
+  }
+
+  ImageProvider _getImageProvider(String imageUrl) {
+    try {
+      if (imageUrl.isNotEmpty) {
+        return NetworkImage(imageUrl);
+      } else {
+        return const AssetImage('assets/course.png');
+      }
+    } catch (e) {
+      return const AssetImage('assets/course.png');
+    }
   }
 }

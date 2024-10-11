@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gammal_tech_final_exam/presentation/components/custom_text_field.dart';
 import 'package:gammal_tech_final_exam/presentation/screens/forget_password_screen.dart';
+import 'package:gammal_tech_final_exam/presentation/screens/home_screen.dart';
 import 'package:gammal_tech_final_exam/presentation/screens/signup_screen.dart';
 
 import '../components/custom_button.dart';
@@ -30,20 +31,25 @@ class LoginScreen extends StatelessWidget {
                   style: TextStyle(fontSize: 48, fontWeight: FontWeight.bold),
                   textAlign: TextAlign.start,
                 ),
-                const SizedBox(height: 24),
+                const SizedBox(height: 18),
                 const CustomTextField(hint: "email..."),
-                const SizedBox(height: 12),
                 const CustomTextField(hint: "password...", isPassword: true),
-                const SizedBox(height: 24),
+                const SizedBox(height: 18),
                 CustomButton(
                   text: "Login",
                   textColor: Colors.white,
                   buttonColor: const Color(0xff094546),
                   borderColor: const Color(0xff094546),
-                  height: 55,
-                  width: 312,
                   borderRadius: 8,
-                  onTap: () {},
+                  fontSize: 20,
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const HomeScreen(),
+                      ),
+                    );
+                  },
                 ),
                 const SizedBox(height: 24),
                 Column(

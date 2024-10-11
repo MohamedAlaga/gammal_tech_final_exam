@@ -2,13 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:gammal_tech_final_exam/presentation/components/card_can_not_start_exam.dart';
 import 'package:gammal_tech_final_exam/presentation/components/card_exam.dart';
 import 'package:gammal_tech_final_exam/presentation/components/card_finish_exam_course.dart';
-
-import '../components/custom_appbar.dart';
+import 'package:gammal_tech_final_exam/presentation/components/sub_app_bar.dart';
 
 List<List<dynamic>> finishExamCourse = [
-  ['6 Questions', 'printf', 'assets/course.png'],
-  ['6 Questions', 'scanf', 'assets/course.png'],
-  ['6 Questions', 'if condition', 'assets/course.png']
+  ['6 Questions', 'printf'],
+  ['6 Questions', 'scanf'],
+  ['6 Questions', 'if condition']
+];
+
+List<List<dynamic>> ExamCourse = [
+  ['6 Questions', 'printf', ''],
+  ['6 Questions', 'scanf', ''],
+  ['6 Questions', 'if condition', '']
 ];
 
 List<dynamic> cardExam = [
@@ -16,7 +21,7 @@ List<dynamic> cardExam = [
   'printf(“gammal tech”);',
   'Master programming basics',
   '10sec',
-  'assets/course.png',
+  '',
 ];
 
 class PracticeScreen extends StatelessWidget {
@@ -25,11 +30,8 @@ class PracticeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
-        isProfileVisible: true,
-        leftIcon: Icons.navigate_before,
-        rightIcon: Icons.notifications,
-        onLeftIconPressed: () {},
+      appBar: SubAppBar(
+        rightIcon: Icons.notifications_none,
         onRightIconPressed: () {},
       ),
       backgroundColor: Colors.white,
@@ -38,7 +40,6 @@ class PracticeScreen extends StatelessWidget {
           padding: const EdgeInsets.all(24),
           child: Center(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 for (int i = 0; i < finishExamCourse.length; i++)
                   CardFinishExamCourse(
@@ -50,13 +51,13 @@ class PracticeScreen extends StatelessWidget {
                   courseTitle: cardExam[1],
                   subtitle: cardExam[2],
                   time: cardExam[3],
-                  courseImage: cardExam[6],
+                  courseImage: cardExam[4],
                 ),
-                for (int i = 0; i < finishExamCourse.length; i++)
+                for (int i = 0; i < ExamCourse.length; i++)
                   CardCanNotStartExam(
-                    quizzes: finishExamCourse[i][0],
-                    courseTitle: finishExamCourse[i][1],
-                    courseImage: finishExamCourse[i][2],
+                    quizzes: ExamCourse[i][0],
+                    courseTitle: ExamCourse[i][1],
+                    courseImage: ExamCourse[i][2],
                   ),
               ],
             ),

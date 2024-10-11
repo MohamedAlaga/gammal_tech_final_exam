@@ -38,6 +38,8 @@ dependencies:
   equatable: ^2.0.5
   dartz: ^0.10.1
   get_it: ^8.0.0
+  flutter_rating_bar: ^4.0.1
+  google_fonts: ^6.2.1
 
 dev_dependencies:
   flutter_test:
@@ -62,6 +64,18 @@ flutter:
   uses-material-design: true
   assets:
     - assets/
+
+  fonts:
+    - family: Quicksand
+      fonts:
+        - asset: assets/fonts/Quicksand-Regular.ttf
+        - asset: assets/fonts/Quicksand-Bold.ttf
+        - asset: assets/fonts/Quicksand-SemiBold.ttf
+    - family: SourceSans3
+      fonts:
+        - asset: assets/fonts/SourceSans3-Bold.ttf
+        - asset: assets/fonts/SourceSans3-Bold.ttf
+        - asset: assets/fonts/SourceSans3-SemiBold.ttf
 
   # To add assets to your application, add an assets section, like this:
   # assets:

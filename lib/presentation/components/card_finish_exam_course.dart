@@ -17,8 +17,15 @@ class CardFinishExamCourse extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Card(
+        shadowColor: Colors.transparent,
         color: Colors.white,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+          side: const BorderSide(
+            color: Color(0xffE3E5E8),
+            width: 1,
+          ),
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -40,7 +47,8 @@ class CardFinishExamCourse extends StatelessWidget {
                       child: Text(
                         quizzes,
                         style: const TextStyle(
-                          fontSize: 16,
+                          fontSize: 18,
+                          fontFamily: 'Quicksand',
                           fontWeight: FontWeight.w600,
                           color: Colors.white,
                         ),
@@ -53,7 +61,8 @@ class CardFinishExamCourse extends StatelessWidget {
                         courseTitle,
                         style: const TextStyle(
                             fontSize: 20,
-                            fontWeight: FontWeight.bold,
+                            fontWeight: FontWeight.w600,
+                            fontFamily: 'SourceSans3',
                             color: Color(0xff094546)),
                       ),
                     ),
@@ -61,7 +70,7 @@ class CardFinishExamCourse extends StatelessWidget {
                 ),
                 const Spacer(),
                 Padding(
-                  padding: const EdgeInsets.only(right: 12, top: 12),
+                  padding: const EdgeInsets.only(right: 12),
                   child: Image.asset(
                     'assets/done.png',
                     width: 54,

@@ -5,6 +5,7 @@ class CardCanNotStartExam extends StatelessWidget {
   final String courseTitle;
   final String courseImage;
   final void Function()? onTap;
+  final String fontFamily; // Customizable font family
 
   const CardCanNotStartExam({
     super.key,
@@ -12,16 +13,19 @@ class CardCanNotStartExam extends StatelessWidget {
     required this.courseTitle,
     required this.courseImage,
     this.onTap,
+    this.fontFamily = 'Quicksand',
   });
 
   @override
   Widget build(BuildContext context) {
     return Card(
+      shadowColor: Colors.transparent,
       color: const Color(0xff094546),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       child: Padding(
         padding: const EdgeInsets.all(1),
         child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center, // Center-align content
           children: [
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -38,10 +42,11 @@ class CardCanNotStartExam extends StatelessWidget {
                       const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                   child: Text(
                     quizzes,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: Color(0xff094546),
+                      fontFamily: fontFamily, // Custom font family
+                      color: const Color(0xff094546),
                     ),
                   ),
                 ),
@@ -50,10 +55,12 @@ class CardCanNotStartExam extends StatelessWidget {
                   padding: const EdgeInsets.only(left: 12, bottom: 12),
                   child: Text(
                     courseTitle,
-                    style: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white),
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                      fontFamily: fontFamily, // Custom font family
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               ],
@@ -61,14 +68,32 @@ class CardCanNotStartExam extends StatelessWidget {
             const Spacer(),
             Padding(
               padding: const EdgeInsets.only(right: 12, top: 6),
-              child: Image.asset(
-                courseImage,
-                width: 55,
+              child: Container(
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: _getImageProvider(courseImage),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                width: 48,
+                height: 56,
               ),
             ),
           ],
         ),
       ),
     );
+  }
+
+  ImageProvider _getImageProvider(String imageUrl) {
+    try {
+      if (imageUrl.isNotEmpty) {
+        return NetworkImage(imageUrl);
+      } else {
+        return const AssetImage('assets/course.png');
+      }
+    } catch (e) {
+      return const AssetImage('assets/course.png');
+    }
   }
 }

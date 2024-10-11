@@ -16,10 +16,10 @@ class ResultScreen extends StatelessWidget {
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(24),
+          padding: EdgeInsets.symmetric(
+              horizontal: 24, vertical: MediaQuery.of(context).size.height / 5),
           child: Center(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 grad / 100 == 1
                     ? Image.asset('assets/success_photo.png')
@@ -54,9 +54,8 @@ class ResultScreen extends StatelessWidget {
                   textColor: Colors.white,
                   buttonColor: Color(0xff094546),
                   borderColor: Color(0xff094546),
-                  height: 45,
-                  width: MediaQuery.of(context).size.width,
                   borderRadius: 8,
+                  fontSize: 20,
                   onTap: () {
                     Navigator.push(
                       context,

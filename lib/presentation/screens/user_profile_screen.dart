@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:gammal_tech_final_exam/presentation/components/card_info.dart';
-import 'package:gammal_tech_final_exam/presentation/components/custom_appbar.dart';
 import 'package:gammal_tech_final_exam/presentation/components/custom_button.dart';
 import 'package:gammal_tech_final_exam/presentation/components/progress_card.dart';
 import 'package:gammal_tech_final_exam/presentation/components/skills_list.dart';
 import 'package:gammal_tech_final_exam/presentation/screens/edit_user_profile_screen.dart';
+
+import '../components/sub_app_bar.dart';
 
 List<dynamic> info = [
   ['email', 'mohamed@gmail.com'],
@@ -41,11 +42,8 @@ class UserProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
-        isProfileVisible: false,
-        leftIcon: Icons.navigate_before,
+      appBar: SubAppBar(
         rightIcon: Icons.notifications_none,
-        onLeftIconPressed: () {},
         onRightIconPressed: () {},
       ),
       backgroundColor: Colors.white,
@@ -79,7 +77,7 @@ class UserProfileScreen extends StatelessWidget {
                 const SizedBox(height: 18),
                 for (int i = 0; i < info.length; i++)
                   CardInfo(
-                    borderColor: Colors.grey,
+                    borderColor: const Color(0xffE3E5E8),
                     info: info[i][0],
                     information: '${info[i][1]}',
                   ),
@@ -87,11 +85,10 @@ class UserProfileScreen extends StatelessWidget {
                 CustomButton(
                   text: 'Edit your profile',
                   textColor: Colors.white,
-                  buttonColor: Color(0xff094546),
-                  borderColor: Color(0xff094546),
-                  height: 45,
-                  width: MediaQuery.of(context).size.width,
+                  buttonColor: const Color(0xff094546),
+                  borderColor: const Color(0xff094546),
                   borderRadius: 8,
+                  fontSize: 20,
                   onTap: () {
                     Navigator.push(
                       context,
