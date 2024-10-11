@@ -7,12 +7,14 @@ import 'package:gammal_tech_final_exam/domain/repository/base_topic_repository.d
 import 'package:gammal_tech_final_exam/domain/usecase/get_all_courses_usecase.dart';
 import 'package:gammal_tech_final_exam/domain/usecase/get_course_suggestions_usecase.dart';
 import 'package:gammal_tech_final_exam/domain/usecase/get_course_topics_by_id_usecase.dart';
+import 'package:gammal_tech_final_exam/presentation/controller/all_courses_bloc.dart';
 import 'package:get_it/get_it.dart';
 
 final sl = GetIt.instance;
 
 class ServiceLocator {
   void init() {
+    sl.registerFactory<AllCoursesBloc>(() => AllCoursesBloc(sl()));
     sl.registerLazySingleton<GetAllCoursesUsecase>(
         () => GetAllCoursesUsecase(sl()));
     sl.registerLazySingleton<GetCourseSuggestionsUsecase>(

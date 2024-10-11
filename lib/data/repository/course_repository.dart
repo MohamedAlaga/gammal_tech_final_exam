@@ -28,4 +28,15 @@ class CourseRepository extends BaseCourseRepository {
       return Left(ServerFailure(faliure.errorMessageModel.message));
     }
   }
+
+  @override
+  Future<Either<Failure, void>> enrollUserToCourse(
+      String userId, String courseId) async {
+    try {
+      return right(
+          await baseRemoteCourseDataSource.enrollUserToCourse(userId, courseId));
+    } on ServerException catch (faliure) {
+      return Left(ServerFailure(faliure.errorMessageModel.message));
+    }
+  }
 }
