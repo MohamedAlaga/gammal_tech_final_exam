@@ -8,10 +8,15 @@ import 'package:gammal_tech_final_exam/presentation/components/accept_custom_dia
 import 'package:gammal_tech_final_exam/presentation/components/code_snippet_card.dart';
 import 'package:gammal_tech_final_exam/presentation/components/custom_dialog.dart';
 import 'package:gammal_tech_final_exam/presentation/components/quiz_question_card.dart';
+import 'package:gammal_tech_final_exam/presentation/controller/courses_bloc.dart';
+import 'package:gammal_tech_final_exam/presentation/controller/courses_events.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/exams_bloc.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/exams_event.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/exams_state.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/topics_bloc.dart';
+import 'package:gammal_tech_final_exam/presentation/controller/topics_events.dart';
+import 'package:gammal_tech_final_exam/presentation/controller/user_bloc.dart';
+import 'package:gammal_tech_final_exam/presentation/controller/user_events.dart';
 import 'package:gammal_tech_final_exam/presentation/screens/result_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -129,6 +134,14 @@ class QuizPage extends StatelessWidget {
                                           .add(SubmitAnswersEvent());
                                       BlocProvider.of<ExamsBloc>(context)
                                           .add(ExitQuizEvent());
+                                      BlocProvider.of<CoursesBloc>(context)
+                                          .add(FetchAllCoursesEvent());
+                                      BlocProvider.of<TopicsBloc>(context)
+                                          .add(FetchSuggestedTopicsEvent());
+                                      BlocProvider.of<UserBloc>(context)
+                                          .add(GetWelcomeUserData());
+                                      BlocProvider.of<CoursesBloc>(context)
+                                          .add(FetchSuggestedCoursesEvent());
                                       Navigator.pushReplacement(
                                           context,
                                           MaterialPageRoute(
@@ -205,6 +218,14 @@ class QuizPage extends StatelessWidget {
                                           .add(SubmitAnswersEvent());
                                       BlocProvider.of<ExamsBloc>(context)
                                           .add(ExitQuizEvent());
+                                      BlocProvider.of<CoursesBloc>(context)
+                                          .add(FetchAllCoursesEvent());
+                                      BlocProvider.of<TopicsBloc>(context)
+                                          .add(FetchSuggestedTopicsEvent());
+                                      BlocProvider.of<UserBloc>(context)
+                                          .add(GetWelcomeUserData());
+                                      BlocProvider.of<CoursesBloc>(context)
+                                          .add(FetchSuggestedCoursesEvent());
                                       Navigator.pushReplacement(
                                           context,
                                           MaterialPageRoute(

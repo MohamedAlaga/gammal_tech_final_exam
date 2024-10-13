@@ -95,6 +95,9 @@ class HomeScreen extends StatelessWidget {
                         child: CircularProgressIndicator(),
                       );
                     case RequestState.loaded:
+                      print(state.sugesstedTopics);
+                      print(state.sugesstedTopics.length);
+                      print(state.sugesstedTopics[0].title);
                       return Column(
                         children: [
                           const Align(
@@ -117,12 +120,18 @@ class HomeScreen extends StatelessWidget {
                                         builder: (context) => MultiBlocProvider(
                                           providers: [
                                             BlocProvider.value(
-                                                value: BlocProvider.of<
-                                                    CoursesBloc>(context)),
-                                            BlocProvider.value(
                                                 value:
-                                                    BlocProvider.of<TopicsBloc>(
-                                                        context))
+                                                    BlocProvider.of<ExamsBloc>(
+                                                        context)),
+                                            BlocProvider.value(
+                                              value:
+                                                  BlocProvider.of<TopicsBloc>(
+                                                      context),
+                                            ),
+                                            BlocProvider.value(
+                                              value: BlocProvider.of<UserBloc>(
+                                                  context),
+                                            )
                                           ],
                                           child: MoreDataScreen(
                                             description: topic.description,
@@ -148,6 +157,10 @@ class HomeScreen extends StatelessWidget {
                                                 context)),
                                         BlocProvider.value(
                                           value: BlocProvider.of<TopicsBloc>(
+                                              context),
+                                        ),
+                                        BlocProvider.value(
+                                          value: BlocProvider.of<UserBloc>(
                                               context),
                                         )
                                       ], child: QuizPage()),

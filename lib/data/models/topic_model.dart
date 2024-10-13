@@ -16,8 +16,9 @@ class TopicModel extends Topic {
   });
 
   factory TopicModel.fromJson(Map<String, dynamic> json) {
+    int id = json['quiz_id']??json['id'];
     return TopicModel(
-      id: json['id'].toString(),
+      id: id.toString(),
       duration: json['duration_in_seconds'] ?? 10,
       title: json['title'],
       subtitle: json['sub_title'] ?? "subtitle",

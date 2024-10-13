@@ -2,8 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gammal_tech_final_exam/core/utils/enums.dart';
 import 'package:gammal_tech_final_exam/presentation/components/custom_button.dart';
+import 'package:gammal_tech_final_exam/presentation/controller/courses_bloc.dart';
+import 'package:gammal_tech_final_exam/presentation/controller/courses_events.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/exams_bloc.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/exams_state.dart';
+import 'package:gammal_tech_final_exam/presentation/controller/topics_bloc.dart';
+import 'package:gammal_tech_final_exam/presentation/controller/topics_events.dart';
+import 'package:gammal_tech_final_exam/presentation/controller/user_bloc.dart';
+import 'package:gammal_tech_final_exam/presentation/controller/user_events.dart';
+import 'package:gammal_tech_final_exam/presentation/screens/main_screen.dart';
 
 class ResultScreen extends StatelessWidget {
   const ResultScreen({
@@ -74,7 +81,32 @@ class ResultScreen extends StatelessWidget {
                           borderRadius: 8,
                           fontSize: 20,
                           onTap: () {
-                            Navigator.pop(context);
+                            BlocProvider.of<CoursesBloc>(context)
+                                .add(FetchAllCoursesEvent());
+                            BlocProvider.of<TopicsBloc>(context)
+                                .add(FetchSuggestedTopicsEvent());
+                            BlocProvider.of<UserBloc>(context)
+                                .add(GetWelcomeUserData());
+                            BlocProvider.of<CoursesBloc>(context)
+                                .add(FetchSuggestedCoursesEvent());
+                            Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
+                              builder: (context) {
+                                return MultiBlocProvider(
+                                  providers: [
+                                    BlocProvider.value(
+                                        value: BlocProvider.of<CoursesBloc>(
+                                            context)),
+                                    BlocProvider.value(
+                                        value: BlocProvider.of<TopicsBloc>(
+                                            context)),
+                                    BlocProvider.value(
+                                        value: BlocProvider.of<UserBloc>(
+                                            context)),
+                                  ],
+                                  child: const MainScreen(),
+                                );
+                              },
+                            ), (route) => false);
                           },
                         )
                       ],

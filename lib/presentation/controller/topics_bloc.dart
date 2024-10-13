@@ -23,6 +23,7 @@ class TopicsBloc extends Bloc<TopicsEvents, TopicsState> {
     });
     on<FetchSuggestedTopicsEvent>((event, emit) async {
       final result = await getUpNextTopicDataUsecase.execute();
+      print(result);
       result.fold(
           (l) => emit(state.copyWith(
               sugesstedRequestState: RequestState.error,
