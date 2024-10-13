@@ -5,7 +5,12 @@ import 'package:gammal_tech_final_exam/presentation/screens/login_screen.dart';
 import '../components/custom_button.dart';
 
 class SignUpScreen extends StatelessWidget {
-  const SignUpScreen({super.key});
+  SignUpScreen({super.key});
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
+  final TextEditingController userName = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -30,12 +35,19 @@ class SignUpScreen extends StatelessWidget {
                   textAlign: TextAlign.start,
                 ),
                 const SizedBox(height: 24),
-                const CustomTextField(hint: "email..."),
+                CustomTextField(hint: "userName...", controller: userName),
                 const SizedBox(height: 12),
-                const CustomTextField(hint: "password...", isPassword: true),
+                CustomTextField(hint: "email...", controller: emailController),
                 const SizedBox(height: 12),
-                const CustomTextField(
-                    hint: "confirm password...", isPassword: true),
+                CustomTextField(
+                    hint: "password...",
+                    isPassword: true,
+                    controller: passwordController),
+                const SizedBox(height: 12),
+                CustomTextField(
+                    hint: "confirm password...",
+                    isPassword: true,
+                    controller: confirmPasswordController),
                 const SizedBox(height: 24),
                 CustomButton(
                   text: "Login",
@@ -59,7 +71,7 @@ class SignUpScreen extends StatelessWidget {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => const LoginScreen(),
+                                builder: (context) => LoginScreen(),
                               ),
                             );
                           },

@@ -1,42 +1,52 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gammal_tech_final_exam/domain/entities/course.dart';
+import 'package:gammal_tech_final_exam/presentation/components/card_exam.dart';
 import 'package:gammal_tech_final_exam/presentation/components/card_info_home_page.dart';
+import 'package:gammal_tech_final_exam/presentation/components/course_card.dart';
 import 'package:gammal_tech_final_exam/presentation/components/custom_button.dart';
 import 'package:gammal_tech_final_exam/presentation/components/main_app_bar.dart';
+import 'package:gammal_tech_final_exam/presentation/components/source_sans_text.dart';
+import 'package:gammal_tech_final_exam/presentation/controller/courses_bloc.dart';
+import 'package:gammal_tech_final_exam/presentation/controller/courses_events.dart';
+import 'package:gammal_tech_final_exam/presentation/controller/courses_state.dart';
+import 'package:gammal_tech_final_exam/presentation/controller/exams_bloc.dart';
+import 'package:gammal_tech_final_exam/presentation/controller/exams_event.dart';
+import 'package:gammal_tech_final_exam/presentation/controller/topics_bloc.dart';
+import 'package:gammal_tech_final_exam/presentation/controller/topics_events.dart';
+import 'package:gammal_tech_final_exam/presentation/controller/topics_state.dart';
+import 'package:gammal_tech_final_exam/presentation/controller/user_bloc.dart';
+import 'package:gammal_tech_final_exam/presentation/controller/user_state.dart';
 import 'package:gammal_tech_final_exam/presentation/screens/course_screen.dart';
+import 'package:gammal_tech_final_exam/presentation/screens/more_data_screen.dart';
 import 'package:gammal_tech_final_exam/presentation/screens/practice_screen.dart';
+import 'package:gammal_tech_final_exam/presentation/screens/quiz_page.dart';
 import 'package:gammal_tech_final_exam/presentation/screens/user_history.dart';
-
-import '../components/card_continue_course.dart';
-import '../components/course_card.dart';
-
-List<List<dynamic>> continueCourse = [
-  ['30/83 Quiz', 'C programming', 0.3, 'Continue', ''],
-  ['15/83 Quiz', 'C++', 0.6, 'Continue', '']
-];
-
-List<List<dynamic>> course = [
-  ['83 Quizzes', 'Data Structures', 'Structure Your Code!', 5.0, 15, 'Start'],
-  ['83 Quizzes', 'Data Structures', 'Structure Your Code!', 4.0, 6, 'Start']
-];
+import 'package:gammal_tech_final_exam/core/utils/enums.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
-
   @override
   Widget build(BuildContext context) {
+    BlocProvider.of<CoursesBloc>(context).add(FetchSuggestedCoursesEvent());
+    BlocProvider.of<TopicsBloc>(context).add(FetchSuggestedTopicsEvent());
     return Scaffold(
-      appBar: MainAppBar(
-        rightIcon: Icons.notifications_none,
-        onNotificationPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => UserHistory(),
-            ),
-          );
-        },
-        image:
-            'https://media.licdn.com/dms/image/v2/D5603AQGyqO71BGTIQA/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1724595865968?e=1733961600&v=beta&t=axj8aNdvToysiogWaZR7Fddi1NjwWSx82HAsviFNy2w',
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(52),
+        child: BlocBuilder<UserBloc, UserState>(
+          builder: (context, state) => MainAppBar(
+            rightIcon: Icons.notifications_none,
+            onNotificationPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const UserHistory(),
+                ),
+              );
+            },
+            image: state.welcomeData.imageUrl,
+          ),
+        ),
       ),
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -45,87 +55,179 @@ class HomeScreen extends StatelessWidget {
           child: Center(
             child: Column(
               children: [
-                CardInfoHomePage(
-                  name: 'Mohamed',
-                  solvedExams: 100,
-                  rank: 1,
-                  outOf: 2000,
-                  points: 5000,
+                BlocBuilder<UserBloc, UserState>(
+                  builder: (context, state) => CardInfoHomePage(
+                    name: state.welcomeData.title,
+                    solvedExams: state.welcomeData.solvedExams,
+                    rank: state.welcomeData.rank,
+                    outOf: state.welcomeData.totalRanks,
+                    points: state.welcomeData.points,
+                  ),
                 ),
-                SizedBox(height: 24),
+                const SizedBox(height: 24),
                 CustomButton(
                   text: 'Practice',
                   textColor: Colors.white,
-                  buttonColor: Color(0xff094546),
-                  borderColor: Color(0xff094546),
+                  buttonColor: const Color(0xff094546),
+                  borderColor: const Color(0xff094546),
                   borderRadius: 8,
                   fontSize: 20,
                   onTap: () {
-                    Navigator.push(
-                      context,
+                    Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => CourseScreen(),
+                        builder: (context) => MultiBlocProvider(providers: [
+                          BlocProvider.value(
+                              value: BlocProvider.of<CoursesBloc>(context)),
+                          BlocProvider.value(
+                            value: BlocProvider.of<TopicsBloc>(context),
+                          )
+                        ], child: const CourseScreen()),
                       ),
                     );
                   },
                 ),
-                SizedBox(height: 24),
-                const Row(
-                  children: [
-                    Text(
-                      'Up next quizzes :',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Color(0xff094546),
-                        fontFamily: 'SourceSans3',
-                        fontWeight: FontWeight.bold,
-                      ),
-                      textAlign: TextAlign.start,
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 6),
-                for (int i = 0; i < continueCourse.length; i++)
-                  CardContinueCourse(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const PracticeScreen(),
-                        ),
-                      );
-                    },
-                    quizzes: continueCourse[i][0],
-                    courseTitle: continueCourse[i][1],
-                    progress: continueCourse[i][2],
-                    buttonText: continueCourse[i][3],
-                    courseImage: continueCourse[i][4],
-                  ),
                 const SizedBox(height: 24),
-                const Row(
-                  children: [
-                    Text(
-                      'course suggestions :',
-                      style: TextStyle(
-                          fontSize: 16,
-                          color: Color(0xff094546),
-                          fontFamily: 'SourceSans3',
-                          fontWeight: FontWeight.bold),
-                      textAlign: TextAlign.start,
-                    ),
-                  ],
-                ),
                 const SizedBox(height: 12),
-                for (int i = 0; i < course.length; i++)
-                  CourseCard(
-                    quizzes: course[i][0],
-                    courseTitle: course[i][1],
-                    subtitle: course[i][2],
-                    image: '',
-                    rating: course[i][3],
-                    ratingCount: course[i][4],
-                    buttonText: course[i][5],
-                  )
+                BlocBuilder<TopicsBloc, TopicsState>(builder: (context, state) {
+                  switch (state.sugesstedRequestState) {
+                    case RequestState.loading:
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    case RequestState.loaded:
+                      return Column(
+                        children: [
+                          const Align(
+                            alignment: Alignment.centerLeft,
+                            child: SourceSansText(text: "up next Topics :"),
+                          ),
+                          for (var topic in state.sugesstedTopics)
+                            Padding(
+                              padding: const EdgeInsets.only(top: 12),
+                              child: CardExam(
+                                courseImage: topic.imageUrl,
+                                courseTitle: topic.title,
+                                subtitle: topic.subtitle,
+                                questions: "${topic.quizCount} Questions",
+                                time: "${topic.duration.toString()} sec",
+                                onMorePressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => MultiBlocProvider(
+                                          providers: [
+                                            BlocProvider.value(
+                                                value: BlocProvider.of<
+                                                    CoursesBloc>(context)),
+                                            BlocProvider.value(
+                                                value:
+                                                    BlocProvider.of<TopicsBloc>(
+                                                        context))
+                                          ],
+                                          child: MoreDataScreen(
+                                            description: topic.description,
+                                            imageUrl: topic.imageUrl,
+                                            neededSkills: topic.skills,
+                                            points: topic.points.toString(),
+                                            quizId: topic.id,
+                                            duration: topic.duration,
+                                          ),
+                                        ),
+                                      ));
+                                },
+                                onStartPressed: () {
+                                  BlocProvider.of<ExamsBloc>(context).add(
+                                      FetchQuestionsEvent(
+                                          topic.id, topic.duration));
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          MultiBlocProvider(providers: [
+                                        BlocProvider.value(
+                                            value: BlocProvider.of<ExamsBloc>(
+                                                context)),
+                                        BlocProvider.value(
+                                          value: BlocProvider.of<TopicsBloc>(
+                                              context),
+                                        )
+                                      ], child: QuizPage()),
+                                    ),
+                                  );
+                                },
+                              ),
+                            )
+                        ],
+                      );
+                    case RequestState.error:
+                      return Center(
+                        child: Text(state.sugesstedErrorMessage),
+                      );
+                  }
+                }),
+                const SizedBox(height: 24),
+                const SizedBox(height: 12),
+                BlocBuilder<CoursesBloc, CoursesState>(
+                    builder: (context, state) {
+                  switch (state.suggestedCoursesRequestState) {
+                    case RequestState.loading:
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    case RequestState.loaded:
+                      List<Course> courses = state.suggestedCourses;
+                      return Column(
+                        children: [
+                          courses.isNotEmpty
+                              ? const Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: SourceSansText(
+                                      text: "Course Suggestions :"),
+                                )
+                              : const SizedBox(),
+                          for (var course in courses)
+                            Padding(
+                              padding: const EdgeInsets.only(top: 12),
+                              child: CourseCard(
+                                quizzes: "${course.quizzes.toString()} Quizzes",
+                                courseTitle: course.name,
+                                subtitle: course.description,
+                                image: course.imageUrl,
+                                rating: course.rating,
+                                buttonText: 'Start',
+                                onTap: () {
+                                  BlocProvider.of<CoursesBloc>(context)
+                                      .add(EnrollToCourseEvent(course.id));
+
+                                  BlocProvider.of<TopicsBloc>(context).add(
+                                      FetchTopicsEvent(courseId: course.id));
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => MultiBlocProvider(
+                                          providers: [
+                                            BlocProvider.value(
+                                                value: BlocProvider.of<
+                                                    CoursesBloc>(context)),
+                                            BlocProvider.value(
+                                              value:
+                                                  BlocProvider.of<TopicsBloc>(
+                                                      context),
+                                            )
+                                          ],
+                                          child: const PracticeScreen(),
+                                        ),
+                                      ));
+                                },
+                              ),
+                            )
+                        ],
+                      );
+                    case RequestState.error:
+                      return Center(
+                        child: Text(state.suggestedCoursesErrorMessage),
+                      );
+                  }
+                })
               ],
             ),
           ),

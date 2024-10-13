@@ -3,8 +3,8 @@ import 'package:gammal_tech_final_exam/presentation/components/custom_button.dar
 import 'package:gammal_tech_final_exam/presentation/components/custom_text_field.dart';
 
 class ForgetPasswordScreen extends StatelessWidget {
-  const ForgetPasswordScreen({super.key});
-
+  ForgetPasswordScreen({super.key});
+  final TextEditingController controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +28,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                   textAlign: TextAlign.start,
                 ),
                 const SizedBox(height: 24),
-                const CustomTextField(hint: "email..."),
+                 CustomTextField(hint: "email...", controller: controller),
                 const SizedBox(height: 24),
                 CustomButton(
                   text: "Login",

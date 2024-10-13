@@ -6,7 +6,7 @@ class EnrollToCourseUsecase {
   final BaseCourseRepository baseCourseRepository;
   EnrollToCourseUsecase(this.baseCourseRepository);
 
-  Future<Either<Failure, void>> execute(String userId, String courseId) async {
-    return await baseCourseRepository.enrollUserToCourse(userId, courseId);
+  Future<Either<Failure, void>> execute( String courseId) async {
+    return await baseCourseRepository.enrollUserToCourse(courseId);
   }
 }

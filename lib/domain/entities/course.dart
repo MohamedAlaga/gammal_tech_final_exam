@@ -8,6 +8,8 @@ class Course extends Equatable {
   final int quizzes;
   final double rating;
   final int numberOfRatings;
+  final int progress;
+  final bool isEnrolled;
 
   const Course({
     required this.id,
@@ -17,9 +19,20 @@ class Course extends Equatable {
     required this.quizzes,
     required this.rating,
     required this.numberOfRatings,
+    required this.progress,
+    required this.isEnrolled ,
   });
 
   @override
-  List<Object?> get props =>
-      [id, name, description, imageUrl, quizzes, rating, numberOfRatings];
+  List<Object?> get props => [
+        id,
+        name,
+        description,
+        imageUrl,
+        quizzes,
+        rating,
+        numberOfRatings,
+        progress,
+        isEnrolled,
+      ];
 }

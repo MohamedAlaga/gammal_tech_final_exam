@@ -12,7 +12,7 @@ class CourseRepository extends BaseCourseRepository {
   @override
   Future<Either<Failure, List<Course>>> getAllCourses(String userToken) async {
     try {
-      return right(await baseRemoteCourseDataSource.getAllCourses(userToken));
+      return right(await baseRemoteCourseDataSource.getAllCourses());
     } on ServerException catch (faliure) {
       return Left(ServerFailure(faliure.errorMessageModel.message));
     }
@@ -30,11 +30,10 @@ class CourseRepository extends BaseCourseRepository {
   }
 
   @override
-  Future<Either<Failure, void>> enrollUserToCourse(
-      String userId, String courseId) async {
+  Future<Either<Failure, void>> enrollUserToCourse(String courseId) async {
     try {
       return right(
-          await baseRemoteCourseDataSource.enrollUserToCourse(userId, courseId));
+          await baseRemoteCourseDataSource.enrollUserToCourse(courseId));
     } on ServerException catch (faliure) {
       return Left(ServerFailure(faliure.errorMessageModel.message));
     }

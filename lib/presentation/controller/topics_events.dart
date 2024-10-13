@@ -7,4 +7,8 @@ class TopicsEvents extends Equatable {
   List<Object?> get props => [];
 }
 
-class FetchTopicsEvent extends TopicsEvents {}
+class FetchTopicsEvent extends TopicsEvents {
+  final String courseId;
+  const FetchTopicsEvent({required this.courseId});
+}
+class FetchSuggestedTopicsEvent extends TopicsEvents {}

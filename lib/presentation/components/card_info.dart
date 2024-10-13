@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class CardInfo extends StatelessWidget {
-  CardInfo({
+  const CardInfo({
+    super.key,
     required this.borderColor,
     required this.info,
     required this.information,
@@ -16,7 +17,7 @@ class CardInfo extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 6),
       child: Container(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
           border: Border.all(color: borderColor, width: 2),
           borderRadius: BorderRadius.circular(8),
@@ -26,7 +27,7 @@ class CardInfo extends StatelessWidget {
           children: [
             Text(
               info,
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.black,
                 fontSize: 16,
                 fontFamily: 'SourceSans3',
@@ -35,7 +36,7 @@ class CardInfo extends StatelessWidget {
             ),
             Text(
               information,
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.black,
                 fontSize: 16,
                 fontFamily: 'SourceSans3',

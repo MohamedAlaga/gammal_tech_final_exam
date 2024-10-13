@@ -40,7 +40,7 @@ class CardInfoHomePage extends StatelessWidget {
                       Text(
                         'Good\nEvening,\n$name',
                         style: const TextStyle(
-                          fontSize: 24,
+                          fontSize: 20,
                           fontWeight: FontWeight.bold,
                           color: Color(0xff094546),
                         ),
@@ -103,7 +103,7 @@ class CardInfoHomePage extends StatelessWidget {
                       const SizedBox(height: 6),
                       Text(
                         'Out of $outOf',
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 16,
                           color: Color(0xff008080),
                         ),
