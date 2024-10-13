@@ -136,8 +136,9 @@ class HomeScreen extends StatelessWidget {
                                       ));
                                 },
                                 onStartPressed: () {
-                                  BlocProvider.of<ExamsBloc>(context)
-                                      .add(FetchQuestionsEvent(topic.id,topic.duration));
+                                  BlocProvider.of<ExamsBloc>(context).add(
+                                      FetchQuestionsEvent(
+                                          topic.id, topic.duration));
                                   Navigator.of(context).push(
                                     MaterialPageRoute(
                                       builder: (context) =>
