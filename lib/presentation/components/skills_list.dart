@@ -16,8 +16,8 @@ class SkillsList extends StatelessWidget {
               .map(
                 (skill) => Chip(
                   label: Text(skill),
-                  backgroundColor: Color(0xff094546),
-                  labelStyle: TextStyle(
+                  backgroundColor: const Color(0xff094546),
+                  labelStyle: const TextStyle(
                     color: Colors.white,
                     fontSize: 16,
                     fontFamily: 'SourceSans3',

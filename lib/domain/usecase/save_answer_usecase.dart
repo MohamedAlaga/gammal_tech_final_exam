@@ -6,13 +6,11 @@ class SaveAnswerUsecase {
   final BaseTopicRepository baseTopicRepository;
   SaveAnswerUsecase(this.baseTopicRepository);
 
-  Future<Either<Failure, bool>> execute(
-    String userToken,
+  Future<Either<Failure, double>> execute(
     String topicId,
-    Map<String, String> userAnswer,
+    Map<int, int?> userAnswer,
   ) async {
     return await baseTopicRepository.saveUserAnswer(
-      userToken,
       topicId,
       userAnswer,
     );

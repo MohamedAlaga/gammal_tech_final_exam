@@ -8,4 +8,7 @@ abstract class BaseUserRepository {
   Future<Either<Failure, User>> getUserData(String userToken);
   Future<Either<Failure, WelcomeData>> getWelcomeData(String userToken);
   Future<Either<Failure, bool>> updateUserProfile(String userToken, UserModel user);
+  Future<Either<Failure, bool>> loginUser(String email, String password);
+  Future<Either<Failure, bool>> logoutUser();
+  Future<Either<Failure, bool>> validateUserToken();
 }

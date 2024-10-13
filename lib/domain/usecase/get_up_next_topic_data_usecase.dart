@@ -7,7 +7,7 @@ class GetUpNextTopicDataUsecase {
   final BaseTopicRepository baseTopicRepository;
   GetUpNextTopicDataUsecase(this.baseTopicRepository);
 
-  Future<Either<Failure, List<Topic>>> upNextTopics(String userToken) async{
-    return await baseTopicRepository.upNextTopics(userToken);
+  Future<Either<Failure, List<Topic>>> execute() async{
+    return await baseTopicRepository.upNextTopics();
   }
 }

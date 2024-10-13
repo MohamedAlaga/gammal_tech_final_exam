@@ -39,4 +39,31 @@ class UserRepository extends BaseUserRepository {
       return Left(ServerFailure(faliure.errorMessageModel.message));
     }
   }
+
+  @override
+  Future<Either<Failure, bool>> loginUser(String email, String password) async {
+    try {
+      return right(await remoteUserDataSource.loginUser(email, password));
+    } on ServerException catch (faliure) {
+      return Left(ServerFailure(faliure.errorMessageModel.message));
+    }
+  }
+
+  @override
+  Future<Either<Failure, bool>> logoutUser() async {
+    try {
+      return right(await remoteUserDataSource.logoutUser());
+    } on ServerException catch (faliure) {
+      return Left(ServerFailure(faliure.errorMessageModel.message));
+    }
+  }
+
+  @override
+  Future<Either<Failure, bool>> validateUserToken() async {
+    try {
+      return right(await remoteUserDataSource.validateUserToken());
+    } on ServerException catch (faliure) {
+      return Left(ServerFailure(faliure.errorMessageModel.message));
+    }
+  }
 }

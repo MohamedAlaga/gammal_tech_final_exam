@@ -20,7 +20,7 @@ class SubAppBar extends StatelessWidget implements PreferredSizeWidget {
           icon: const Icon(
             Icons.navigate_before,
             size: 28,
-            color: const Color(0xff094546),
+            color:  Color(0xff094546),
           )),
       actions: [
         IconButton(

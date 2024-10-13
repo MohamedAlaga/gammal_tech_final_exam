@@ -56,8 +56,8 @@ class UserHistory extends StatelessWidget {
             children: [
               FilterDialog(
                 title: 'Choose filters',
-                filters: ['Passed exams', 'Next exam', 'Unavailable exams'],
-                initialSelection: [true, true, false],
+                filters: const ['Passed exams', 'Next exam', 'Unavailable exams'],
+                initialSelection:const [true, true, false],
                 onApply: onApply,
               ),
             ],

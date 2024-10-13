@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gammal_tech_final_exam/presentation/components/custom_text_field.dart';
+import 'package:gammal_tech_final_exam/presentation/controller/user_bloc.dart';
+import 'package:gammal_tech_final_exam/presentation/controller/user_events.dart';
 import 'package:gammal_tech_final_exam/presentation/screens/forget_password_screen.dart';
-import 'package:gammal_tech_final_exam/presentation/screens/home_screen.dart';
 import 'package:gammal_tech_final_exam/presentation/screens/signup_screen.dart';
+import 'package:toastification/toastification.dart';
 
 import '../components/custom_button.dart';
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+  LoginScreen({super.key});
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -32,8 +37,14 @@ class LoginScreen extends StatelessWidget {
                   textAlign: TextAlign.start,
                 ),
                 const SizedBox(height: 18),
-                const CustomTextField(hint: "email..."),
-                const CustomTextField(hint: "password...", isPassword: true),
+                CustomTextField(
+                  hint: "email...",
+                  controller: emailController,
+                ),
+                CustomTextField(
+                    hint: "password...",
+                    isPassword: true,
+                    controller: passwordController),
                 const SizedBox(height: 18),
                 CustomButton(
                   text: "Login",
@@ -43,11 +54,15 @@ class LoginScreen extends StatelessWidget {
                   borderRadius: 8,
                   fontSize: 20,
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const HomeScreen(),
-                      ),
+                    toastification.show(
+                      autoCloseDuration: const Duration(seconds: 3),
+                      context: context,
+                      title: const Text('Login Successful'),
+                    );
+                    BlocProvider.of<UserBloc>(context).add(
+                      LoginUserEvent(
+                          email: emailController.text,
+                          password: passwordController.text),
                     );
                   },
                 ),
@@ -56,11 +71,10 @@ class LoginScreen extends StatelessWidget {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        // Navigate to ForgetPasswordScreen
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const ForgetPasswordScreen(),
+                            builder: (context) => ForgetPasswordScreen(),
                           ),
                         );
                       },
@@ -77,11 +91,10 @@ class LoginScreen extends StatelessWidget {
                         const SizedBox(width: 4),
                         GestureDetector(
                           onTap: () {
-                            // Navigate to SignUpScreen
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => const SignUpScreen(),
+                                builder: (context) => SignUpScreen(),
                               ),
                             );
                           },

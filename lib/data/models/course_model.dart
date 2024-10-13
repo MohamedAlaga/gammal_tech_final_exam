@@ -10,17 +10,21 @@ class CourseModel extends Course {
     required super.quizzes,
     required super.rating,
     required super.numberOfRatings,
+    required super.progress,
+    required super.isEnrolled,
   });
 
   factory CourseModel.fromJson(Map<String, dynamic> json) {
     return CourseModel(
-      id: json['course_id'].toString(),
-      name: json['course_name'],
+      id: json['id'].toString(),
+      name: json['name'],
       description: json['description'],
-      imageUrl: courseImageUrl,
-      quizzes: json['total_quizzes'],
-      rating: 4,
-      numberOfRatings: 15,
+      imageUrl: json['image_url'] ?? courseImageUrl,
+      quizzes: json['total_quizzes'] ?? 0,
+      rating: json['rating'] ?? 0.0,
+      numberOfRatings: json['number_of_rates'] ?? 0,
+      progress: json['finished_quizzes'],
+      isEnrolled: json['is_enrolled'],
     );
   }
 
@@ -33,6 +37,8 @@ class CourseModel extends Course {
       'quizzes': quizzes,
       'rating': rating,
       'numberOfRatings': numberOfRatings,
+      'progress': progress,
+      'isEnrolled': isEnrolled,
     };
   }
 }

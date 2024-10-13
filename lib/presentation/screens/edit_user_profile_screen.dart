@@ -18,8 +18,8 @@ List<dynamic> info = [
 ];
 
 class EditUserProfileScreen extends StatelessWidget {
-  const EditUserProfileScreen({super.key});
-
+  EditUserProfileScreen({super.key});
+  final TextEditingController skills = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,7 +51,7 @@ class EditUserProfileScreen extends StatelessWidget {
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             border:
-                                Border.all(color: Color(0xff094546), width: 1),
+                                Border.all(color: const Color(0xff094546), width: 1),
                           ),
                           child: IconButton(
                             padding: EdgeInsets.zero,
@@ -139,13 +139,13 @@ class EditUserProfileScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 18),
                 for (int i = 0; i < info.length; i++)
-                  CustomTextField(hint: info[i][0]),
+                  CustomTextField(hint: info[i][0], controller: skills),
                 const SizedBox(height: 18),
                 CustomButton(
                   text: 'Confirm',
                   textColor: Colors.white,
-                  buttonColor: Color(0xff094546),
-                  borderColor: Color(0xff094546),
+                  buttonColor: const Color(0xff094546),
+                  borderColor: const Color(0xff094546),
                   width: MediaQuery.of(context).size.width,
                   borderRadius: 8,
                   fontSize: 20,

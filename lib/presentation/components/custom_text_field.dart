@@ -8,6 +8,7 @@ class CustomTextField extends StatefulWidget {
     this.onSaved,
     this.onChanged,
     this.isPassword = false,
+    required this.controller,
   });
 
   final String hint;
@@ -15,6 +16,7 @@ class CustomTextField extends StatefulWidget {
   final void Function(String?)? onSaved;
   final void Function(String)? onChanged;
   final bool isPassword;
+  final TextEditingController controller;
 
   @override
   _CustomTextFieldState createState() => _CustomTextFieldState();
@@ -28,6 +30,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 6),
       child: TextFormField(
+        controller: widget.controller,
         onChanged: widget.onChanged,
         onSaved: widget.onSaved,
         validator: (value) {

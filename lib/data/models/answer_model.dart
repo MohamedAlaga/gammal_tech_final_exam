@@ -9,9 +9,9 @@ class AnswerModel extends Answer {
 
   factory AnswerModel.fromJson(Map<String, dynamic> json) {
     return AnswerModel(
-      id: json['id'],
-      answer: json['answer'],
-      isCorrect: json['isCorrect'],
+      id: json['choice_id'].toString(),
+      answer: json['choice_text'],
+      isCorrect: json['is_correct'],
     );
   }
 

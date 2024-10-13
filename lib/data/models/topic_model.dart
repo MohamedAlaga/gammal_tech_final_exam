@@ -1,3 +1,4 @@
+import 'package:gammal_tech_final_exam/core/utils/env.dart';
 import 'package:gammal_tech_final_exam/domain/entities/topic.dart';
 
 class TopicModel extends Topic {
@@ -8,22 +9,24 @@ class TopicModel extends Topic {
     required super.subtitle,
     required super.description,
     required super.imageUrl,
-    required super.questions,
     required super.skills,
     required super.points,
+    required super.quizCount,
+    required super.isCompleted,
   });
 
   factory TopicModel.fromJson(Map<String, dynamic> json) {
     return TopicModel(
-      id: json['id'],
-      duration: json['duration'],
+      id: json['id'].toString(),
+      duration: json['duration_in_seconds'] ?? 10,
       title: json['title'],
-      subtitle: json['subtitle'],
-      description: json['description'],
-      imageUrl: json['imageUrl'],
-      questions: json['questions'],
-      skills: json['skills'],
-      points: json['points'],
+      subtitle: json['sub_title'] ?? "subtitle",
+      description: json['description'] ?? "description",
+      imageUrl: json['image_url'] ?? courseImageUrl,
+      skills: json['skills_needed'] ?? "skills",
+      points: json['points'] ?? 10,
+      quizCount: json['questions_count'] ?? 6,
+      isCompleted: json['is_completed'] ?? false,
     );
   }
 
@@ -35,7 +38,6 @@ class TopicModel extends Topic {
       'subtitle': subtitle,
       'description': description,
       'imageUrl': imageUrl,
-      'questions': questions,
       'skills': skills,
       'points': points,
     };

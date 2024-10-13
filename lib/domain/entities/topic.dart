@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:gammal_tech_final_exam/data/models/questions_model.dart';
 
 class Topic extends Equatable {
   final String id;
@@ -8,9 +7,10 @@ class Topic extends Equatable {
   final String subtitle;
   final String description;
   final String imageUrl;
-  final List<QuestionsModel> questions;
   final String skills;
   final int points;
+  final int quizCount;
+  final bool isCompleted;
 
   const Topic({
     required this.id,
@@ -19,9 +19,10 @@ class Topic extends Equatable {
     required this.subtitle,
     required this.description,
     required this.imageUrl,
-    required this.questions,
     required this.skills,
     required this.points,
+    required this.quizCount,
+    required this.isCompleted,
   });
 
   @override
@@ -32,8 +33,9 @@ class Topic extends Equatable {
         subtitle,
         description,
         imageUrl,
-        questions,
         skills,
         points,
+        quizCount,
+        isCompleted,
       ]; 
 }

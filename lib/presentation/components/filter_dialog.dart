@@ -85,8 +85,8 @@ class _FilterDialogState extends State<FilterDialog> {
                     CustomButton(
                       text: 'No',
                       textColor: Colors.white,
-                      buttonColor: Color(0xffDA1E28),
-                      borderColor: Color(0xffDA1E28),
+                      buttonColor: const Color(0xffDA1E28),
+                      borderColor: const Color(0xffDA1E28),
                       width: MediaQuery.of(context).size.width / 3.25,
                       borderRadius: 6,
                       fontSize: 18,
@@ -97,8 +97,8 @@ class _FilterDialogState extends State<FilterDialog> {
                     CustomButton(
                       text: 'Yes',
                       textColor: Colors.white,
-                      buttonColor: Color(0xff094546),
-                      borderColor: Color(0xff094546),
+                      buttonColor: const Color(0xff094546),
+                      borderColor: const Color(0xff094546),
                       width: MediaQuery.of(context).size.width / 3.25,
                       borderRadius: 6,
                       fontSize: 18,

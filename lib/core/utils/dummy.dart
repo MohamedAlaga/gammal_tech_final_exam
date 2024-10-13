@@ -1,87 +1,37 @@
 import 'package:gammal_tech_final_exam/data/models/answer_model.dart';
 import 'package:gammal_tech_final_exam/data/models/contact_info_model.dart';
 import 'package:gammal_tech_final_exam/data/models/course_model.dart';
-import 'package:gammal_tech_final_exam/data/models/questions_model.dart';
 import 'package:gammal_tech_final_exam/data/models/topic_model.dart';
 import 'package:gammal_tech_final_exam/data/models/user_log_model.dart';
 import 'package:gammal_tech_final_exam/data/models/user_model.dart';
 import 'package:gammal_tech_final_exam/data/models/welcome_data_model.dart';
 
 List<CourseModel> allCourses = [
-  const CourseModel(
-      name: 'Basic Programming Concepts',
-      description: 'Learn the basic concepts of programming',
-      imageUrl: 'https://i.imgur.com/1YCMYgS.png',
-      id: "1",
-      numberOfRatings: 15,
-      rating: 4.5,
-      quizzes: 6),
-  const CourseModel(
-      name: 'Basic Programming Concepts',
-      description: 'Learn the basic concepts of programming',
-      imageUrl: 'https://i.imgur.com/1YCMYgS.png',
-      id: "1",
-      numberOfRatings: 15,
-      rating: 4.5,
-      quizzes: 6),
-  const CourseModel(
-      name: 'Basic Programming Concepts',
-      description: 'Learn the basic concepts of programming',
-      imageUrl: 'https://i.imgur.com/1YCMYgS.png',
-      id: "1",
-      numberOfRatings: 15,
-      rating: 4.5,
-      quizzes: 6),
-  const CourseModel(
-      name: 'Basic Programming Concepts',
-      description: 'Learn the basic concepts of programming',
-      imageUrl: 'https://i.imgur.com/1YCMYgS.png',
-      id: "1",
-      numberOfRatings: 15,
-      rating: 4.5,
-      quizzes: 6),
-  const CourseModel(
-      name: 'Basic Programming Concepts',
-      description: 'Learn the basic concepts of programming',
-      imageUrl: 'https://i.imgur.com/1YCMYgS.png',
-      id: "1",
-      numberOfRatings: 15,
-      rating: 4.5,
-      quizzes: 6),
-  const CourseModel(
-      name: 'Basic Programming Concepts',
-      description: 'Learn the basic concepts of programming',
-      imageUrl: 'https://i.imgur.com/1YCMYgS.png',
-      id: "1",
-      numberOfRatings: 15,
-      rating: 4.5,
-      quizzes: 6),
+  dummyCourse,
+  dummyCourse,
+  dummyCourse,
+  dummyCourse,
+  dummyCourse
 ];
 
-List<CourseModel> suggestedCourses = [
-  const CourseModel(
-      name: 'Basic Programming Concepts',
-      description: 'Learn the basic concepts of programming',
-      imageUrl: 'https://i.imgur.com/1YCMYgS.png',
-      id: "1",
-      numberOfRatings: 15,
-      rating: 4.5,
-      quizzes: 6),
-  const CourseModel(
-      name: 'Basic Programming Concepts',
-      description: 'Learn the basic concepts of programming',
-      imageUrl: 'https://i.imgur.com/1YCMYgS.png',
-      id: "1",
-      numberOfRatings: 15,
-      rating: 4.5,
-      quizzes: 6),
-];
+List<CourseModel> suggestedCourses = [dummyCourse, dummyCourse];
+
+CourseModel dummyCourse = const CourseModel(
+    name: 'Basic Programming Concepts',
+    description: 'Learn the basic concepts of programming',
+    imageUrl: 'https://i.imgur.com/1YCMYgS.png',
+    id: "1",
+    numberOfRatings: 15,
+    rating: 4.5,
+    quizzes: 6,
+    progress: 10,
+    isEnrolled: true);
 
 List<TopicModel> allTopics = [dummyTopic, dummyTopic, dummyTopic, dummyTopic];
 
 List<TopicModel> suggestedTopics = [dummyTopic, dummyTopic];
 
-TopicModel dummyTopic = TopicModel(
+TopicModel dummyTopic = const TopicModel(
     id: '1',
     title: 'Introduction to Programming',
     description: 'Learn the basic concepts of programming',
@@ -93,14 +43,9 @@ TopicModel dummyTopic = TopicModel(
       - Basic Programming Concepts
       - Basic Programming Concepts
       - Basic Programming Concepts''',
-    questions: [
-      QuestionsModel(id: "1", question: questionText, answers: answersList),
-      QuestionsModel(id: "2", question: questionText, answers: answersList),
-      QuestionsModel(id: "3", question: questionText, answers: answersList),
-      QuestionsModel(id: "4", question: questionText, answers: answersList),
-      QuestionsModel(id: "5", question: questionText, answers: answersList),
-    ],
-    subtitle: "Learn the basic concepts of programming");
+    subtitle: "Learn the basic concepts of programming",
+    quizCount: 5,
+    isCompleted: false);
 
 List<AnswerModel> answersList = [
   const AnswerModel(id: "1", answer: "15\n5\n20", isCorrect: true),
