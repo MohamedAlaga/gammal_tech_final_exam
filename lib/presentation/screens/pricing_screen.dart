@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gammal_tech_final_exam/presentation/components/main_app_bar.dart';
 import 'package:gammal_tech_final_exam/presentation/components/nav_bar.dart';
+import 'package:gammal_tech_final_exam/presentation/components/pricing_card.dart';
 import 'package:gammal_tech_final_exam/presentation/screens/user_history_screen.dart';
 
 import '../controller/user_bloc.dart';
@@ -31,7 +32,47 @@ class PricingScreen extends StatelessWidget {
         ),
       ),
       backgroundColor: Colors.white,
-      body: Column(),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 18),
+          child: Center(
+            child: Column(
+              children: [
+                PricingCard(
+                  title: 'Basic',
+                  price: '100EP',
+                  features: ['15 Attemps', '15 Attemps'],
+                  cardColor: Colors.white,
+                  textColor: Color(0xff094546),
+                  borderColor: Color(0xffFF904D),
+                  buttonText: 'Start',
+                  onTap: () {},
+                ),
+                PricingCard(
+                  title: 'Basic',
+                  price: '100EP',
+                  features: ['15 Attemps', '15 Attemps'],
+                  cardColor: Colors.white,
+                  textColor: Color(0xff094546),
+                  borderColor: Color(0xffFF904D),
+                  buttonText: 'Start',
+                  onTap: () {},
+                ),
+                PricingCard(
+                  title: 'Basic',
+                  price: '100EP',
+                  features: ['15 Attemps', '15 Attemps'],
+                  cardColor: Colors.white,
+                  textColor: Color(0xff094546),
+                  borderColor: Color(0xffFF904D),
+                  buttonText: 'Start',
+                  onTap: () {},
+                )
+              ],
+            ),
+          ),
+        ),
+      ),
       bottomNavigationBar: NavBar(currentIndex: 2),
     );
   }
