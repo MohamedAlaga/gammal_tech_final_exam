@@ -1,12 +1,14 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gammal_tech_final_exam/core/utils/enums.dart';
 import 'package:gammal_tech_final_exam/domain/entities/course.dart';
 import 'package:gammal_tech_final_exam/presentation/components/card_exam.dart';
 import 'package:gammal_tech_final_exam/presentation/components/card_info_home_page.dart';
 import 'package:gammal_tech_final_exam/presentation/components/course_card.dart';
 import 'package:gammal_tech_final_exam/presentation/components/custom_button.dart';
 import 'package:gammal_tech_final_exam/presentation/components/main_app_bar.dart';
+import 'package:gammal_tech_final_exam/presentation/components/nav_bar.dart';
 import 'package:gammal_tech_final_exam/presentation/components/shimmers.dart';
 import 'package:gammal_tech_final_exam/presentation/components/source_sans_text.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/courses_bloc.dart';
@@ -23,8 +25,7 @@ import 'package:gammal_tech_final_exam/presentation/screens/course_screen.dart';
 import 'package:gammal_tech_final_exam/presentation/screens/more_data_screen.dart';
 import 'package:gammal_tech_final_exam/presentation/screens/practice_screen.dart';
 import 'package:gammal_tech_final_exam/presentation/screens/quiz_page.dart';
-import 'package:gammal_tech_final_exam/presentation/screens/user_history.dart';
-import 'package:gammal_tech_final_exam/core/utils/enums.dart';
+import 'package:gammal_tech_final_exam/presentation/screens/user_history_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -54,7 +55,7 @@ class HomeScreen extends StatelessWidget {
                     );
                   },
                   pageBuilder: (context, firstAnimation, secondaryAnimation) =>
-                      const UserHistory(),
+                      const UserHistoryScreen(),
                 ),
               );
             },
@@ -334,6 +335,7 @@ class HomeScreen extends StatelessWidget {
           ),
         ),
       ),
+      bottomNavigationBar: NavBar(currentIndex: 0),
     );
   }
 }

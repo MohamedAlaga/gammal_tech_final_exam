@@ -25,6 +25,8 @@ class EditUserProfileScreen extends StatelessWidget {
     return Scaffold(
       appBar: SubAppBar(
         rightIcon: Icons.notifications_none,
+        appBarColor: Colors.white,
+        iconsColor: Color(0xff094546),
         onRightIconPressed: () {},
       ),
       backgroundColor: Colors.white,
@@ -50,8 +52,8 @@ class EditUserProfileScreen extends StatelessWidget {
                         child: Container(
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            border:
-                                Border.all(color: const Color(0xff094546), width: 1),
+                            border: Border.all(
+                                color: const Color(0xff094546), width: 1),
                           ),
                           child: IconButton(
                             padding: EdgeInsets.zero,

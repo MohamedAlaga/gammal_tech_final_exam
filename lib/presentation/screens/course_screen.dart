@@ -1,6 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gammal_tech_final_exam/core/utils/enums.dart';
 import 'package:gammal_tech_final_exam/domain/entities/course.dart';
 import 'package:gammal_tech_final_exam/presentation/components/card_continue_course.dart';
 import 'package:gammal_tech_final_exam/presentation/components/shimmers.dart';
@@ -10,7 +11,6 @@ import 'package:gammal_tech_final_exam/presentation/controller/courses_state.dar
 import 'package:gammal_tech_final_exam/presentation/controller/topics_bloc.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/topics_events.dart';
 import 'package:gammal_tech_final_exam/presentation/screens/practice_screen.dart';
-import 'package:gammal_tech_final_exam/core/utils/enums.dart';
 
 import '../components/course_card.dart';
 import '../components/sub_app_bar.dart';
@@ -24,6 +24,8 @@ class CourseScreen extends StatelessWidget {
     return Scaffold(
       appBar: SubAppBar(
         rightIcon: Icons.notifications_none,
+        appBarColor: Colors.white,
+        iconsColor: Color(0xff094546),
         onRightIconPressed: () {},
       ),
       backgroundColor: Colors.white,

@@ -5,47 +5,39 @@ class SubAppBar extends StatelessWidget implements PreferredSizeWidget {
     super.key,
     required this.rightIcon,
     required this.onRightIconPressed,
+    required this.appBarColor,
+    required this.iconsColor,
   });
 
+  final Color appBarColor;
   final IconData rightIcon;
+  final Color iconsColor;
   final VoidCallback onRightIconPressed;
+
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
       surfaceTintColor: Colors.transparent,
-      backgroundColor: Colors.white,
+      backgroundColor: appBarColor,
       leading: IconButton(
           onPressed: () => Navigator.of(context).pop(),
-          icon: const Icon(
+          icon: Icon(
             Icons.navigate_before,
             size: 28,
-            color:  Color(0xff094546),
+            color: iconsColor,
           )),
       actions: [
         IconButton(
           icon: Icon(
             rightIcon,
-            color: const Color(0xff094546),
+            color: iconsColor,
           ),
           onPressed: onRightIconPressed,
         ),
       ],
     );
   }
-
-  ImageProvider _getImageProvider(String imageUrl) {
-    try {
-      if (imageUrl.isNotEmpty) {
-        return NetworkImage(imageUrl);
-      } else {
-        return const AssetImage('assets/user_photo.png');
-      }
-    } catch (e) {
-      return const AssetImage('assets/user_photo.png');
-    }
-  }
-
-  @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
