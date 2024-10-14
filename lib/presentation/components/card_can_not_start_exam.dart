@@ -5,7 +5,7 @@ class CardCanNotStartExam extends StatelessWidget {
   final String courseTitle;
   final String courseImage;
   final void Function()? onTap;
-  final String fontFamily; // Customizable font family
+  final String fontFamily;
 
   const CardCanNotStartExam({
     super.key,
@@ -18,54 +18,61 @@ class CardCanNotStartExam extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      shadowColor: Colors.transparent,
-      color: const Color(0xff094546),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-      child: Padding(
-        padding: const EdgeInsets.all(1),
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12.0),
+      child: Container(
+        width: double.infinity,
+        decoration: BoxDecoration(
+          color: const Color(0xff094546),
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(color: const Color(0xff094546), width: 1),
+        ),
         child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center, // Center-align content
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(8),
-                      bottomRight: Radius.circular(8),
-                    ),
-                  ),
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                  child: Text(
-                    quizzes,
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: fontFamily, // Custom font family
-                      color: const Color(0xff094546),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 12),
-                Padding(
-                  padding: const EdgeInsets.only(left: 12, bottom: 12),
-                  child: Text(
-                    courseTitle,
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
-                      fontFamily: fontFamily, // Custom font family
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    decoration: const BoxDecoration(
                       color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(8),
+                        bottomRight: Radius.circular(8),
+                      ),
+                    ),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                    child: Text(
+                      quizzes,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: fontFamily,
+                        color: const Color(0xff094546),
+                      ),
                     ),
                   ),
-                ),
-              ],
+                  const SizedBox(height: 12),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 12, bottom: 12),
+                    child: Text(
+                      courseTitle,
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                        fontFamily: fontFamily,
+                        color: Colors.white,
+                      ),
+                      maxLines: 1, // Ensure single line
+                      overflow: TextOverflow.ellipsis, // Add ellipsis for long text
+                    ),
+                  ),
+                ],
+              ),
             ),
-            const Spacer(),
             Padding(
               padding: const EdgeInsets.only(right: 12, top: 6),
               child: Container(

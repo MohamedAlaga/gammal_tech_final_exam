@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gammal_tech_final_exam/presentation/components/source_sans_text.dart';
 
 class CardInfoHomePage extends StatelessWidget {
   const CardInfoHomePage({
@@ -72,64 +73,54 @@ class CardInfoHomePage extends StatelessWidget {
                 children: [
                   Column(
                     children: [
-                      Text(
-                        '$solvedExams',
-                        style: const TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xff094546),
-                        ),
+                      SourceSansText(
+                        text: solvedExams.toString(),
+                        fontsize: 24,
+                        fontWeight: FontWeight.w600,
                       ),
-                      const SizedBox(height: 3),
-                      const Text(
-                        'Solved exams',
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Color(0xff008080),
-                        ),
-                      ),
+                      const SourceSansText(
+                          text: 'Solved exams',
+                          fontWeight: FontWeight.w600,
+                          fontsize: 16,
+                          color: Color(0xff008080)),
                     ],
+                  ),
+                  Container(
+                    width: 2,
+                    height: 48,
+                    color: Color(0xFFD3D3D3),
                   ),
                   Column(
                     children: [
-                      Text(
-                        '$rank',
-                        style: const TextStyle(
-                          fontSize: 26,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xff094546),
-                        ),
+                      SourceSansText(
+                        text: rank.toString(),
+                        fontsize: 24,
+                        fontWeight: FontWeight.w600,
                       ),
-                      const SizedBox(height: 6),
-                      Text(
-                        'Out of $outOf',
-                        style: const TextStyle(
-                          fontSize: 16,
-                          color: Color(0xff008080),
-                        ),
-                      ),
+                      SourceSansText(
+                          text: 'Out of $outOf',
+                          fontWeight: FontWeight.w600,
+                          fontsize: 16,
+                          color: const Color(0xff008080)),
                     ],
                   ),
-                  Column(
-                    children: [
-                      Text(
-                        '$points',
-                        style: const TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xff094546),
-                        ),
-                      ),
-                      const SizedBox(height: 3),
-                      const Text(
-                        'Points',
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Color(0xff008080),
-                        ),
-                      ),
-                    ],
-                  )
+                  Container(
+                    width: 2,
+                    height: 48,
+                    color: Color(0xFFD3D3D3),
+                  ),
+                  Column(children: [
+                    SourceSansText(
+                      text: points.toString(),
+                      fontsize: 24,
+                      fontWeight: FontWeight.w600,
+                    ),
+                    const SourceSansText(
+                        text: 'Points',
+                        fontWeight: FontWeight.w600,
+                        fontsize: 16,
+                        color: Color(0xff008080)),
+                  ])
                 ],
               ),
             ),

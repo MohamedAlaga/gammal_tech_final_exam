@@ -46,6 +46,10 @@ dependencies:
   toastification: ^2.3.0
   circular_countdown_timer: ^0.2.4
   flutter_highlight: ^0.7.0
+  shimmer: ^3.0.0
+  animate_do: ^3.3.4
+  cached_network_image: ^3.4.1
+  fawry_sdk: ^2.0.8
 
 dev_dependencies:
   flutter_test:

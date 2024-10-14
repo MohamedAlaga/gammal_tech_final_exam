@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_highlight/flutter_highlight.dart';
 import 'package:google_fonts/google_fonts.dart';
+
 class CodeSnippetCard extends StatefulWidget {
   const CodeSnippetCard(
       {super.key,
@@ -11,16 +12,14 @@ class CodeSnippetCard extends StatefulWidget {
   final String codeSnippet;
   final String language;
   final Map<String, TextStyle> theme;
-
   @override
   State<CodeSnippetCard> createState() => _CodeSnippetCardState();
 }
 
 class _CodeSnippetCardState extends State<CodeSnippetCard> {
-  String displayedCode = ''; 
+  String displayedCode = '';
   int currentIndex = 0;
   Timer? timer;
-
   @override
   void initState() {
     super.initState();
@@ -37,7 +36,6 @@ class _CodeSnippetCardState extends State<CodeSnippetCard> {
   void didUpdateWidget(CodeSnippetCard oldWidget) {
     super.didUpdateWidget(oldWidget);
     resetTypewriterEffect();
-
   }
 
   void startTypewriterEffect() {
@@ -54,7 +52,7 @@ class _CodeSnippetCardState extends State<CodeSnippetCard> {
   }
 
   void resetTypewriterEffect() {
-    displayedCode = ''; 
+    displayedCode = '';
     currentIndex = 0;
     timer?.cancel();
     startTypewriterEffect();
@@ -62,24 +60,54 @@ class _CodeSnippetCardState extends State<CodeSnippetCard> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      clipBehavior: Clip.antiAliasWithSaveLayer,
-      decoration: BoxDecoration(
-        border: Border.all(color: const Color(0xFFFF904D)),
-        color: widget.theme["root"]!.backgroundColor,
-        borderRadius: const BorderRadius.all(Radius.circular(6)),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: HighlightView(
-          displayedCode,
-          language: widget.language,
-          theme: widget.theme,
-          padding: const EdgeInsets.all(12),
-          textStyle: GoogleFonts.sourceCodePro(),
+    
+  Map<String, TextStyle> backgroundColor = {
+        'root': TextStyle(backgroundColor: widget.theme["root"]!.backgroundColor, color: widget.theme["root"]!.backgroundColor),
+        'keyword': TextStyle(color: widget.theme["root"]!.backgroundColor),
+        'string': TextStyle(color: widget.theme["root"]!.backgroundColor),
+        'comment': TextStyle(color: widget.theme["root"]!.backgroundColor),
+        'variable': TextStyle(color: widget.theme["root"]!.backgroundColor),
+        'number': TextStyle(color: widget.theme["root"]!.backgroundColor),
+        'title': TextStyle(color: widget.theme["root"]!.backgroundColor),
+  };
+    return Stack(children: [
+      Container(
+        width: double.infinity,
+        clipBehavior: Clip.antiAliasWithSaveLayer,
+        decoration: BoxDecoration(
+          border: Border.all(color: const Color(0xFFFF904D)),
+          color: widget.theme["root"]!.backgroundColor,
+          borderRadius: const BorderRadius.all(Radius.circular(6)),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: HighlightView(
+            widget.codeSnippet,
+            theme: backgroundColor,
+            language: widget.language,
+            padding: const EdgeInsets.all(12),
+            textStyle: GoogleFonts.sourceCodePro(),
+          ),
         ),
       ),
-    );
+      Container(
+        width: double.infinity,
+        clipBehavior: Clip.antiAliasWithSaveLayer,
+        decoration: BoxDecoration(
+          color: widget.theme["root"]!.backgroundColor,
+          borderRadius: const BorderRadius.all(Radius.circular(6)),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: HighlightView(
+            displayedCode,
+            language: widget.language,
+            theme: widget.theme,
+            padding: const EdgeInsets.all(12),
+            textStyle: GoogleFonts.sourceCodePro(),
+          ),
+        ),
+      ),
+    ]);
   }
 }

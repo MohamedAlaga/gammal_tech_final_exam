@@ -3,6 +3,7 @@ import 'package:gammal_tech_final_exam/core/utils/enums.dart';
 import 'package:gammal_tech_final_exam/domain/usecase/get_user_welcome_data_usecase.dart';
 import 'package:gammal_tech_final_exam/domain/usecase/login_user_usecase.dart';
 import 'package:gammal_tech_final_exam/domain/usecase/validate_user_token_usecase.dart';
+import 'package:gammal_tech_final_exam/presentation/components/custom_toast.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/user_events.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/user_state.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -17,14 +18,18 @@ class UserBloc extends Bloc<UserEvents, UserState> {
     on<LoginUserEvent>((event, emit) async {
       var result = await loginUserUsecase.execute(event.email, event.password);
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      result.fold(
-          (l) => emit(UserState(
-              loginRequestState: RequestState.error,
-              loginErrorMessage: l.message)),
-          (r) => emit(UserState(
-                loginRequestState: RequestState.loaded,
-                userid: prefs.getString("userid").toString(),
-              )));
+      result.fold((l) {
+        showRedToast("invalid email or password");
+        return emit(UserState(
+            loginRequestState: RequestState.error,
+            loginErrorMessage: l.message));
+      }, (r) {
+        showGreenToast("Welcome back");
+        return emit(UserState(
+          loginRequestState: RequestState.loaded,
+          userid: prefs.getString("userid").toString(),
+        ));
+      });
     });
     on<GetWelcomeUserData>((event, emit) async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -42,11 +47,14 @@ class UserBloc extends Bloc<UserEvents, UserState> {
     on<ValidateUserEvent>((event, emit) async {
       var result = await validateUserTokenUsecase.execute();
       result.fold(
-          (l) => emit(state.copyWith(loginRequestState: RequestState.error
-          ,loginErrorMessage: l.message)),
-          (r) => emit(state.copyWith(
-                loginRequestState: RequestState.loaded,
-              )));
+          (l) => emit(state.copyWith(
+              loginRequestState: RequestState.error,
+              loginErrorMessage: l.message)), (r) {
+        showGreenToast("Welcome back");
+        return emit(state.copyWith(
+          loginRequestState: RequestState.loaded,
+        ));
+      });
     });
   }
 }

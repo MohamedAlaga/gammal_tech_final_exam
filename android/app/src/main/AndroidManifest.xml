@@ -1,5 +1,7 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
     <application
+        android:allowBackup="false"
+        tools:replace="android:allowBackup,android:label"
         android:label="gammal_tech_final_exam"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">

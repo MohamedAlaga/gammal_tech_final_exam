@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gammal_tech_final_exam/domain/entities/course.dart';
@@ -6,6 +7,7 @@ import 'package:gammal_tech_final_exam/presentation/components/card_info_home_pa
 import 'package:gammal_tech_final_exam/presentation/components/course_card.dart';
 import 'package:gammal_tech_final_exam/presentation/components/custom_button.dart';
 import 'package:gammal_tech_final_exam/presentation/components/main_app_bar.dart';
+import 'package:gammal_tech_final_exam/presentation/components/shimmers.dart';
 import 'package:gammal_tech_final_exam/presentation/components/source_sans_text.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/courses_bloc.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/courses_events.dart';
@@ -39,8 +41,20 @@ class HomeScreen extends StatelessWidget {
             onNotificationPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                  builder: (context) => const UserHistory(),
+                PageRouteBuilder(
+                  transitionDuration: const Duration(milliseconds: 140),
+                  transitionsBuilder:
+                      (context, firstAnimation, secondaryAnimation, child) {
+                    return SlideTransition(
+                      position: Tween<Offset>(
+                        begin: const Offset(1.0, 0.0),
+                        end: Offset.zero,
+                      ).animate(firstAnimation),
+                      child: child,
+                    );
+                  },
+                  pageBuilder: (context, firstAnimation, secondaryAnimation) =>
+                      const UserHistory(),
                 ),
               );
             },
@@ -74,8 +88,21 @@ class HomeScreen extends StatelessWidget {
                   fontSize: 20,
                   onTap: () {
                     Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => MultiBlocProvider(providers: [
+                      PageRouteBuilder(
+                        transitionDuration: const Duration(milliseconds: 140),
+                        transitionsBuilder: (context, firstAnimation,
+                            secondaryAnimation, child) {
+                          return SlideTransition(
+                            position: Tween<Offset>(
+                              begin: const Offset(1.0, 0.0),
+                              end: Offset.zero,
+                            ).animate(firstAnimation),
+                            child: child,
+                          );
+                        },
+                        pageBuilder:
+                            (context, firstAnimation, secondaryAnimation) =>
+                                MultiBlocProvider(providers: [
                           BlocProvider.value(
                               value: BlocProvider.of<CoursesBloc>(context)),
                           BlocProvider.value(
@@ -91,85 +118,121 @@ class HomeScreen extends StatelessWidget {
                 BlocBuilder<TopicsBloc, TopicsState>(builder: (context, state) {
                   switch (state.sugesstedRequestState) {
                     case RequestState.loading:
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    case RequestState.loaded:
-                      print(state.sugesstedTopics);
-                      print(state.sugesstedTopics.length);
-                      print(state.sugesstedTopics[0].title);
-                      return Column(
-                        children: [
-                          const Align(
+                      return const Column(children: [
+                        Align(
                             alignment: Alignment.centerLeft,
-                            child: SourceSansText(text: "up next Topics :"),
-                          ),
-                          for (var topic in state.sugesstedTopics)
-                            Padding(
-                              padding: const EdgeInsets.only(top: 12),
-                              child: CardExam(
-                                courseImage: topic.imageUrl,
-                                courseTitle: topic.title,
-                                subtitle: topic.subtitle,
-                                questions: "${topic.quizCount} Questions",
-                                time: "${topic.duration.toString()} sec",
-                                onMorePressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => MultiBlocProvider(
-                                          providers: [
-                                            BlocProvider.value(
+                            child: TextShimmer()),
+                        SizedBox(
+                          height: 24,
+                        ),
+                        TopicCardShimmer()
+                      ]);
+                    case RequestState.loaded:
+                      return FadeIn(
+                        child: Column(
+                          children: [
+                            const Align(
+                              alignment: Alignment.centerLeft,
+                              child: SourceSansText(text: "up next Topics :"),
+                            ),
+                            for (var topic in state.sugesstedTopics)
+                              Padding(
+                                padding: const EdgeInsets.only(top: 12),
+                                child: CardExam(
+                                  courseImage: topic.imageUrl,
+                                  courseTitle: topic.title,
+                                  subtitle: topic.subtitle,
+                                  questions: "${topic.quizCount} Questions",
+                                  time: "${topic.duration.toString()} sec",
+                                  onMorePressed: () {
+                                    Navigator.push(
+                                        context,
+                                        PageRouteBuilder(
+                                          transitionDuration:
+                                              const Duration(milliseconds: 140),
+                                          transitionsBuilder: (context,
+                                              firstAnimation,
+                                              secondaryAnimation,
+                                              child) {
+                                            return SlideTransition(
+                                              position: Tween<Offset>(
+                                                begin: const Offset(1.0, 0.0),
+                                                end: Offset.zero,
+                                              ).animate(firstAnimation),
+                                              child: child,
+                                            );
+                                          },
+                                          pageBuilder: (context, firstAnimation,
+                                                  secondaryAnimation) =>
+                                              MultiBlocProvider(
+                                            providers: [
+                                              BlocProvider.value(
+                                                  value: BlocProvider.of<
+                                                      ExamsBloc>(context)),
+                                              BlocProvider.value(
                                                 value:
-                                                    BlocProvider.of<ExamsBloc>(
-                                                        context)),
-                                            BlocProvider.value(
-                                              value:
-                                                  BlocProvider.of<TopicsBloc>(
-                                                      context),
+                                                    BlocProvider.of<TopicsBloc>(
+                                                        context),
+                                              ),
+                                              BlocProvider.value(
+                                                value:
+                                                    BlocProvider.of<UserBloc>(
+                                                        context),
+                                              )
+                                            ],
+                                            child: MoreDataScreen(
+                                              description: topic.description,
+                                              imageUrl: topic.imageUrl,
+                                              neededSkills: topic.skills,
+                                              points: topic.points.toString(),
+                                              quizId: topic.id,
+                                              duration: topic.duration,
                                             ),
-                                            BlocProvider.value(
-                                              value: BlocProvider.of<UserBloc>(
-                                                  context),
-                                            )
-                                          ],
-                                          child: MoreDataScreen(
-                                            description: topic.description,
-                                            imageUrl: topic.imageUrl,
-                                            neededSkills: topic.skills,
-                                            points: topic.points.toString(),
-                                            quizId: topic.id,
-                                            duration: topic.duration,
                                           ),
-                                        ),
-                                      ));
-                                },
-                                onStartPressed: () {
-                                  BlocProvider.of<ExamsBloc>(context).add(
-                                      FetchQuestionsEvent(
-                                          topic.id, topic.duration));
-                                  Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          MultiBlocProvider(providers: [
-                                        BlocProvider.value(
-                                            value: BlocProvider.of<ExamsBloc>(
-                                                context)),
-                                        BlocProvider.value(
-                                          value: BlocProvider.of<TopicsBloc>(
-                                              context),
-                                        ),
-                                        BlocProvider.value(
-                                          value: BlocProvider.of<UserBloc>(
-                                              context),
-                                        )
-                                      ], child: QuizPage()),
-                                    ),
-                                  );
-                                },
+                                        ));
+                                  },
+                                  onStartPressed: () {
+                                    BlocProvider.of<ExamsBloc>(context).add(
+                                        FetchQuestionsEvent(
+                                            topic.id, topic.duration));
+                                    Navigator.of(context).push(
+                                      PageRouteBuilder(
+                                        transitionDuration:
+                                            const Duration(milliseconds: 140),
+                                        transitionsBuilder: (context,
+                                            firstAnimation,
+                                            secondaryAnimation,
+                                            child) {
+                                          return SlideTransition(
+                                            position: Tween<Offset>(
+                                              begin: const Offset(1.0, 0.0),
+                                              end: Offset.zero,
+                                            ).animate(firstAnimation),
+                                            child: child,
+                                          );
+                                        },
+                                        pageBuilder: (context, firstAnimation,
+                                                secondaryAnimation) =>
+                                            MultiBlocProvider(providers: [
+                                          BlocProvider.value(
+                                              value: BlocProvider.of<ExamsBloc>(
+                                                  context)),
+                                          BlocProvider.value(
+                                            value: BlocProvider.of<TopicsBloc>(
+                                                context),
+                                          ),
+                                          BlocProvider.value(
+                                            value: BlocProvider.of<UserBloc>(
+                                                context),
+                                          )
+                                        ], child: QuizPage()),
+                                      ),
+                                    );
+                                  },
+                                ),
                               ),
-                            )
-                        ],
+                          ],
+                        ),
                       );
                     case RequestState.error:
                       return Center(
@@ -183,57 +246,82 @@ class HomeScreen extends StatelessWidget {
                     builder: (context, state) {
                   switch (state.suggestedCoursesRequestState) {
                     case RequestState.loading:
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
+                      return const Column(children: [
+                        Align(
+                            alignment: Alignment.centerLeft,
+                            child: TextShimmer()),
+                        SizedBox(
+                          height: 24,
+                        ),
+                        CourseCardShimmer()
+                      ]);
                     case RequestState.loaded:
                       List<Course> courses = state.suggestedCourses;
-                      return Column(
-                        children: [
-                          courses.isNotEmpty
-                              ? const Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: SourceSansText(
-                                      text: "Course Suggestions :"),
-                                )
-                              : const SizedBox(),
-                          for (var course in courses)
-                            Padding(
-                              padding: const EdgeInsets.only(top: 12),
-                              child: CourseCard(
-                                quizzes: "${course.quizzes.toString()} Quizzes",
-                                courseTitle: course.name,
-                                subtitle: course.description,
-                                image: course.imageUrl,
-                                rating: course.rating,
-                                buttonText: 'Start',
-                                onTap: () {
-                                  BlocProvider.of<CoursesBloc>(context)
-                                      .add(EnrollToCourseEvent(course.id));
+                      return FadeIn(
+                        child: Column(
+                          children: [
+                            courses.isNotEmpty
+                                ? const Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: SourceSansText(
+                                        text: "Course Suggestions :"),
+                                  )
+                                : const SizedBox(),
+                            for (var course in courses)
+                              Padding(
+                                padding: const EdgeInsets.only(top: 12),
+                                child: CourseCard(
+                                  quizzes:
+                                      "${course.quizzes.toString()} Quizzes",
+                                  courseTitle: course.name,
+                                  subtitle: course.description,
+                                  image: course.imageUrl,
+                                  rating: course.rating,
+                                  buttonText: 'Start',
+                                  onTap: () {
+                                    BlocProvider.of<CoursesBloc>(context)
+                                        .add(EnrollToCourseEvent(course.id));
 
-                                  BlocProvider.of<TopicsBloc>(context).add(
-                                      FetchTopicsEvent(courseId: course.id));
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => MultiBlocProvider(
-                                          providers: [
-                                            BlocProvider.value(
-                                                value: BlocProvider.of<
-                                                    CoursesBloc>(context)),
-                                            BlocProvider.value(
-                                              value:
-                                                  BlocProvider.of<TopicsBloc>(
-                                                      context),
-                                            )
-                                          ],
-                                          child: const PracticeScreen(),
-                                        ),
-                                      ));
-                                },
-                              ),
-                            )
-                        ],
+                                    BlocProvider.of<TopicsBloc>(context).add(
+                                        FetchTopicsEvent(courseId: course.id));
+                                    Navigator.push(
+                                        context,
+                                        PageRouteBuilder(
+                                          transitionDuration:
+                                              const Duration(milliseconds: 140),
+                                          transitionsBuilder: (context,
+                                              firstAnimation,
+                                              secondaryAnimation,
+                                              child) {
+                                            return SlideTransition(
+                                              position: Tween<Offset>(
+                                                begin: const Offset(1.0, 0.0),
+                                                end: Offset.zero,
+                                              ).animate(firstAnimation),
+                                              child: child,
+                                            );
+                                          },
+                                          pageBuilder: (context, firstAnimation,
+                                                  secondaryAnimation) =>
+                                              MultiBlocProvider(
+                                            providers: [
+                                              BlocProvider.value(
+                                                  value: BlocProvider.of<
+                                                      CoursesBloc>(context)),
+                                              BlocProvider.value(
+                                                value:
+                                                    BlocProvider.of<TopicsBloc>(
+                                                        context),
+                                              )
+                                            ],
+                                            child: const PracticeScreen(),
+                                          ),
+                                        ));
+                                  },
+                                ),
+                              )
+                          ],
+                        ),
                       );
                     case RequestState.error:
                       return Center(

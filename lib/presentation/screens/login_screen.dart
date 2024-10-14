@@ -5,7 +5,6 @@ import 'package:gammal_tech_final_exam/presentation/controller/user_bloc.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/user_events.dart';
 import 'package:gammal_tech_final_exam/presentation/screens/forget_password_screen.dart';
 import 'package:gammal_tech_final_exam/presentation/screens/signup_screen.dart';
-import 'package:toastification/toastification.dart';
 
 import '../components/custom_button.dart';
 
@@ -54,11 +53,6 @@ class LoginScreen extends StatelessWidget {
                   borderRadius: 8,
                   fontSize: 20,
                   onTap: () {
-                    toastification.show(
-                      autoCloseDuration: const Duration(seconds: 3),
-                      context: context,
-                      title: const Text('Login Successful'),
-                    );
                     BlocProvider.of<UserBloc>(context).add(
                       LoginUserEvent(
                           email: emailController.text,
