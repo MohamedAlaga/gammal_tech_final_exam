@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gammal_tech_final_exam/core/utils/enums.dart';
 import 'package:gammal_tech_final_exam/domain/entities/topic.dart';
 import 'package:gammal_tech_final_exam/presentation/components/card_can_not_start_exam.dart';
 import 'package:gammal_tech_final_exam/presentation/components/card_exam.dart';
@@ -10,7 +11,6 @@ import 'package:gammal_tech_final_exam/presentation/controller/exams_bloc.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/exams_event.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/topics_bloc.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/topics_state.dart';
-import 'package:gammal_tech_final_exam/core/utils/enums.dart';
 import 'package:gammal_tech_final_exam/presentation/screens/more_data_screen.dart';
 import 'package:gammal_tech_final_exam/presentation/screens/quiz_page.dart';
 
@@ -22,6 +22,8 @@ class PracticeScreen extends StatelessWidget {
     return Scaffold(
       appBar: SubAppBar(
         rightIcon: Icons.notifications_none,
+        appBarColor: Colors.white,
+        iconsColor: Color(0xff094546),
         onRightIconPressed: () {},
       ),
       backgroundColor: Colors.white,
@@ -91,7 +93,8 @@ class PracticeScreen extends StatelessWidget {
                           },
                           onStartPressed: () {
                             BlocProvider.of<ExamsBloc>(context).add(
-                                FetchQuestionsEvent(notFinishedTopics[0].id, notFinishedTopics[0].duration));
+                                FetchQuestionsEvent(notFinishedTopics[0].id,
+                                    notFinishedTopics[0].duration));
                             Navigator.of(context).push(
                               MaterialPageRoute(
                                 builder: (context) =>

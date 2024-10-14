@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 
 class MemberCard extends StatelessWidget {
   const MemberCard({
-    Key? key,
+    super.key,
     required this.rank,
     required this.name,
     required this.college,
     required this.points,
     required this.image,
-  }) : super(key: key);
+  });
 
   final int rank;
   final String name;
@@ -19,44 +19,60 @@ class MemberCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 6),
       child: Container(
         height: 60,
-        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+        padding: const EdgeInsets.only(right: 12, left: 6),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(8),
+          border: Border.all(color: const Color(0xFFFF904D), width: 1),
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(
-              '$rank',
-              style: TextStyle(
+            SizedBox(
+              width: 32,
+              child: Text(
+                '$rank',
+                textAlign: TextAlign.center,
+                style: const TextStyle(
                   color: Colors.black,
                   fontSize: 16,
-                  fontWeight: FontWeight.bold),
+                  fontFamily: 'SourceSans3',
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
             ),
-            const SizedBox(width: 6),
+            const SizedBox(width: 3),
             CircleAvatar(
-              radius: rank == 1 ? 40 : 36,
+              radius: 24,
               backgroundImage: _getImageProvider(image),
               backgroundColor: Colors.grey,
             ),
-            const SizedBox(width: 10),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  name,
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                Text(college),
-              ],
+            const SizedBox(width: 6),
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    name,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    college,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
+              ),
             ),
-            Spacer(),
-            Text('$points', style: TextStyle(fontWeight: FontWeight.bold)),
+            const SizedBox(width: 8), // Add some space before the points text
+            Text(
+              '$points',
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
           ],
         ),
       ),

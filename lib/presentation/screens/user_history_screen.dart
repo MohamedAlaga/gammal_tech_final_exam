@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:gammal_tech_final_exam/presentation/components/sub_app_bar.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gammal_tech_final_exam/presentation/components/user_history_card.dart';
 
 import '../components/filter_dialog.dart';
+import '../components/main_app_bar.dart';
+import '../components/nav_bar.dart';
+import '../controller/user_bloc.dart';
+import '../controller/user_state.dart';
 
 List<List<dynamic>> history = [
   [
@@ -43,8 +47,8 @@ List<List<dynamic>> history = [
   ]
 ];
 
-class UserHistory extends StatelessWidget {
-  const UserHistory({super.key});
+class UserHistoryScreen extends StatelessWidget {
+  const UserHistoryScreen({super.key});
 
   void showFilterDialog(BuildContext context, Function(List<bool>) onApply) {
     showDialog(
@@ -56,8 +60,12 @@ class UserHistory extends StatelessWidget {
             children: [
               FilterDialog(
                 title: 'Choose filters',
-                filters: const ['Passed exams', 'Next exam', 'Unavailable exams'],
-                initialSelection:const [true, true, false],
+                filters: const [
+                  'Passed exams',
+                  'Next exam',
+                  'Unavailable exams'
+                ],
+                initialSelection: const [true, true, false],
                 onApply: onApply,
               ),
             ],
@@ -70,13 +78,22 @@ class UserHistory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: SubAppBar(
-        rightIcon: Icons.filter_alt,
-        onRightIconPressed: () {
-          showFilterDialog(context, (selectedFilters) {
-            // Handle the selected filters here
-          });
-        },
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(52),
+        child: BlocBuilder<UserBloc, UserState>(
+          builder: (context, state) => MainAppBar(
+            rightIcon: Icons.notifications_none,
+            onNotificationPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const UserHistoryScreen(),
+                ),
+              );
+            },
+            image: state.welcomeData.imageUrl,
+          ),
+        ),
       ),
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -97,6 +114,7 @@ class UserHistory extends StatelessWidget {
           ),
         ),
       ),
+      bottomNavigationBar: NavBar(currentIndex: 3),
     );
   }
 }

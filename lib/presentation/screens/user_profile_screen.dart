@@ -44,6 +44,8 @@ class UserProfileScreen extends StatelessWidget {
     return Scaffold(
       appBar: SubAppBar(
         rightIcon: Icons.notifications_none,
+        appBarColor: Colors.white,
+        iconsColor: Color(0xff094546),
         onRightIconPressed: () {},
       ),
       backgroundColor: Colors.white,

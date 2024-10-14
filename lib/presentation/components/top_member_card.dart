@@ -34,12 +34,11 @@ class TopMemberCard extends StatelessWidget {
               right: 0,
               child: CircleAvatar(
                 radius: 12,
-                backgroundColor: Colors.white,
+                backgroundColor: Colors.black,
                 backgroundImage: AssetImage(rankImage),
                 child: Container(
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    border: Border.all(color: Color(0xff094546), width: 1),
                   ),
                 ),
               ),
@@ -50,7 +49,7 @@ class TopMemberCard extends StatelessWidget {
         Text(
           name,
           style: TextStyle(
-            color: Colors.white,
+            color: Colors.black,
             fontWeight: FontWeight.bold,
             fontSize: rank == 1 ? 18 : 14,
           ),
@@ -58,14 +57,14 @@ class TopMemberCard extends StatelessWidget {
         Text(
           college,
           style: TextStyle(
-            color: Colors.white.withOpacity(0.8),
+            color: Colors.black.withOpacity(0.8),
             fontSize: rank == 1 ? 16 : 12,
           ),
         ),
         Text(
           '$points',
           style: TextStyle(
-            color: Colors.white,
+            color: Colors.black,
             fontWeight: FontWeight.w600,
             fontSize: rank == 1 ? 18 : 14,
           ),
