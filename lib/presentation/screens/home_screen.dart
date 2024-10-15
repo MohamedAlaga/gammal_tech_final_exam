@@ -115,7 +115,7 @@ class HomeScreen extends StatelessWidget {
                   },
                 ),
                 const SizedBox(height: 24),
-                const SizedBox(height: 12),
+                // const SizedBox(height: 12),
                 BlocBuilder<TopicsBloc, TopicsState>(builder: (context, state) {
                   switch (state.sugesstedRequestState) {
                     case RequestState.loading:
@@ -123,9 +123,7 @@ class HomeScreen extends StatelessWidget {
                         Align(
                             alignment: Alignment.centerLeft,
                             child: TextShimmer()),
-                        SizedBox(
-                          height: 24,
-                        ),
+                        SizedBox(height: 24),
                         TopicCardShimmer()
                       ]);
                     case RequestState.loaded:
@@ -242,7 +240,7 @@ class HomeScreen extends StatelessWidget {
                   }
                 }),
                 const SizedBox(height: 24),
-                const SizedBox(height: 12),
+                // const SizedBox(height: 12),
                 BlocBuilder<CoursesBloc, CoursesState>(
                     builder: (context, state) {
                   switch (state.suggestedCoursesRequestState) {
