@@ -59,7 +59,7 @@ class CardInfoHomePage extends StatelessWidget {
                   const Spacer(),
                   Image.asset(
                     'assets/info.png',
-                    width: 150,
+                    width: 120,
                     height: 115,
                   )
                 ],

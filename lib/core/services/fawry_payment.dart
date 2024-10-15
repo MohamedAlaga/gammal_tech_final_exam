@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:fawry_sdk/fawry_sdk.dart';
 import 'package:fawry_sdk/fawry_utils.dart';
@@ -8,23 +9,18 @@ import 'package:fawry_sdk/model/launch_customer_model.dart';
 import 'package:fawry_sdk/model/launch_merchant_model.dart';
 import 'package:fawry_sdk/model/payment_methods.dart';
 import 'package:fawry_sdk/model/response.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
-
-
-class Constants {
-  static const String merchantCode = "770000019834";
-  static const String secureKey = "6c65ee7b-9a31-49fb-9630-ca5546f6037a";
-  static const String baseUrl = "https://atfawry.fawrystaging.com/";
-}
-
+import 'package:gammal_tech_final_exam/core/utils/env.dart';
+import 'package:gammal_tech_final_exam/presentation/components/custom_toast.dart';
+import 'package:gammal_tech_final_exam/presentation/screens/show_payment_data_screen.dart';
 
 class FawryService {
   static LaunchMerchantModel getMerchantModel() {
     return LaunchMerchantModel(
-      merchantCode: Constants.merchantCode,
+      merchantCode: merchantCode,
       merchantRefNum: FawryUtils.randomAlphaNumeric(10),
-      secureKey: Constants.secureKey,
+      secureKey: secureKey,
     );
   }
 
@@ -32,52 +28,71 @@ class FawryService {
     try {
       await FawrySDK.instance.startPayment(
         launchModel: model,
-        baseURL: Constants.baseUrl,
+        baseURL: paymentUrl,
         lang: FawrySDK.LANGUAGE_ENGLISH,
       );
     } catch (e) {
       debugPrint('Error starting payment: $e');
     }
   }
+}
 
-  Future<void> openCardsManager(FawryLaunchModel model) async {
-    try {
-      await FawrySDK.instance.openCardsManager(
-        launchModel: model,
-        baseURL: Constants.baseUrl,
-        lang: FawrySDK.LANGUAGE_ENGLISH,
-      );
-    } catch (e) {
-      debugPrint('Error opening cards manager: $e');
-    }
+// Handle the response from Fawry SDK
+void handleResponse(ResponseStatus response, BuildContext context) {
+  switch (response.status) {
+    case FawrySDK.RESPONSE_SUCCESS:
+      {
+        debugPrint('Message: ${response.message}');
+        debugPrint('Json Response: ${response.data}');
+        var data = jsonDecode(response.data!);
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => ShowPaymentDataScreen(
+                    name: data["customerName"].toString(),
+                    price: data["paymentAmount"].toString(),
+                    refNumber: data["referenceNumber"].toString())));
+      }
+      break;
+    case FawrySDK.RESPONSE_ERROR:
+      {
+        debugPrint('Error: ${response.message}');
+        showRedToast("error occured while processing payment please try again");
+      }
+      break;
+    case FawrySDK.RESPONSE_PAYMENT_COMPLETED:
+      {
+        debugPrint('Payment Completed: ${response.message}, ${response.data}');
+        showGreenToast("Payment Completed");
+      }
+      break;
   }
 }
 
+// Get the current platform
+String currentPlatform() {
+  switch (defaultTargetPlatform) {
+    case TargetPlatform.android:
+      return 'Current platform --> Android';
+    case TargetPlatform.iOS:
+      return 'Current platform --> iOS';
+    default:
+      return 'Current platform --> Unknown';
+  }
+}
 
-BillItem item = BillItem(
-  itemId: 'ITEM_ID',
-  description: '',
-  quantity: 5,
-  price: 50,
-);
-
-List<BillItem> chargeItems = [item];
-
-
-LaunchCustomerModel customerModel = LaunchCustomerModel(
-  customerProfileId: '533518',
-  customerName: 'John Doe',
-  customerEmail: 'john.doe@xyz.com',
-  customerMobile: '+201000000000',
-);
-
-FawryLaunchModel model = FawryLaunchModel(
-  allow3DPayment: true,
-  chargeItems: chargeItems,
-  launchCustomerModel: customerModel,
-  launchMerchantModel: FawryService.getMerchantModel(),
-  skipLogin: true,
-  skipReceipt: true,
-  payWithCardToken: false,
-  paymentMethods: PaymentMethods.ALL,
-);
+Future<void> startPayment(
+    LaunchCustomerModel customer, List<BillItem> item) async {
+  FawryLaunchModel model = FawryLaunchModel(
+    allow3DPayment: true,
+    chargeItems: item,
+    launchCustomerModel: customer,
+    launchMerchantModel: FawryService.getMerchantModel(),
+    skipLogin: true,
+    skipReceipt: true,
+    payWithCardToken: false,
+    paymentMethods: PaymentMethods.ALL,
+  );
+  model.launchMerchantModel.merchantRefNum = FawryUtils.randomAlphaNumeric(10);
+  await FawryService().startPayment(model);
+}

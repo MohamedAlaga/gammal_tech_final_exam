@@ -13,14 +13,18 @@ import 'package:gammal_tech_final_exam/domain/usecase/get_course_suggestions_use
 import 'package:gammal_tech_final_exam/domain/usecase/get_course_topics_by_id_usecase.dart';
 import 'package:gammal_tech_final_exam/domain/usecase/get_topic_questions_usecase.dart';
 import 'package:gammal_tech_final_exam/domain/usecase/get_up_next_topic_data_usecase.dart';
+import 'package:gammal_tech_final_exam/domain/usecase/get_user_payment_info_usecase.dart';
+import 'package:gammal_tech_final_exam/domain/usecase/get_user_profile_data_usecase.dart';
 import 'package:gammal_tech_final_exam/domain/usecase/get_user_welcome_data_usecase.dart';
 import 'package:gammal_tech_final_exam/domain/usecase/login_user_usecase.dart';
 import 'package:gammal_tech_final_exam/domain/usecase/save_answer_usecase.dart';
 import 'package:gammal_tech_final_exam/domain/usecase/validate_user_token_usecase.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/courses_bloc.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/exams_bloc.dart';
+import 'package:gammal_tech_final_exam/presentation/controller/payment_bloc.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/topics_bloc.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/user_bloc.dart';
+import 'package:gammal_tech_final_exam/presentation/controller/user_profile_bloc.dart';
 import 'package:get_it/get_it.dart';
 
 final GetIt sl = GetIt.instance;
@@ -28,12 +32,18 @@ final GetIt sl = GetIt.instance;
 class ServiceLocator {
   void init() {
     //blocs
+    sl.registerFactory<PaymentBloc>(() => PaymentBloc(sl()));
     sl.registerFactory<ExamsBloc>(() => ExamsBloc(sl(), sl()));
     sl.registerFactory<TopicsBloc>(() => TopicsBloc(sl(), sl()));
     sl.registerFactory<CoursesBloc>(() => CoursesBloc(sl(), sl(), sl()));
     sl.registerFactory<UserBloc>(() => UserBloc(sl(), sl(), sl()));
+    sl.registerFactory<UserProfileBloc>(() => UserProfileBloc(sl()));
     //usecases
-    sl.registerLazySingleton<SaveAnswerUsecase>(()=> SaveAnswerUsecase(sl()));
+    sl.registerLazySingleton<GetUserProfileDataUsecase>(
+        () => GetUserProfileDataUsecase(sl()));
+    sl.registerLazySingleton<GetUserPaymentInfoUsecase>(
+        () => GetUserPaymentInfoUsecase(sl()));
+    sl.registerLazySingleton<SaveAnswerUsecase>(() => SaveAnswerUsecase(sl()));
     sl.registerLazySingleton<GetTopicQuestionsUsecase>(
         () => GetTopicQuestionsUsecase(sl()));
     sl.registerLazySingleton<EnrollToCourseUsecase>(

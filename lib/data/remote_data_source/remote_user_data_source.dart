@@ -1,29 +1,56 @@
 import 'dart:convert';
 
+import 'package:fawry_sdk/model/launch_customer_model.dart';
 import 'package:gammal_tech_final_exam/core/error/error_message_model.dart';
 import 'package:gammal_tech_final_exam/core/error/exceptions.dart';
 import 'package:gammal_tech_final_exam/core/utils/env.dart';
 import 'package:gammal_tech_final_exam/data/models/user_model.dart';
-import 'package:gammal_tech_final_exam/core/utils/dummy.dart' as dummy;
 import 'package:gammal_tech_final_exam/data/models/welcome_data_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class BaseRemoteUserDataSource {
-  Future<UserModel> getUserData(String userToken);
+  Future<UserModel> getUserData();
   Future<WelcomeDataModel> getWelcomeData(String userToken);
   Future<bool> updateUserProfile(String userToken, UserModel user);
   Future<bool> loginUser(String email, String password);
   Future<bool> logoutUser();
   Future<bool> validateUserToken();
+  Future<LaunchCustomerModel> getUserPaymentInfo();
 }
 
 class RemoteUserDataSource extends BaseRemoteUserDataSource {
   @override
-  Future<UserModel> getUserData(String userToken) {
+  Future<UserModel> getUserData() async{
     try {
-      return (Future.delayed(const Duration(seconds: 1), () => dummy.user));
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      var user = await http.get(Uri.parse("${baseUrl}users/${prefs.getString("userId").toString()}"));
+      if (user.statusCode == 200) {
+        var progress = await http.get(Uri.parse("${baseUrl}courses/v2/${prefs.getString("userId").toString()}"));
+        if (progress.statusCode == 200) {
+        Map<String,double> userProgress = {};
+        for (var item in jsonDecode(progress.body)) {
+          userProgress[item["name"]] = (item["solved_quizzes"]/item["total_quizzes"]);
+        }
+        return Future.value(UserModel.fromJson(jsonDecode(user.body),userProgress));
+        } else {
+        print("error 1 ${user.statusCode}");
+          throw ServerException(
+              errorMessageModel: ErrorMessageModel(
+                  message: "error accured getting user data",
+                  statusCode: user.statusCode,
+                  success: false));
+        }
+      } else {
+        print("error 2 ${user.statusCode}");
+        throw ServerException(
+            errorMessageModel: ErrorMessageModel(
+                message: "error accured getting user data",
+                statusCode: user.statusCode,
+                success: false));
+      }
     } catch (e) {
+      print("error $e");
       throw const ServerException(
           errorMessageModel: ErrorMessageModel(
               message: "error fitching user data",
@@ -33,10 +60,11 @@ class RemoteUserDataSource extends BaseRemoteUserDataSource {
   }
 
   @override
-  getWelcomeData(String userToken) async{
+  getWelcomeData(String userToken) async {
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      var result = await http.get(Uri.parse("$baseUrl/users/welcome/${prefs.getString("userId").toString()}"));
+      var result = await http.get(Uri.parse(
+          "$baseUrl/users/welcome/${prefs.getString("userId").toString()}"));
       if (result.statusCode == 200) {
         return WelcomeDataModel.fromJson(jsonDecode(result.body));
       } else {
@@ -117,7 +145,8 @@ class RemoteUserDataSource extends BaseRemoteUserDataSource {
       var userId = await http.post(Uri.parse("${baseUrl}auth/token-check"),
           headers: {"Authorization": prefs.getString("token").toString()});
       if (userId.statusCode == 200) {
-        prefs.setString("userId", json.decode(userId.body)["userId"].toString());
+        prefs.setString(
+            "userId", json.decode(userId.body)["userId"].toString());
       } else {
         throw ServerException(
             errorMessageModel: ErrorMessageModel(
@@ -131,6 +160,34 @@ class RemoteUserDataSource extends BaseRemoteUserDataSource {
           errorMessageModel: ErrorMessageModel(
               message: "error validating user token",
               statusCode: 404,
+              success: false));
+    }
+  }
+
+  @override
+  Future<LaunchCustomerModel> getUserPaymentInfo() async {
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      var result = await http.get(
+          Uri.parse("${baseUrl}users/${prefs.getString("userId").toString()}"));
+      if (result.statusCode == 200) {
+        var user = jsonDecode(result.body);
+        return LaunchCustomerModel(
+            customerName: user["name"],
+            customerEmail: user["email"],
+            customerMobile: user["phone"]);
+      } else {
+        throw ServerException(
+            errorMessageModel: ErrorMessageModel(
+                message: "error accured getting user payment info",
+                statusCode: result.statusCode,
+                success: false));
+      }
+    } catch (e) {
+      throw const ServerException(
+          errorMessageModel: ErrorMessageModel(
+              message: "error accured getting user payment info",
+              statusCode: 0,
               success: false));
     }
   }

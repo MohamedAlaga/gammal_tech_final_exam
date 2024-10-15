@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:gammal_tech_final_exam/presentation/components/fira_code_text.dart';
 
 class QuizAnswerCard extends StatelessWidget {
-  const QuizAnswerCard({super.key ,required this.content});
+  const QuizAnswerCard({super.key ,required this.content,this.textAlign = TextAlign.left});
   final String content ;
+  final TextAlign textAlign;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -21,7 +22,7 @@ class QuizAnswerCard extends StatelessWidget {
             fontSize: 18,
             fontWeight: FontWeight.w600,
             color: const Color(0xFF094546),
-            textAlign: TextAlign.left,
+            textAlign: textAlign,
           ),
         ));
   }

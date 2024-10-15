@@ -5,7 +5,7 @@ void showGreenToast(String message) {
   toastification.show(
       autoCloseDuration: const Duration(seconds: 5),
       title:
-          const Text('Login Successful', style: TextStyle(color: Colors.white)),
+           Text(message, style: const TextStyle(color: Colors.white)),
       type: ToastificationType.success,
       alignment: Alignment.bottomCenter,
       animationDuration: const Duration(milliseconds: 500),

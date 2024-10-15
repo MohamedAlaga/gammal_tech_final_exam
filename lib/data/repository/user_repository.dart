@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:fawry_sdk/model/launch_customer_model.dart';
 import 'package:gammal_tech_final_exam/core/error/exceptions.dart';
 import 'package:gammal_tech_final_exam/core/error/faliure.dart';
 import 'package:gammal_tech_final_exam/data/models/user_model.dart';
@@ -11,9 +12,9 @@ class UserRepository extends BaseUserRepository {
   UserRepository(this.remoteUserDataSource);
 
   @override
-  Future<Either<Failure, UserModel>> getUserData(String userToken) async {
+  Future<Either<Failure, UserModel>> getUserData() async {
     try {
-      return right(await remoteUserDataSource.getUserData(userToken));
+      return right(await remoteUserDataSource.getUserData());
     } on ServerException catch (faliure) {
       return Left(ServerFailure(faliure.errorMessageModel.message));
     }
@@ -62,6 +63,15 @@ class UserRepository extends BaseUserRepository {
   Future<Either<Failure, bool>> validateUserToken() async {
     try {
       return right(await remoteUserDataSource.validateUserToken());
+    } on ServerException catch (faliure) {
+      return Left(ServerFailure(faliure.errorMessageModel.message));
+    }
+  }
+
+  @override
+  Future<Either<Failure, LaunchCustomerModel>> getUserPaymentInfo() async {
+    try {
+      return right(await remoteUserDataSource.getUserPaymentInfo());
     } on ServerException catch (faliure) {
       return Left(ServerFailure(faliure.errorMessageModel.message));
     }

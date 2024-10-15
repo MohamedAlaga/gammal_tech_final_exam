@@ -8,7 +8,7 @@ class GetUserProfileDataUsecase {
 
   GetUserProfileDataUsecase(this.baseUserRepository);
 
-  Future<Either<Failure, User>> execute(String userToken) async {
-    return await baseUserRepository.getUserData(userToken);
+  Future<Either<Failure, User>> execute() async {
+    return await baseUserRepository.getUserData();
   }
 }

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gammal_tech_final_exam/presentation/controller/user_profile_bloc.dart';
+import 'package:gammal_tech_final_exam/presentation/controller/user_profile_event.dart';
 import 'package:gammal_tech_final_exam/presentation/screens/user_profile_screen.dart';
 
 class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -24,10 +27,26 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
         padding: const EdgeInsets.only(left: 12, top: 12),
         child: GestureDetector(
           onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const UserProfileScreen(),
+            BlocProvider.of<UserProfileBloc>(context).add(GetUserProfileEvent());
+            Navigator.of(context).push(
+              PageRouteBuilder(
+                transitionDuration: const Duration(milliseconds: 140),
+                transitionsBuilder:
+                    (context, firstAnimation, secondaryAnimation, child) {
+                  return SlideTransition(
+                    position: Tween<Offset>(
+                      begin: const Offset(-1.0, 0.0),
+                      end: Offset.zero,
+                    ).animate(firstAnimation),
+                    child: child,
+                  );
+                },
+                pageBuilder: (context, firstAnimation, secondaryAnimation) =>
+                    MultiBlocProvider(providers: [
+                  BlocProvider.value(
+                    value: BlocProvider.of<UserProfileBloc>(context),
+                  )
+                ], child: const UserProfileScreen()),
               ),
             );
           },
