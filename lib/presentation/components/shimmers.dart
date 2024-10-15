@@ -397,3 +397,138 @@ class CardFinishExamCourseShimmer extends StatelessWidget {
     );
   }
 }
+
+class MemberCardShimmer extends StatelessWidget {
+  const MemberCardShimmer({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 6),
+      child: Shimmer.fromColors(
+        baseColor: const Color.fromARGB(136, 9, 69, 70),
+        highlightColor: const Color(0xffF4F5F7),
+        child: Container(
+          height: 60,
+          padding: const EdgeInsets.only(right: 12, left: 6),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(color: const Color(0xffE3E5E8), width: 1),
+          ),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                width: 32,
+                height: 16,
+                color: const Color(0xffFF904D),
+              ),
+              const SizedBox(width: 3),
+              CircleAvatar(
+                radius: 24,
+                backgroundColor: const Color(0xffFF904D),
+              ),
+              const SizedBox(width: 6),
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      width: 100,
+                      height: 14,
+                      color: Colors.white,
+                    ),
+                    const SizedBox(height: 4),
+                    Container(
+                      width: 80,
+                      height: 12,
+                      color: Colors.white,
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(width: 8),
+              Container(
+                width: 30,
+                height: 16,
+                color: Colors.white,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class TopMemberCardShimmer extends StatelessWidget {
+  const TopMemberCardShimmer({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        // Shimmer for profile picture and rank badge
+        Stack(
+          children: [
+            Shimmer.fromColors(
+              baseColor: Colors.grey[300]!,
+              highlightColor: Colors.grey[100]!,
+              child: CircleAvatar(
+                radius: 36,
+                backgroundColor: Colors.grey[300],
+              ),
+            ),
+            Positioned(
+              bottom: 0,
+              right: 0,
+              child: Shimmer.fromColors(
+                baseColor: Colors.grey[300]!,
+                highlightColor: Colors.grey[100]!,
+                child: CircleAvatar(
+                  radius: 12,
+                  backgroundColor: Colors.grey[300],
+                ),
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 4),
+        // Shimmer for the name
+        Shimmer.fromColors(
+          baseColor: Colors.grey[300]!,
+          highlightColor: Colors.grey[100]!,
+          child: Container(
+            width: 80,
+            height: 16,
+            color: Colors.grey[300],
+          ),
+        ),
+        const SizedBox(height: 4),
+        // Shimmer for the college
+        Shimmer.fromColors(
+          baseColor: Colors.grey[300]!,
+          highlightColor: Colors.grey[100]!,
+          child: Container(
+            width: 60,
+            height: 14,
+            color: Colors.grey[300],
+          ),
+        ),
+        const SizedBox(height: 4),
+        Shimmer.fromColors(
+          baseColor: Colors.grey[300]!,
+          highlightColor: Colors.grey[100]!,
+          child: Container(
+            width: 40,
+            height: 16,
+            color: Colors.grey[300],
+          ),
+        ),
+        const SizedBox(height: 24),
+      ],
+    );
+  }
+}
