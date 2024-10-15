@@ -115,7 +115,6 @@ class HomeScreen extends StatelessWidget {
                   },
                 ),
                 const SizedBox(height: 24),
-                // const SizedBox(height: 12),
                 BlocBuilder<TopicsBloc, TopicsState>(builder: (context, state) {
                   switch (state.sugesstedRequestState) {
                     case RequestState.loading:

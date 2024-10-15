@@ -3,6 +3,7 @@ import 'package:gammal_tech_final_exam/data/remote_data_source/remote_topic_data
 import 'package:gammal_tech_final_exam/data/remote_data_source/remote_user_data_source.dart';
 import 'package:gammal_tech_final_exam/data/repository/course_repository.dart';
 import 'package:gammal_tech_final_exam/data/repository/topic_repository.dart';
+import 'package:gammal_tech_final_exam/data/repository/user_rank_repositry.dart';
 import 'package:gammal_tech_final_exam/data/repository/user_repository.dart';
 import 'package:gammal_tech_final_exam/domain/repository/base_course_repository.dart';
 import 'package:gammal_tech_final_exam/domain/repository/base_topic_repository.dart';
@@ -19,9 +20,14 @@ import 'package:gammal_tech_final_exam/domain/usecase/save_answer_usecase.dart';
 import 'package:gammal_tech_final_exam/domain/usecase/validate_user_token_usecase.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/courses_bloc.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/exams_bloc.dart';
+import 'package:gammal_tech_final_exam/presentation/controller/rank_bloc.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/topics_bloc.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/user_bloc.dart';
 import 'package:get_it/get_it.dart';
+
+import '../../data/remote_data_source/remote_user_rank_data_source.dart';
+import '../../domain/repository/base_user_rank_repository.dart';
+import '../../domain/usecase/get_user_rank_data_usecase.dart';
 
 final GetIt sl = GetIt.instance;
 
@@ -32,8 +38,9 @@ class ServiceLocator {
     sl.registerFactory<TopicsBloc>(() => TopicsBloc(sl(), sl()));
     sl.registerFactory<CoursesBloc>(() => CoursesBloc(sl(), sl(), sl()));
     sl.registerFactory<UserBloc>(() => UserBloc(sl(), sl(), sl()));
+    sl.registerFactory<UserRankBloc>(() => UserRankBloc(sl())); // <==
     //usecases
-    sl.registerLazySingleton<SaveAnswerUsecase>(()=> SaveAnswerUsecase(sl()));
+    sl.registerLazySingleton<SaveAnswerUsecase>(() => SaveAnswerUsecase(sl()));
     sl.registerLazySingleton<GetTopicQuestionsUsecase>(
         () => GetTopicQuestionsUsecase(sl()));
     sl.registerLazySingleton<EnrollToCourseUsecase>(
@@ -51,11 +58,15 @@ class ServiceLocator {
     sl.registerLazySingleton<LoginUserUsecase>(() => LoginUserUsecase(sl()));
     sl.registerLazySingleton<GetUserWelcomeDataUsecase>(
         () => GetUserWelcomeDataUsecase(sl()));
+    sl.registerLazySingleton<GetUserRankUsecase>(
+        () => GetUserRankUsecase(sl())); // <==
     //repositories
     sl.registerLazySingleton<BaseTopicRepository>(() => TopicRepository(sl()));
     sl.registerLazySingleton<BaseCourseRepository>(
         () => CourseRepository(sl()));
     sl.registerLazySingleton<BaseUserRepository>(() => UserRepository(sl()));
+    sl.registerLazySingleton<BaseUserRankRepository>(
+        () => UserRankRepository(sl())); // <==
     //data sources
     sl.registerLazySingleton<BaseRemoteTopicDataSource>(
         () => RemoteTopicDataSource());
@@ -63,5 +74,7 @@ class ServiceLocator {
         () => RemoteCourseDataSource());
     sl.registerLazySingleton<BaseRemoteUserDataSource>(
         () => RemoteUserDataSource());
+    sl.registerLazySingleton<BaseRemoteUserRankDataSource>(
+        () => RemoteUserRankDataSource()); // <==
   }
 }

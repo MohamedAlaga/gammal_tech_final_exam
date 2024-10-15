@@ -34,7 +34,7 @@ class TopMemberCard extends StatelessWidget {
               right: 0,
               child: CircleAvatar(
                 radius: 12,
-                backgroundColor: Colors.black,
+                backgroundColor: const Color(0xFFFfffff),
                 backgroundImage: AssetImage(rankImage),
                 child: Container(
                   decoration: BoxDecoration(
