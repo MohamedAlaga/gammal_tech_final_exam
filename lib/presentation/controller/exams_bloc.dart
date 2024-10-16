@@ -39,7 +39,7 @@ class ExamsBloc extends Bloc<ExamsEvent, ExamsState> {
     });
     on<StartQuizEvent>(
       (event, emit) {
-        emit(state.copyWith(isStarted: true));
+        emit(state.copyWith(isStarted: true, selectedAnswers: {} ,currentQuestionIndex: 0));
       },
     );
     on<SubmitAnswersEvent>((event, emit) async {
@@ -54,7 +54,7 @@ class ExamsBloc extends Bloc<ExamsEvent, ExamsState> {
       });
     });
     on<ExitQuizEvent>((event, emit) {
-      emit(const ExamsState());
+      emit(ExamsState(quizId: state.quizId,duration: state.duration , currentQuestionIndex: 0));
     });
   }
 }

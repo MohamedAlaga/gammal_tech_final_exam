@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gammal_tech_final_exam/core/utils/enums.dart';
+import 'package:gammal_tech_final_exam/data/models/topic_model.dart';
 import 'package:gammal_tech_final_exam/domain/usecase/get_course_topics_by_id_usecase.dart';
 import 'package:gammal_tech_final_exam/domain/usecase/get_up_next_topic_data_usecase.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/topics_events.dart';
@@ -11,7 +12,8 @@ class TopicsBloc extends Bloc<TopicsEvents, TopicsState> {
   TopicsBloc(this.getCourseTopicsByIdUsecase, this.getUpNextTopicDataUsecase)
       : super(const TopicsState()) {
     on<FetchTopicsEvent>((event, emit) async {
-      final result = await getCourseTopicsByIdUsecase.execute(event.courseId.toString());
+      final result =
+          await getCourseTopicsByIdUsecase.execute(event.courseId.toString());
       result.fold(
           (l) => emit(state.copyWith(
               sugesstedRequestState: RequestState.error,
@@ -32,6 +34,31 @@ class TopicsBloc extends Bloc<TopicsEvents, TopicsState> {
                 sugesstedRequestState: RequestState.loaded,
                 sugesstedTopics: r,
               )));
+    });
+    on<SetNextTopicEvent>((event, emit) {
+      var tempList = state.topics;
+      var nextTopic =
+          tempList.where((element) => element.isCompleted == false).first;
+      int index =
+          state.topics.indexWhere((element) => element.isCompleted == false);
+      print(index);
+      if (index != -1) {
+        state.topics[index] = TopicModel(
+            id: nextTopic.id,
+            courseId: nextTopic.courseId,
+            duration: nextTopic.duration,
+            title: nextTopic.title,
+            subtitle: nextTopic.subtitle,
+            description: nextTopic.description,
+            imageUrl: nextTopic.imageUrl,
+            skills: nextTopic.skills,
+            points: nextTopic.points,
+            quizCount: nextTopic.quizCount,
+            isCompleted: true);
+      }
+      print(index);
+      index =
+          state.topics.indexWhere((element) => element.isCompleted == false);
     });
   }
 }

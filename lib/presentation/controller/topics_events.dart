@@ -12,3 +12,4 @@ class FetchTopicsEvent extends TopicsEvents {
   const FetchTopicsEvent({required this.courseId});
 }
 class FetchSuggestedTopicsEvent extends TopicsEvents {}
+class SetNextTopicEvent extends TopicsEvents {}

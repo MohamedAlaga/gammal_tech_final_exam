@@ -37,7 +37,6 @@ class FawryService {
   }
 }
 
-// Handle the response from Fawry SDK
 void handleResponse(ResponseStatus response, BuildContext context) {
   switch (response.status) {
     case FawrySDK.RESPONSE_SUCCESS:
@@ -45,13 +44,15 @@ void handleResponse(ResponseStatus response, BuildContext context) {
         debugPrint('Message: ${response.message}');
         debugPrint('Json Response: ${response.data}');
         var data = jsonDecode(response.data!);
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => ShowPaymentDataScreen(
-                    name: data["customerName"].toString(),
-                    price: data["paymentAmount"].toString(),
-                    refNumber: data["referenceNumber"].toString())));
+        if (data["paymentMethod"] == "PayAtFawry") {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => ShowPaymentDataScreen(
+                      name: data["customerName"].toString(),
+                      price: data["paymentAmount"].toString(),
+                      refNumber: data["referenceNumber"].toString())));
+        }
       }
       break;
     case FawrySDK.RESPONSE_ERROR:
@@ -93,6 +94,6 @@ Future<void> startPayment(
     payWithCardToken: false,
     paymentMethods: PaymentMethods.ALL,
   );
-  model.launchMerchantModel.merchantRefNum = FawryUtils.randomAlphaNumeric(10);
+  model.launchMerchantModel.merchantRefNum = "78${FawryUtils.randomAlphaNumeric(8)}";
   await FawryService().startPayment(model);
 }

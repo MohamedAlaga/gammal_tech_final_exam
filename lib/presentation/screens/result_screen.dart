@@ -5,12 +5,11 @@ import 'package:gammal_tech_final_exam/presentation/components/custom_button.dar
 import 'package:gammal_tech_final_exam/presentation/controller/courses_bloc.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/courses_events.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/exams_bloc.dart';
+import 'package:gammal_tech_final_exam/presentation/controller/exams_event.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/exams_state.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/topics_bloc.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/topics_events.dart';
-import 'package:gammal_tech_final_exam/presentation/controller/user_bloc.dart';
-import 'package:gammal_tech_final_exam/presentation/controller/user_events.dart';
-import 'package:gammal_tech_final_exam/presentation/screens/main_screen.dart';
+import 'package:gammal_tech_final_exam/presentation/screens/quiz_page.dart';
 
 class ResultScreen extends StatelessWidget {
   const ResultScreen({
@@ -73,40 +72,122 @@ class ResultScreen extends StatelessWidget {
                                     color: Color(0xff094546)),
                               ),
                         const SizedBox(height: 24),
+                        if ((state.result!.round() / 100 == 1) &&
+                            BlocProvider.of<TopicsBloc>(context)
+                                .state
+                                .topics
+                                .isNotEmpty &&
+                            (state.quizId !=
+                                BlocProvider.of<TopicsBloc>(context)
+                                    .state
+                                    .topics
+                                    .last
+                                    .id))
+                          CustomButton(
+                            text: "Next Exam",
+                            textColor: Colors.white,
+                            buttonColor: const Color(0xff094546),
+                            borderColor: const Color(0xff094546),
+                            borderRadius: 8,
+                            fontSize: 20,
+                            onTap: () {
+                              int nextexamIndex =
+                                  BlocProvider.of<TopicsBloc>(context)
+                                          .state
+                                          .topics
+                                          .indexWhere((element) =>
+                                              element.id == state.quizId) +
+                                      1;
+                              String nextExamId =
+                                  BlocProvider.of<TopicsBloc>(context)
+                                      .state
+                                      .topics[nextexamIndex]
+                                      .id;
+                              BlocProvider.of<ExamsBloc>(context)
+                                  .add(ExitQuizEvent());
+                              BlocProvider.of<TopicsBloc>(context)
+                                  .add(SetNextTopicEvent());
+                              BlocProvider.of<ExamsBloc>(context).add(
+                                  FetchQuestionsEvent(
+                                      nextExamId,
+                                      BlocProvider.of<ExamsBloc>(context)
+                                          .state
+                                          .duration));
+
+                              if (BlocProvider.of<TopicsBloc>(context)
+                                  .state
+                                  .topics
+                                  .isNotEmpty) {
+                                BlocProvider.of<TopicsBloc>(context).add(
+                                    (FetchTopicsEvent(
+                                        courseId:
+                                            BlocProvider.of<TopicsBloc>(context)
+                                                .state
+                                                .topics
+                                                .first
+                                                .courseId)));
+                              }
+                              BlocProvider.of<TopicsBloc>(context)
+                                  .add((FetchSuggestedTopicsEvent()));
+                              BlocProvider.of<CoursesBloc>(context)
+                                  .add(FetchAllCoursesEvent());
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => QuizPage()));
+                            },
+                          ),
+                        if (state.result!.round() / 100 != 1)
+                          CustomButton(
+                              text: "try again",
+                              textColor: Colors.white,
+                              buttonColor: const Color(0xff094546),
+                              borderColor: const Color(0xff094546),
+                              borderRadius: 8,
+                              fontSize: 20,
+                              onTap: () {
+                                BlocProvider.of<ExamsBloc>(context).add(
+                                    FetchQuestionsEvent(
+                                        BlocProvider.of<ExamsBloc>(context)
+                                            .state
+                                            .quizId,
+                                        BlocProvider.of<ExamsBloc>(context)
+                                            .state
+                                            .duration));
+                                BlocProvider.of<ExamsBloc>(context)
+                                    .add(StartQuizEvent());
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => QuizPage()));
+                              }),
+                        const SizedBox(height: 24),
                         CustomButton(
-                          text: 'Continue',
+                          text: 'Back',
                           textColor: Colors.white,
                           buttonColor: const Color(0xff094546),
                           borderColor: const Color(0xff094546),
                           borderRadius: 8,
                           fontSize: 20,
                           onTap: () {
+                            if (BlocProvider.of<TopicsBloc>(context)
+                                .state
+                                .topics
+                                .isNotEmpty) {
+                              BlocProvider.of<TopicsBloc>(context).add(
+                                  (FetchTopicsEvent(
+                                      courseId:
+                                          BlocProvider.of<TopicsBloc>(context)
+                                              .state
+                                              .topics
+                                              .first
+                                              .courseId)));
+                            }
+                            BlocProvider.of<TopicsBloc>(context)
+                                .add((FetchSuggestedTopicsEvent()));
                             BlocProvider.of<CoursesBloc>(context)
                                 .add(FetchAllCoursesEvent());
-                            BlocProvider.of<TopicsBloc>(context)
-                                .add(FetchSuggestedTopicsEvent());
-                            BlocProvider.of<UserBloc>(context)
-                                .add(GetWelcomeUserData());
-                            BlocProvider.of<CoursesBloc>(context)
-                                .add(FetchSuggestedCoursesEvent());
-                            Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
-                              builder: (context) {
-                                return MultiBlocProvider(
-                                  providers: [
-                                    BlocProvider.value(
-                                        value: BlocProvider.of<CoursesBloc>(
-                                            context)),
-                                    BlocProvider.value(
-                                        value: BlocProvider.of<TopicsBloc>(
-                                            context)),
-                                    BlocProvider.value(
-                                        value: BlocProvider.of<UserBloc>(
-                                            context)),
-                                  ],
-                                  child: const MainScreen(),
-                                );
-                              },
-                            ), (route) => false);
+                            Navigator.pop(context);
                           },
                         )
                       ],

@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 
 class Topic extends Equatable {
   final String id;
+  final String courseId;
   final int duration;
   final String title;
   final String subtitle;
@@ -14,6 +15,7 @@ class Topic extends Equatable {
 
   const Topic({
     required this.id,
+    required this.courseId,
     required this.duration,
     required this.title,
     required this.subtitle,
@@ -28,6 +30,7 @@ class Topic extends Equatable {
   @override
   List<Object?> get props => [
         id,
+        courseId,
         duration,
         title,
         subtitle,

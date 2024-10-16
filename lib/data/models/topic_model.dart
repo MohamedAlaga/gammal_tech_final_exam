@@ -4,6 +4,7 @@ import 'package:gammal_tech_final_exam/domain/entities/topic.dart';
 class TopicModel extends Topic {
   const TopicModel({
     required super.id,
+    required super.courseId,
     required super.duration,
     required super.title,
     required super.subtitle,
@@ -17,8 +18,10 @@ class TopicModel extends Topic {
 
   factory TopicModel.fromJson(Map<String, dynamic> json) {
     int id = json['quiz_id']??json['id'];
+    int courseId = json['course_id']??1;
     return TopicModel(
       id: id.toString(),
+      courseId: courseId.toString(),
       duration: json['duration_in_seconds'] ?? 10,
       title: json['title'],
       subtitle: json['sub_title'] ?? "subtitle",

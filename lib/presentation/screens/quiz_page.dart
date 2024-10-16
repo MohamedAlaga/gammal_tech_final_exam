@@ -150,7 +150,10 @@ class QuizPage extends StatelessWidget {
                                               providers: [
                                                 BlocProvider.value(
                                                     value: BlocProvider.of<
-                                                        TopicsBloc>(context))
+                                                        TopicsBloc>(context)),
+                                                BlocProvider.value(
+                                                    value: BlocProvider.of<
+                                                        ExamsBloc>(context))
                                               ],
                                               child: const ResultScreen(),
                                             ),
