@@ -34,7 +34,7 @@ class RemoteUserDataSource extends BaseRemoteUserDataSource {
           Map<String, double> userProgress = {};
           for (var item in jsonDecode(progress.body)) {
             userProgress[item["name"]] =
-                (item["solved_quizzes"] / item["total_quizzes"]);
+                (item["finished_quizzes"] / item["total_quizzes"]);
           }
           return Future.value(
               UserModel.fromJson(jsonDecode(user.body), userProgress));
