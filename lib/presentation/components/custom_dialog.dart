@@ -25,11 +25,16 @@ class CustomDialog extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               SourceSansText(
-                  text: title, fontsize: 22, fontWeight: FontWeight.w600 ),
+                  text: title, fontsize: 22, fontWeight: FontWeight.w600),
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 24.0),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 24.0, horizontal: 24),
                 child: SourceSansText(
-                    text: content, fontsize: 16, fontWeight: FontWeight.w500),
+                  text: content,
+                  fontsize: 16,
+                  fontWeight: FontWeight.w500,
+                  textAlign: TextAlign.center,
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 24.0),

@@ -4,6 +4,7 @@ import 'package:gammal_tech_final_exam/presentation/components/card_info.dart';
 import 'package:gammal_tech_final_exam/presentation/components/custom_button.dart';
 import 'package:gammal_tech_final_exam/presentation/components/progress_card.dart';
 import 'package:gammal_tech_final_exam/presentation/components/skills_list.dart';
+import 'package:gammal_tech_final_exam/presentation/controller/user_bloc.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/user_profile_bloc.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/user_profile_state.dart';
 import 'package:gammal_tech_final_exam/core/utils/enums.dart';
@@ -17,11 +18,9 @@ class UserProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: SubAppBar(
-        rightIcon: Icons.notifications_none,
+      appBar: const SubAppBar(
         appBarColor: Colors.white,
-        iconsColor: const Color(0xff094546),
-        onRightIconPressed: () {},
+        iconsColor: Color(0xff094546),
       ),
       backgroundColor: Colors.white,
       body: BlocBuilder<UserProfileBloc, UserProfileState>(
@@ -84,7 +83,8 @@ class UserProfileScreen extends StatelessWidget {
                       CardInfo(
                         borderColor: const Color(0xffE3E5E8),
                         info: "Attempts left",
-                        information: state.currentUser.attemptsRemaining.toString(),
+                        information:
+                            state.currentUser.attemptsRemaining.toString(),
                       ),
                       const SizedBox(height: 18),
                       CustomButton(
@@ -97,25 +97,52 @@ class UserProfileScreen extends StatelessWidget {
                         onTap: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(
-                              builder: (context) => EditUserProfileScreen(),
+                            PageRouteBuilder(
+                              transitionDuration:
+                                  const Duration(milliseconds: 140),
+                              transitionsBuilder: (context, firstAnimation,
+                                  secondaryAnimation, child) {
+                                return SlideTransition(
+                                  position: Tween<Offset>(
+                                    begin: const Offset(-1.0, 0.0),
+                                    end: Offset.zero,
+                                  ).animate(firstAnimation),
+                                  child: child,
+                                );
+                              },
+                              pageBuilder: (context, firstAnimation,
+                                      secondaryAnimation) =>
+                                  MultiBlocProvider(
+                                providers: [
+                                  BlocProvider.value(
+                                    value: BlocProvider.of<UserBloc>(context),
+                                  )
+                                ],
+                                child: EditUserProfileScreen(),
+                              ),
                             ),
                           );
                         },
                       ),
                       const SizedBox(height: 24),
-                      const Row(
-                        children: [
-                          Text(
-                            'Skills:',
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 12),
-                      SkillsList(skills: state.currentUser.skills),
-                      const SizedBox(height: 24),
+                      state.currentUser.skills.isNotEmpty
+                          ?  Align(
+                              alignment: Alignment.centerLeft,
+                              child: Column(
+                                children: [
+                                  const Text(
+                                    'Skills:',
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  const SizedBox(height: 12),
+                                  SkillsList(skills: state.currentUser.skills),
+                                  const SizedBox(height: 24),
+                                ],
+                              ),
+                            )
+                          : const SizedBox(),
                       const Row(
                         children: [
                           Text(

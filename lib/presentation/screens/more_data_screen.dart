@@ -27,11 +27,9 @@ class MoreDataScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: SubAppBar(
-        rightIcon: Icons.notifications_outlined,
+      appBar: const SubAppBar(
         appBarColor: Colors.white,
         iconsColor: Color(0xff094546),
-        onRightIconPressed: () {},
       ),
       body: SingleChildScrollView(
         child: Padding(

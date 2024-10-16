@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gammal_tech_final_exam/presentation/controller/log_bloc.dart';
+import 'package:gammal_tech_final_exam/presentation/controller/log_events.dart';
+import 'package:gammal_tech_final_exam/presentation/controller/payment_bloc.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/rank_bloc.dart';
 import 'package:gammal_tech_final_exam/presentation/screens/leaderboard_screen.dart';
 
@@ -23,8 +26,8 @@ class NavBar extends StatelessWidget {
       elevation: 0,
       currentIndex: currentIndex,
       type: BottomNavigationBarType.fixed,
-      selectedItemColor: const Color(0xff094546),
-      unselectedItemColor: Colors.black,
+      selectedItemColor: const Color(0xffFF904D),
+      unselectedItemColor: const Color(0xff094546),
       onTap: (index) {
         if (index == currentIndex) return;
         switch (index) {
@@ -61,15 +64,53 @@ class NavBar extends StatelessWidget {
             );
             break;
           case 2:
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => PricingScreen()),
+            Navigator.of(context).push(
+              PageRouteBuilder(
+                transitionDuration: const Duration(milliseconds: 140),
+                transitionsBuilder:
+                    (context, firstAnimation, secondaryAnimation, child) {
+                  return SlideTransition(
+                    position: Tween<Offset>(
+                      begin: const Offset(1.0, 0.0),
+                      end: Offset.zero,
+                    ).animate(firstAnimation),
+                    child: child,
+                  );
+                },
+                pageBuilder: (context, firstAnimation, secondaryAnimation) =>
+                    MultiBlocProvider(providers: [
+                  BlocProvider.value(
+                    value: BlocProvider.of<PaymentBloc>(context),
+                  ),
+                  BlocProvider.value(
+                    value: BlocProvider.of<UserBloc>(context),
+                  )
+                ], child: const PricingScreen()),
+              ),
             );
             break;
           case 3:
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => UserHistoryScreen()),
+            BlocProvider.of<LogBloc>(context).add(FetchLogEvent());
+            Navigator.of(context).push(
+              PageRouteBuilder(
+                transitionDuration: const Duration(milliseconds: 140),
+                transitionsBuilder:
+                    (context, firstAnimation, secondaryAnimation, child) {
+                  return SlideTransition(
+                    position: Tween<Offset>(
+                      begin: const Offset(1.0, 0.0),
+                      end: Offset.zero,
+                    ).animate(firstAnimation),
+                    child: child,
+                  );
+                },
+                pageBuilder: (context, firstAnimation, secondaryAnimation) =>
+                    MultiBlocProvider(providers: [
+                  BlocProvider.value(
+                    value: BlocProvider.of<LogBloc>(context),
+                  ),
+                ], child: const UserHistoryScreen()),
+              ),
             );
             break;
         }

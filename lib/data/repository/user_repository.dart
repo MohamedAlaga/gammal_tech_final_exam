@@ -31,11 +31,11 @@ class UserRepository extends BaseUserRepository {
   }
 
   @override
-  Future<Either<Failure, bool>> updateUserProfile(
-      String userToken, UserModel user) async {
+  Future<Either<Failure, UserModel>> updateUserProfile(
+      String? university, String? email, String? phoneNumber) async {
     try {
       return right(
-          await remoteUserDataSource.updateUserProfile(userToken, user));
+          await remoteUserDataSource.updateUserProfile(university, email, phoneNumber));
     } on ServerException catch (faliure) {
       return Left(ServerFailure(faliure.errorMessageModel.message));
     }

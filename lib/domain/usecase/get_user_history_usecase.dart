@@ -7,7 +7,7 @@ class GetUserHistoryUsecase {
   final BaseHistoryRepository baseHistoryRepository;
   GetUserHistoryUsecase(this.baseHistoryRepository);
 
-  Future<Either<Failure, List<UserLog>>> getUserHistory(String userToken) async{
-    return await baseHistoryRepository.getHistory(userToken);
+  Future<Either<Failure, List<UserLog>>> execute() async{
+    return await baseHistoryRepository.getHistory();
   }
 }

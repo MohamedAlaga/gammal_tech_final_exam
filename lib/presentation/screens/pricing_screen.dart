@@ -13,7 +13,7 @@ import 'package:gammal_tech_final_exam/presentation/components/nav_bar.dart';
 import 'package:gammal_tech_final_exam/presentation/components/pricing_card.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/payment_bloc.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/payment_events.dart';
-import 'package:gammal_tech_final_exam/presentation/screens/user_history_screen.dart';
+import 'package:gammal_tech_final_exam/presentation/screens/notification_screen.dart';
 
 import '../controller/user_bloc.dart';
 import '../controller/user_state.dart';
@@ -79,7 +79,7 @@ class _PricingScreenState extends State<PricingScreen> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const UserHistoryScreen(),
+                  builder: (context) => const NotificationScreen(),
                 ),
               );
             },

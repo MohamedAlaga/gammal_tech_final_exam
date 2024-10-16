@@ -22,11 +22,9 @@ class PracticeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: SubAppBar(
-        rightIcon: Icons.notifications_none,
+      appBar: const SubAppBar(
         appBarColor: Colors.white,
         iconsColor: Color(0xff094546),
-        onRightIconPressed: () {},
       ),
       backgroundColor: Colors.white,
       body: BlocBuilder<TopicsBloc, TopicsState>(
@@ -79,6 +77,7 @@ class PracticeScreen extends StatelessWidget {
                 child: Text('Error'),
               );
             case RequestState.loaded:
+            if (state.topics.isNotEmpty) {
               List<Topic> finishedTopics = state.topics
                   .where((element) => element.isCompleted == true)
                   .toList();
@@ -196,7 +195,11 @@ class PracticeScreen extends StatelessWidget {
                     ),
                   ),
                 ),
+              );}else{
+              return const Center(
+                child: Text('No exams in this course'),
               );
+              }
           }
         },
       ),

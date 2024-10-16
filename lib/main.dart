@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gammal_tech_final_exam/core/services/service_locator.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/courses_bloc.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/exams_bloc.dart';
+import 'package:gammal_tech_final_exam/presentation/controller/log_bloc.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/rank_bloc.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/payment_bloc.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/topics_bloc.dart';
@@ -34,6 +35,8 @@ class MyApp extends StatelessWidget {
           BlocProvider<PaymentBloc>(create: (context) => sl<PaymentBloc>()),
           BlocProvider<UserProfileBloc>(
               create: (context) => sl<UserProfileBloc>()),
+          BlocProvider<LogBloc>(
+              create: (context) => sl<LogBloc>())
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,

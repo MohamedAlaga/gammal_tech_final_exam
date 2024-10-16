@@ -1,11 +1,14 @@
 import 'package:gammal_tech_final_exam/data/remote_data_source/remote_course_data_source.dart';
+import 'package:gammal_tech_final_exam/data/remote_data_source/remote_history_data_source.dart';
 import 'package:gammal_tech_final_exam/data/remote_data_source/remote_topic_data_source.dart';
 import 'package:gammal_tech_final_exam/data/remote_data_source/remote_user_data_source.dart';
 import 'package:gammal_tech_final_exam/data/repository/course_repository.dart';
+import 'package:gammal_tech_final_exam/data/repository/history_repositry.dart';
 import 'package:gammal_tech_final_exam/data/repository/topic_repository.dart';
 import 'package:gammal_tech_final_exam/data/repository/user_rank_repositry.dart';
 import 'package:gammal_tech_final_exam/data/repository/user_repository.dart';
 import 'package:gammal_tech_final_exam/domain/repository/base_course_repository.dart';
+import 'package:gammal_tech_final_exam/domain/repository/base_history_repository.dart';
 import 'package:gammal_tech_final_exam/domain/repository/base_topic_repository.dart';
 import 'package:gammal_tech_final_exam/domain/repository/base_user_repository.dart';
 import 'package:gammal_tech_final_exam/domain/usecase/enroll_to_course_usecase.dart';
@@ -14,14 +17,17 @@ import 'package:gammal_tech_final_exam/domain/usecase/get_course_suggestions_use
 import 'package:gammal_tech_final_exam/domain/usecase/get_course_topics_by_id_usecase.dart';
 import 'package:gammal_tech_final_exam/domain/usecase/get_topic_questions_usecase.dart';
 import 'package:gammal_tech_final_exam/domain/usecase/get_up_next_topic_data_usecase.dart';
+import 'package:gammal_tech_final_exam/domain/usecase/get_user_history_usecase.dart';
 import 'package:gammal_tech_final_exam/domain/usecase/get_user_payment_info_usecase.dart';
 import 'package:gammal_tech_final_exam/domain/usecase/get_user_profile_data_usecase.dart';
 import 'package:gammal_tech_final_exam/domain/usecase/get_user_welcome_data_usecase.dart';
 import 'package:gammal_tech_final_exam/domain/usecase/login_user_usecase.dart';
 import 'package:gammal_tech_final_exam/domain/usecase/save_answer_usecase.dart';
+import 'package:gammal_tech_final_exam/domain/usecase/update_user_data_usecase.dart';
 import 'package:gammal_tech_final_exam/domain/usecase/validate_user_token_usecase.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/courses_bloc.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/exams_bloc.dart';
+import 'package:gammal_tech_final_exam/presentation/controller/log_bloc.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/rank_bloc.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/payment_bloc.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/topics_bloc.dart';
@@ -43,14 +49,20 @@ class ServiceLocator {
     sl.registerFactory<TopicsBloc>(() => TopicsBloc(sl(), sl()));
     sl.registerFactory<CoursesBloc>(() => CoursesBloc(sl(), sl(), sl()));
     sl.registerFactory<UserBloc>(() => UserBloc(sl(), sl(), sl()));
-    sl.registerFactory<UserRankBloc>(() => UserRankBloc(sl())); // <==
-    sl.registerFactory<UserProfileBloc>(() => UserProfileBloc(sl()));
+    sl.registerFactory<UserRankBloc>(() => UserRankBloc(sl()));
+    sl.registerFactory<UserProfileBloc>(() => UserProfileBloc(sl(), sl()));
+    sl.registerFactory<LogBloc>(() => LogBloc(sl()));
     //usecases
+    sl.registerLazySingleton<GetUserHistoryUsecase>(
+      () => GetUserHistoryUsecase(sl()),
+    );
     sl.registerLazySingleton<GetUserProfileDataUsecase>(
         () => GetUserProfileDataUsecase(sl()));
+    sl.registerLazySingleton<UpdateUserDataUsecase>(
+        () => UpdateUserDataUsecase(sl()));
     sl.registerLazySingleton<GetUserPaymentInfoUsecase>(
         () => GetUserPaymentInfoUsecase(sl()));
-    sl.registerLazySingleton<SaveAnswerUsecase>(()  => SaveAnswerUsecase(sl()));
+    sl.registerLazySingleton<SaveAnswerUsecase>(() => SaveAnswerUsecase(sl()));
     sl.registerLazySingleton<GetTopicQuestionsUsecase>(
         () => GetTopicQuestionsUsecase(sl()));
     sl.registerLazySingleton<EnrollToCourseUsecase>(
@@ -69,15 +81,19 @@ class ServiceLocator {
     sl.registerLazySingleton<GetUserWelcomeDataUsecase>(
         () => GetUserWelcomeDataUsecase(sl()));
     sl.registerLazySingleton<GetUserRankUsecase>(
-        () => GetUserRankUsecase(sl())); // <==
+        () => GetUserRankUsecase(sl()));
     //repositories
     sl.registerLazySingleton<BaseTopicRepository>(() => TopicRepository(sl()));
     sl.registerLazySingleton<BaseCourseRepository>(
         () => CourseRepository(sl()));
     sl.registerLazySingleton<BaseUserRepository>(() => UserRepository(sl()));
     sl.registerLazySingleton<BaseUserRankRepository>(
-        () => UserRankRepository(sl())); // <==
+        () => UserRankRepository(sl()));
+    sl.registerLazySingleton<BaseHistoryRepository>(
+        () => HistoryRepositry(sl()));
     //data sources
+    sl.registerLazySingleton<BaseRemoteHistoryDataSource>(
+        () => RemoteHistoryDataSource());
     sl.registerLazySingleton<BaseRemoteTopicDataSource>(
         () => RemoteTopicDataSource());
     sl.registerLazySingleton<BaseRemoteCourseDataSource>(
@@ -85,6 +101,6 @@ class ServiceLocator {
     sl.registerLazySingleton<BaseRemoteUserDataSource>(
         () => RemoteUserDataSource());
     sl.registerLazySingleton<BaseRemoteUserRankDataSource>(
-        () => RemoteUserRankDataSource()); // <==
+        () => RemoteUserRankDataSource());
   }
 }

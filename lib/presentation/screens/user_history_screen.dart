@@ -1,51 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gammal_tech_final_exam/core/utils/enums.dart';
 import 'package:gammal_tech_final_exam/presentation/components/user_history_card.dart';
+import 'package:gammal_tech_final_exam/presentation/controller/log_bloc.dart';
+import 'package:gammal_tech_final_exam/presentation/controller/log_state.dart';
+import 'package:gammal_tech_final_exam/presentation/screens/notification_screen.dart';
 
 import '../components/filter_dialog.dart';
 import '../components/main_app_bar.dart';
 import '../components/nav_bar.dart';
 import '../controller/user_bloc.dart';
 import '../controller/user_state.dart';
-
-List<List<dynamic>> history = [
-  [
-    '12:30 30/9/2024',
-    'printf("Gammal tech");',
-    ['Result: 5/6', 'Average time : 20 sec'],
-    ''
-  ],
-  [
-    '12:30 30/9/2024',
-    'printf("Gammal tech");',
-    ['Result: 5/6', 'Average time : 20 sec'],
-    ''
-  ],
-  [
-    '12:30 30/9/2024',
-    'printf("Gammal tech");',
-    ['Result: 5/6', 'Average time : 20 sec'],
-    ''
-  ],
-  [
-    '12:30 30/9/2024',
-    'printf("Gammal tech");',
-    ['Result: 5/6', 'Average time : 20 sec'],
-    ''
-  ],
-  [
-    '12:30 30/9/2024',
-    'printf("Gammal tech");',
-    ['Result: 5/6', 'Average time : 20 sec'],
-    ''
-  ],
-  [
-    '12:30 30/9/2024',
-    'printf("Gammal tech");',
-    ['Result: 5/6', 'Average time : 20 sec'],
-    ''
-  ]
-];
 
 class UserHistoryScreen extends StatelessWidget {
   const UserHistoryScreen({super.key});
@@ -87,7 +52,7 @@ class UserHistoryScreen extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const UserHistoryScreen(),
+                  builder: (context) => const NotificationScreen(),
                 ),
               );
             },
@@ -96,23 +61,38 @@ class UserHistoryScreen extends StatelessWidget {
         ),
       ),
       backgroundColor: Colors.white,
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(24),
-          child: Center(
-            child: Column(
-              children: [
-                for (int i = 0; i < history.length; i++)
-                  UserHistoryCard(
-                    dateTime: history[i][0],
-                    title: history[i][1],
-                    info: history[i][2],
-                    image: history[i][3],
-                  )
-              ],
-            ),
-          ),
-        ),
+      body: BlocBuilder<LogBloc, LogState>(
+        builder: (context, state) {
+          switch (state.requestState) {
+            case RequestState.loading:
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            case RequestState.error:
+              return Center(
+                child: Text(state.errorMessage),
+              );
+            case RequestState.loaded:
+              return SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(24),
+                  child: Center(
+                    child: Column(
+                      children: [
+                        for (var log in state.userLogs)
+                          UserHistoryCard(
+                            dateTime: log.dateTime,
+                            title: log.description[0],
+                            info: log.description.sublist(1),
+                            image: log.imageUrl,
+                          )
+                      ],
+                    ),
+                  ),
+                ),
+              );
+          }
+        },
       ),
       bottomNavigationBar: NavBar(currentIndex: 3),
     );

@@ -12,7 +12,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 abstract class BaseRemoteUserDataSource {
   Future<UserModel> getUserData();
   Future<WelcomeDataModel> getWelcomeData(String userToken);
-  Future<bool> updateUserProfile(String userToken, UserModel user);
+  Future<UserModel> updateUserProfile(
+      String? university, String? email, String? phoneNumber);
   Future<bool> loginUser(String email, String password);
   Future<bool> logoutUser();
   Future<bool> validateUserToken();
@@ -21,20 +22,23 @@ abstract class BaseRemoteUserDataSource {
 
 class RemoteUserDataSource extends BaseRemoteUserDataSource {
   @override
-  Future<UserModel> getUserData() async{
+  Future<UserModel> getUserData() async {
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      var user = await http.get(Uri.parse("${baseUrl}users/${prefs.getString("userId").toString()}"));
+      var user = await http.get(
+          Uri.parse("${baseUrl}users/${prefs.getString("userId").toString()}"));
       if (user.statusCode == 200) {
-        var progress = await http.get(Uri.parse("${baseUrl}courses/v2/${prefs.getString("userId").toString()}"));
+        var progress = await http.get(Uri.parse(
+            "${baseUrl}courses/v2/${prefs.getString("userId").toString()}"));
         if (progress.statusCode == 200) {
-        Map<String,double> userProgress = {};
-        for (var item in jsonDecode(progress.body)) {
-          userProgress[item["name"]] = (item["solved_quizzes"]/item["total_quizzes"]);
-        }
-        return Future.value(UserModel.fromJson(jsonDecode(user.body),userProgress));
+          Map<String, double> userProgress = {};
+          for (var item in jsonDecode(progress.body)) {
+            userProgress[item["name"]] =
+                (item["solved_quizzes"] / item["total_quizzes"]);
+          }
+          return Future.value(
+              UserModel.fromJson(jsonDecode(user.body), userProgress));
         } else {
-        print("error 1 ${user.statusCode}");
           throw ServerException(
               errorMessageModel: ErrorMessageModel(
                   message: "error accured getting user data",
@@ -42,7 +46,6 @@ class RemoteUserDataSource extends BaseRemoteUserDataSource {
                   success: false));
         }
       } else {
-        print("error 2 ${user.statusCode}");
         throw ServerException(
             errorMessageModel: ErrorMessageModel(
                 message: "error accured getting user data",
@@ -50,7 +53,6 @@ class RemoteUserDataSource extends BaseRemoteUserDataSource {
                 success: false));
       }
     } catch (e) {
-      print("error $e");
       throw const ServerException(
           errorMessageModel: ErrorMessageModel(
               message: "error fitching user data",
@@ -84,14 +86,37 @@ class RemoteUserDataSource extends BaseRemoteUserDataSource {
   }
 
   @override
-  Future<bool> updateUserProfile(String userToken, UserModel user) {
+  Future<UserModel> updateUserProfile(
+      String? university, String? email, String? phoneNumber) async {
     try {
-      return Future.delayed(const Duration(seconds: 1), () => true);
+      Map<String, String> user = {};
+      if (email != null) {
+        user["email"] = email;
+      }
+      if (phoneNumber != null) {
+        user["phone"] = phoneNumber;
+      }
+      if (university != null) {
+        user["university"] = university;
+      }
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      var result = await http.put(
+          Uri.parse("${baseUrl}users/${prefs.getString("userId").toString()}"),
+          body: user);
+      if (result.statusCode == 200) {
+        return await getUserData();
+      } else {
+        throw ServerException(
+            errorMessageModel: ErrorMessageModel(
+                message: "error updating user profile",
+                statusCode: result.statusCode,
+                success: false));
+      }
     } catch (e) {
       throw const ServerException(
           errorMessageModel: ErrorMessageModel(
               message: "error updating user profile",
-              statusCode: 404,
+              statusCode: 400,
               success: false));
     }
   }

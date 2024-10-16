@@ -23,9 +23,9 @@ import 'package:gammal_tech_final_exam/presentation/controller/user_bloc.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/user_state.dart';
 import 'package:gammal_tech_final_exam/presentation/screens/course_screen.dart';
 import 'package:gammal_tech_final_exam/presentation/screens/more_data_screen.dart';
+import 'package:gammal_tech_final_exam/presentation/screens/notification_screen.dart';
 import 'package:gammal_tech_final_exam/presentation/screens/practice_screen.dart';
 import 'package:gammal_tech_final_exam/presentation/screens/quiz_page.dart';
-import 'package:gammal_tech_final_exam/presentation/screens/user_history_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -55,7 +55,7 @@ class HomeScreen extends StatelessWidget {
                     );
                   },
                   pageBuilder: (context, firstAnimation, secondaryAnimation) =>
-                      const UserHistoryScreen(),
+                      const NotificationScreen(),
                 ),
               );
             },

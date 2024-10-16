@@ -38,14 +38,14 @@ class CardInfoHomePage extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'Good\nEvening,\n$name',
-                        style: const TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xff094546),
-                        ),
-                      ),
+                      Text('Good\nEvening,\n$name',
+                          style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xff094546),
+                          ),
+                          maxLines: 3, 
+                          overflow: TextOverflow.ellipsis),
                       const SizedBox(height: 6),
                       Text(
                         "Let's Exam!",
@@ -59,7 +59,7 @@ class CardInfoHomePage extends StatelessWidget {
                   const Spacer(),
                   Image.asset(
                     'assets/info.png',
-                    width: 120,
+                    width: MediaQuery.of(context).size.width * 0.3,
                     height: 115,
                   )
                 ],

@@ -6,7 +6,7 @@ import 'package:gammal_tech_final_exam/presentation/components/nav_bar.dart';
 import 'package:gammal_tech_final_exam/presentation/components/shimmers.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/user_bloc.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/user_state.dart';
-import 'package:gammal_tech_final_exam/presentation/screens/user_history_screen.dart';
+import 'package:gammal_tech_final_exam/presentation/screens/notification_screen.dart';
 
 import '../components/member_card.dart';
 import '../components/top_member_card.dart';
@@ -42,7 +42,7 @@ class LeaderboardScreen extends StatelessWidget {
                     );
                   },
                   pageBuilder: (context, firstAnimation, secondaryAnimation) =>
-                      const UserHistoryScreen(),
+                      const NotificationScreen(),
                 ),
               );
             },

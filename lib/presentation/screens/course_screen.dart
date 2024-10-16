@@ -23,9 +23,8 @@ class CourseScreen extends StatelessWidget {
     BlocProvider.of<CoursesBloc>(context).add(FetchAllCoursesEvent());
     return Scaffold(
       appBar: SubAppBar(
-        rightIcon: Icons.notifications_none,
         appBarColor: Colors.white,
-        iconsColor: Color(0xff094546),
+        iconsColor: const Color(0xff094546),
         onRightIconPressed: () {},
       ),
       backgroundColor: Colors.white,
