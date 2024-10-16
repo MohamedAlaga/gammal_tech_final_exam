@@ -32,9 +32,10 @@ class EditUserProfileScreen extends StatelessWidget {
             child: Center(
               child: Column(
                 children: [
-                  const CircleAvatar(
+                  CircleAvatar(
                     radius: 60,
-                    backgroundImage: AssetImage('assets/user_photo.png'),
+                    backgroundImage:
+                        _getImageProvider(state.currentUser.imageUrl),
                     backgroundColor: Colors.grey,
                   ),
                   const SizedBox(height: 12),
@@ -69,12 +70,10 @@ class EditUserProfileScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 18),
                   CustomTextField(hint: "university", controller: university),
-                  const SizedBox(height: 18),
                   CustomTextField(hint: "email", controller: email),
-                  const SizedBox(height: 18),
                   CustomTextField(
                       hint: "phone number", controller: phoneNumber),
-                  const SizedBox(height: 36),
+                  const SizedBox(height: 24),
                   CustomButton(
                     text: 'Confirm',
                     textColor: Colors.white,
@@ -129,5 +128,17 @@ class EditUserProfileScreen extends StatelessWidget {
         );
       }),
     );
+  }
+
+  ImageProvider _getImageProvider(String imageUrl) {
+    try {
+      if (imageUrl.isNotEmpty) {
+        return NetworkImage(imageUrl);
+      } else {
+        return const AssetImage('assets/user_photo.png');
+      }
+    } catch (e) {
+      return const AssetImage('assets/user_photo.png');
+    }
   }
 }

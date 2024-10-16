@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gammal_tech_final_exam/core/utils/enums.dart';
 import 'package:gammal_tech_final_exam/presentation/components/card_info.dart';
 import 'package:gammal_tech_final_exam/presentation/components/custom_button.dart';
 import 'package:gammal_tech_final_exam/presentation/components/progress_card.dart';
@@ -7,7 +8,6 @@ import 'package:gammal_tech_final_exam/presentation/components/skills_list.dart'
 import 'package:gammal_tech_final_exam/presentation/controller/user_bloc.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/user_profile_bloc.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/user_profile_state.dart';
-import 'package:gammal_tech_final_exam/core/utils/enums.dart';
 import 'package:gammal_tech_final_exam/presentation/screens/edit_user_profile_screen.dart';
 
 import '../components/sub_app_bar.dart';
@@ -67,19 +67,16 @@ class UserProfileScreen extends StatelessWidget {
                         info: "Email",
                         information: state.currentUser.email,
                       ),
-                      const SizedBox(height: 18),
                       CardInfo(
                         borderColor: const Color(0xffE3E5E8),
                         info: "Phone number",
                         information: state.currentUser.phone,
                       ),
-                      const SizedBox(height: 18),
                       CardInfo(
                         borderColor: const Color(0xffE3E5E8),
                         info: "Points",
                         information: state.currentUser.totalPoints.toString(),
                       ),
-                      const SizedBox(height: 18),
                       CardInfo(
                         borderColor: const Color(0xffE3E5E8),
                         info: "Attempts left",
@@ -126,7 +123,7 @@ class UserProfileScreen extends StatelessWidget {
                       ),
                       const SizedBox(height: 24),
                       state.currentUser.skills.isNotEmpty
-                          ?  Align(
+                          ? Align(
                               alignment: Alignment.centerLeft,
                               child: Column(
                                 children: [
