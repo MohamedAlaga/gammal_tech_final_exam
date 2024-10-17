@@ -103,31 +103,28 @@ class HomeScreen extends StatelessWidget {
                           ],
                         ),
                         const SizedBox(height: 24),
-                        SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              InfoCard(
-                                number: state.welcomeData.solvedExams,
-                                text: "Solved exam",
-                                circleBorderColor: const Color(0xffFF904D),
-                              ),
-                              const SizedBox(width: 11),
-                              InfoCard(
-                                number: state.welcomeData.rank,
-                                text: "out of ${state.welcomeData.totalRanks}",
-                                circleBorderColor: Colors.yellow,
-                              ),
-                              const SizedBox(width: 11),
-                              InfoCard(
-                                number: state.welcomeData.points,
-                                text: "Points",
-                                circleBorderColor: const Color(0xffFF904D),
-                              ),
-                            ],
-                          ),
-                        )
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            InfoCard(
+                              number: state.welcomeData.solvedExams,
+                              text: "Solved exam",
+                              circleBorderColor: const Color(0xffFF904D),
+                            ),
+                            const SizedBox(width: 6),
+                            InfoCard(
+                              number: state.welcomeData.rank,
+                              text: "out of ${state.welcomeData.totalRanks}",
+                              circleBorderColor: Colors.yellow,
+                            ),
+                            const SizedBox(width: 6),
+                            InfoCard(
+                              number: state.welcomeData.points,
+                              text: "Points",
+                              circleBorderColor: const Color(0xffFF904D),
+                            ),
+                          ],
+                        ),
                       ],
                     ),
                   ),
