@@ -5,8 +5,8 @@ import 'package:gammal_tech_final_exam/presentation/components/source_sans_text.
 import 'package:gammal_tech_final_exam/presentation/components/sub_app_bar.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/exams_bloc.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/exams_event.dart';
-import 'package:gammal_tech_final_exam/presentation/controller/topics_bloc.dart';
 import 'package:gammal_tech_final_exam/presentation/screens/quiz_page.dart';
+import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
 class MoreDataScreen extends StatelessWidget {
   const MoreDataScreen(
@@ -93,16 +93,10 @@ class MoreDataScreen extends StatelessWidget {
                   onTap: () {
                     BlocProvider.of<ExamsBloc>(context)
                         .add(FetchQuestionsEvent(quizId, duration));
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => MultiBlocProvider(providers: [
-                          BlocProvider.value(
-                              value: BlocProvider.of<ExamsBloc>(context)),
-                          BlocProvider.value(
-                            value: BlocProvider.of<TopicsBloc>(context),
-                          )
-                        ], child: QuizPage()),
-                      ),
+                    PersistentNavBarNavigator.pushNewScreen(
+                      context,
+                      screen: QuizPage(),
+                      withNavBar: false,
                     );
                   },
                   fontSize: 22)

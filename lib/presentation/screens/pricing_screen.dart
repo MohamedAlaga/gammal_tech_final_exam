@@ -9,7 +9,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gammal_tech_final_exam/core/services/fawry_payment.dart';
 import 'package:gammal_tech_final_exam/core/utils/bill_items.dart';
 import 'package:gammal_tech_final_exam/presentation/components/main_app_bar.dart';
-import 'package:gammal_tech_final_exam/presentation/components/nav_bar.dart';
 import 'package:gammal_tech_final_exam/presentation/components/pricing_card.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/payment_bloc.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/payment_events.dart';
@@ -138,7 +137,6 @@ class _PricingScreenState extends State<PricingScreen> {
           ),
         ),
       ),
-      bottomNavigationBar: NavBar(currentIndex: 2),
     );
   }
 }

@@ -10,6 +10,7 @@ import 'package:gammal_tech_final_exam/presentation/controller/exams_state.dart'
 import 'package:gammal_tech_final_exam/presentation/controller/topics_bloc.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/topics_events.dart';
 import 'package:gammal_tech_final_exam/presentation/screens/quiz_page.dart';
+import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
 class ResultScreen extends StatelessWidget {
   const ResultScreen({
@@ -131,10 +132,12 @@ class ResultScreen extends StatelessWidget {
                                   .add((FetchSuggestedTopicsEvent()));
                               BlocProvider.of<CoursesBloc>(context)
                                   .add(FetchAllCoursesEvent());
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => QuizPage()));
+                              Navigator.pop(context);
+                              PersistentNavBarNavigator.pushNewScreen(
+                                context,
+                                screen: QuizPage(),
+                                withNavBar: false,
+                              );
                             },
                           ),
                         if (state.result!.round() / 100 != 1)
@@ -156,10 +159,12 @@ class ResultScreen extends StatelessWidget {
                                             .duration));
                                 BlocProvider.of<ExamsBloc>(context)
                                     .add(StartQuizEvent());
-                                Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => QuizPage()));
+                                Navigator.pop(context);
+                                PersistentNavBarNavigator.pushNewScreen(
+                                  context,
+                                  screen: QuizPage(),
+                                  withNavBar: false,
+                                );
                               }),
                         const SizedBox(height: 24),
                         CustomButton(

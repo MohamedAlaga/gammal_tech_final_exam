@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gammal_tech_final_exam/core/utils/enums.dart';
 import 'package:gammal_tech_final_exam/presentation/components/main_app_bar.dart';
-import 'package:gammal_tech_final_exam/presentation/components/nav_bar.dart';
 import 'package:gammal_tech_final_exam/presentation/components/shimmers.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/user_bloc.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/user_state.dart';
@@ -73,14 +72,13 @@ class LeaderboardScreen extends StatelessWidget {
           },
         ),
       ),
-      bottomNavigationBar: NavBar(currentIndex: 1),
     );
   }
 
   Widget _buildLoadingState() {
     return Column(
       children: [
-        TextShimmer(),
+        const TextShimmer(),
         const SizedBox(height: 24),
         const Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

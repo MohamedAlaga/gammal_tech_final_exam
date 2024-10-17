@@ -8,7 +8,6 @@ import 'package:gammal_tech_final_exam/presentation/components/card_info_home_pa
 import 'package:gammal_tech_final_exam/presentation/components/course_card.dart';
 import 'package:gammal_tech_final_exam/presentation/components/custom_button.dart';
 import 'package:gammal_tech_final_exam/presentation/components/main_app_bar.dart';
-import 'package:gammal_tech_final_exam/presentation/components/nav_bar.dart';
 import 'package:gammal_tech_final_exam/presentation/components/shimmers.dart';
 import 'package:gammal_tech_final_exam/presentation/components/source_sans_text.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/courses_bloc.dart';
@@ -26,6 +25,7 @@ import 'package:gammal_tech_final_exam/presentation/screens/more_data_screen.dar
 import 'package:gammal_tech_final_exam/presentation/screens/notification_screen.dart';
 import 'package:gammal_tech_final_exam/presentation/screens/practice_screen.dart';
 import 'package:gammal_tech_final_exam/presentation/screens/quiz_page.dart';
+import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -193,38 +193,10 @@ class HomeScreen extends StatelessWidget {
                                     BlocProvider.of<ExamsBloc>(context).add(
                                         FetchQuestionsEvent(
                                             topic.id, topic.duration));
-                                    Navigator.of(context).push(
-                                      PageRouteBuilder(
-                                        transitionDuration:
-                                            const Duration(milliseconds: 140),
-                                        transitionsBuilder: (context,
-                                            firstAnimation,
-                                            secondaryAnimation,
-                                            child) {
-                                          return SlideTransition(
-                                            position: Tween<Offset>(
-                                              begin: const Offset(1.0, 0.0),
-                                              end: Offset.zero,
-                                            ).animate(firstAnimation),
-                                            child: child,
-                                          );
-                                        },
-                                        pageBuilder: (context, firstAnimation,
-                                                secondaryAnimation) =>
-                                            MultiBlocProvider(providers: [
-                                          BlocProvider.value(
-                                              value: BlocProvider.of<ExamsBloc>(
-                                                  context)),
-                                          BlocProvider.value(
-                                            value: BlocProvider.of<TopicsBloc>(
-                                                context),
-                                          ),
-                                          BlocProvider.value(
-                                            value: BlocProvider.of<UserBloc>(
-                                                context),
-                                          )
-                                        ], child: QuizPage()),
-                                      ),
+                                    PersistentNavBarNavigator.pushNewScreen(
+                                      context,
+                                      screen: QuizPage(),
+                                      withNavBar: false,
                                     );
                                   },
                                 ),
@@ -239,7 +211,6 @@ class HomeScreen extends StatelessWidget {
                   }
                 }),
                 const SizedBox(height: 24),
-                // const SizedBox(height: 12),
                 BlocBuilder<CoursesBloc, CoursesState>(
                     builder: (context, state) {
                   switch (state.suggestedCoursesRequestState) {
@@ -332,7 +303,6 @@ class HomeScreen extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: NavBar(currentIndex: 0),
     );
   }
 }
