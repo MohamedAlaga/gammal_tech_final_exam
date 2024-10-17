@@ -28,6 +28,8 @@ class LeaderboardScreen extends StatelessWidget {
         child: BlocBuilder<UserBloc, UserState>(
           builder: (context, state) => MainAppBar(
             rightIcon: Icons.notifications_none,
+            appBarrColor: Colors.white,
+            rightIconColor: const Color(0xff094546),
             onNotificationPressed: () {
               Navigator.push(
                 context,

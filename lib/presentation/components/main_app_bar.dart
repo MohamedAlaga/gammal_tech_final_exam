@@ -10,24 +10,30 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
     required this.rightIcon,
     required this.onNotificationPressed,
     required this.image,
+    required this.appBarrColor,
+    required this.rightIconColor,
   });
 
   final String image;
   final IconData rightIcon;
   final VoidCallback onNotificationPressed;
+  final Color appBarrColor;
+  final Color rightIconColor;
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      elevation: 0,
       surfaceTintColor: Colors.transparent,
-      backgroundColor: Colors.white,
+      backgroundColor: appBarrColor,
       toolbarHeight: 44,
       leadingWidth: 44,
       leading: Padding(
         padding: const EdgeInsets.only(left: 12, top: 12),
         child: GestureDetector(
           onTap: () {
-            BlocProvider.of<UserProfileBloc>(context).add(GetUserProfileEvent());
+            BlocProvider.of<UserProfileBloc>(context)
+                .add(GetUserProfileEvent());
             Navigator.of(context).push(
               PageRouteBuilder(
                 transitionDuration: const Duration(milliseconds: 140),
@@ -52,7 +58,7 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
           },
           child: CircleAvatar(
             backgroundImage: _getImageProvider(image),
-            backgroundColor: Colors.white,
+            backgroundColor: appBarrColor,
           ),
         ),
       ),
@@ -62,7 +68,7 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
           child: IconButton(
             icon: Icon(
               rightIcon,
-              color: const Color(0xff094546),
+              color: rightIconColor,
             ),
             onPressed: onNotificationPressed,
           ),

@@ -30,7 +30,7 @@ class MemberCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(
-              width: 32,
+              width: 48,
               child: Text(
                 '$rank',
                 textAlign: TextAlign.center,
