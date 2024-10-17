@@ -5,45 +5,30 @@ class TopMemberCard extends StatelessWidget {
     Key? key,
     required this.rank,
     required this.name,
-    required this.college,
+    required this.state,
     required this.points,
     required this.rankImage,
-    required this.image,
   }) : super(key: key);
 
   final int rank;
   final String rankImage;
-  final String image;
   final String name;
-  final String college;
+  final String state;
   final int points;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Stack(
-          children: [
-            CircleAvatar(
-              radius: rank == 1 ? 36 : 32,
-              backgroundImage: _getImageProvider(image),
-              backgroundColor: Colors.grey,
+        CircleAvatar(
+          radius: 30,
+          backgroundColor: const Color(0xFFFfffff),
+          backgroundImage: AssetImage(rankImage),
+          child: Container(
+            decoration: const BoxDecoration(
+              shape: BoxShape.circle,
             ),
-            Positioned(
-              bottom: 0,
-              right: 0,
-              child: CircleAvatar(
-                radius: 12,
-                backgroundColor: const Color(0xFFFfffff),
-                backgroundImage: AssetImage(rankImage),
-                child: Container(
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                  ),
-                ),
-              ),
-            ),
-          ],
+          ),
         ),
         SizedBox(height: 4),
         Text(
@@ -55,7 +40,7 @@ class TopMemberCard extends StatelessWidget {
           ),
         ),
         Text(
-          college,
+          state,
           style: TextStyle(
             color: Colors.black.withOpacity(0.8),
             fontSize: rank == 1 ? 16 : 12,
@@ -69,7 +54,7 @@ class TopMemberCard extends StatelessWidget {
             fontSize: rank == 1 ? 18 : 14,
           ),
         ),
-        SizedBox(height: rank == 1 ? 24 : (rank == 2 ? 12 : 0)),
+        SizedBox(height: rank == 1 ? 24 : 0),
       ],
     );
   }

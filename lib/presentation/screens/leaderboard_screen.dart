@@ -107,36 +107,28 @@ class LeaderboardScreen extends StatelessWidget {
   Widget _buildLeaderboard(List<UserRank> userRankings) {
     return Column(
       children: [
-        const Text(
-          'Ranking',
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-        ),
-        const SizedBox(height: 12),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             TopMemberCard(
               rank: 2,
               name: userRankings[2].name,
-              college: userRankings[2].college,
+              state: userRankings[2].state,
               points: userRankings[2].points,
-              image: userRankings[2].imageUrl,
               rankImage: 'assets/rank_three.png',
             ),
             TopMemberCard(
               rank: 1,
               name: userRankings[0].name,
-              college: userRankings[0].college,
+              state: userRankings[0].state,
               points: userRankings[0].points,
-              image: userRankings[0].imageUrl,
               rankImage: 'assets/rank_one.png',
             ),
             TopMemberCard(
               rank: 3,
               name: userRankings[1].name,
-              college: userRankings[1].college,
+              state: userRankings[1].state,
               points: userRankings[1].points,
-              image: userRankings[1].imageUrl,
               rankImage: 'assets/rank_two.png',
             ),
           ],
@@ -152,9 +144,8 @@ class LeaderboardScreen extends StatelessWidget {
               return MemberCard(
                 rank: rank,
                 name: userRanking.name,
-                college: userRanking.college,
                 points: userRanking.points,
-                image: userRanking.imageUrl,
+                state: userRanking.state,
               );
             },
           ),
