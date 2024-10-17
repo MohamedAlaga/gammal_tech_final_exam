@@ -5,15 +5,13 @@ class MemberCard extends StatelessWidget {
     super.key,
     required this.rank,
     required this.name,
-    required this.college,
+    required this.state,
     required this.points,
-    required this.image,
   });
 
   final int rank;
   final String name;
-  final String college;
-  final String image;
+  final String state;
   final int points;
 
   @override
@@ -21,8 +19,8 @@ class MemberCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 6),
       child: Container(
-        height: 60,
-        padding: const EdgeInsets.only(right: 12, left: 6),
+        height: 55,
+        padding: const EdgeInsets.only(right: 6, left: 6),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(8),
@@ -32,7 +30,7 @@ class MemberCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(
-              width: 32,
+              width: 48,
               child: Text(
                 '$rank',
                 textAlign: TextAlign.center,
@@ -44,13 +42,7 @@ class MemberCard extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(width: 3),
-            CircleAvatar(
-              radius: 24,
-              backgroundImage: _getImageProvider(image),
-              backgroundColor: Colors.grey,
-            ),
-            const SizedBox(width: 6),
+            const SizedBox(width: 12),
             Expanded(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -62,13 +54,13 @@ class MemberCard extends StatelessWidget {
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                   Text(
-                    college,
+                    state,
                     overflow: TextOverflow.ellipsis,
                   ),
                 ],
               ),
             ),
-            const SizedBox(width: 8), // Add some space before the points text
+            const SizedBox(width: 6),
             Text(
               '$points',
               style: const TextStyle(fontWeight: FontWeight.bold),
@@ -77,17 +69,5 @@ class MemberCard extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  ImageProvider _getImageProvider(String imageUrl) {
-    try {
-      if (imageUrl.isNotEmpty) {
-        return NetworkImage(imageUrl);
-      } else {
-        return const AssetImage('assets/user_photo.png');
-      }
-    } catch (e) {
-      return const AssetImage('assets/user_photo.png');
-    }
   }
 }

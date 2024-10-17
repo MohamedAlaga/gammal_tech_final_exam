@@ -122,7 +122,7 @@ class NavBar extends StatelessWidget {
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.leaderboard),
-          label: 'LeaderBoard',
+          label: 'Rank',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.monetization_on),
