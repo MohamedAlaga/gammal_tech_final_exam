@@ -17,8 +17,6 @@ class RemoteUserRankDataSource extends BaseRemoteUserRankDataSource {
   Future<List<UserRankModel>> getUserRankings() async {
     try {
       var result = await http.get(Uri.parse("${baseUrl}users/rankings"));
-      print("Response Body: ${result.body}");
-      print('statusCode: ${result.statusCode}');
       if (result.statusCode == 200) {
         List<UserRankModel> rankings = [];
         var jsonResponse = jsonDecode(result.body);
@@ -46,7 +44,6 @@ class RemoteUserRankDataSource extends BaseRemoteUserRankDataSource {
         );
       }
     } catch (e) {
-      print('Error: $e');
       throw ServerException(
         errorMessageModel: ErrorMessageModel(
           message: "Error occurred while getting user rankings: $e",

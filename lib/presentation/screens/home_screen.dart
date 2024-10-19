@@ -1,17 +1,15 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gammal_tech_final_exam/presentation/components/welcome_info_new.dart';
 import 'package:gammal_tech_final_exam/presentation/screens/practice_screen.dart';
 import 'package:gammal_tech_final_exam/presentation/screens/quiz_page.dart';
-
 import '../../core/utils/enums.dart';
 import '../../domain/entities/course.dart';
 import '../components/card_exam.dart';
-import '../components/card_home_info.dart';
 import '../components/course_card.dart';
 import '../components/custom_button.dart';
 import '../components/main_app_bar.dart';
-import '../components/nav_bar.dart';
 import '../components/shimmers.dart';
 import '../components/source_sans_text.dart';
 import '../controller/courses_bloc.dart';
@@ -69,67 +67,22 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
       body: SingleChildScrollView(
-        child: Stack(
+        child: Column(
           children: [
-            Container(
-              height: 150,
-              color: const Color(0xff094546),
+            BlocBuilder<UserBloc, UserState>(
+              builder: (context, state) => WelcomeInfoNew(
+                  name: state.welcomeData.title,
+                  card1: state.welcomeData.solvedExams,
+                  card2Text1: state.welcomeData.rank,
+                  card2Text2: state.welcomeData.totalRanks,
+                  card3: state.welcomeData.points),
             ),
+            const SizedBox(height: 24),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+              padding: const EdgeInsets.symmetric(horizontal: 24),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  BlocBuilder<UserBloc, UserState>(
-                    builder: (context, state) => Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Good Evening, ${state.welcomeData.title} !',
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 24,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Text(
-                              "Let's start Exam!",
-                              style: TextStyle(
-                                color: Colors.white.withOpacity(0.8),
-                                fontSize: 18,
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 24),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            InfoCard(
-                              number: state.welcomeData.solvedExams,
-                              text: "Solved exam",
-                              circleBorderColor: const Color(0xffFF904D),
-                            ),
-                            const SizedBox(width: 6),
-                            InfoCard(
-                              number: state.welcomeData.rank,
-                              text: "out of ${state.welcomeData.totalRanks}",
-                              circleBorderColor: Colors.yellow,
-                            ),
-                            const SizedBox(width: 6),
-                            InfoCard(
-                              number: state.welcomeData.points,
-                              text: "Points",
-                              circleBorderColor: const Color(0xffFF904D),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 24),
                   CustomButton(
                     text: 'Practice',
                     textColor: Colors.white,
@@ -165,8 +118,7 @@ class HomeScreen extends StatelessWidget {
                     },
                   ),
                   const SizedBox(height: 24),
-                  BlocBuilder<TopicsBloc, TopicsState>(
-                      builder: (context, state) {
+                  BlocBuilder<TopicsBloc, TopicsState>(builder: (context, state) {
                     switch (state.sugesstedRequestState) {
                       case RequestState.loading:
                         return const Column(children: [
@@ -197,8 +149,8 @@ class HomeScreen extends StatelessWidget {
                                       Navigator.push(
                                           context,
                                           PageRouteBuilder(
-                                            transitionDuration: const Duration(
-                                                milliseconds: 140),
+                                            transitionDuration:
+                                                const Duration(milliseconds: 140),
                                             transitionsBuilder: (context,
                                                 firstAnimation,
                                                 secondaryAnimation,
@@ -211,8 +163,7 @@ class HomeScreen extends StatelessWidget {
                                                 child: child,
                                               );
                                             },
-                                            pageBuilder: (context,
-                                                    firstAnimation,
+                                            pageBuilder: (context, firstAnimation,
                                                     secondaryAnimation) =>
                                                 MultiBlocProvider(
                                               providers: [
@@ -220,8 +171,9 @@ class HomeScreen extends StatelessWidget {
                                                     value: BlocProvider.of<
                                                         ExamsBloc>(context)),
                                                 BlocProvider.value(
-                                                  value: BlocProvider.of<
-                                                      TopicsBloc>(context),
+                                                  value:
+                                                      BlocProvider.of<TopicsBloc>(
+                                                          context),
                                                 ),
                                                 BlocProvider.value(
                                                   value:
@@ -244,40 +196,10 @@ class HomeScreen extends StatelessWidget {
                                       BlocProvider.of<ExamsBloc>(context).add(
                                           FetchQuestionsEvent(
                                               topic.id, topic.duration));
-                                      Navigator.of(context).push(
-                                        PageRouteBuilder(
-                                          transitionDuration:
-                                              const Duration(milliseconds: 140),
-                                          transitionsBuilder: (context,
-                                              firstAnimation,
-                                              secondaryAnimation,
-                                              child) {
-                                            return SlideTransition(
-                                              position: Tween<Offset>(
-                                                begin: const Offset(1.0, 0.0),
-                                                end: Offset.zero,
-                                              ).animate(firstAnimation),
-                                              child: child,
-                                            );
-                                          },
-                                          pageBuilder: (context, firstAnimation,
-                                                  secondaryAnimation) =>
-                                              MultiBlocProvider(providers: [
-                                            BlocProvider.value(
-                                                value:
-                                                    BlocProvider.of<ExamsBloc>(
-                                                        context)),
-                                            BlocProvider.value(
-                                              value:
-                                                  BlocProvider.of<TopicsBloc>(
-                                                      context),
-                                            ),
-                                            BlocProvider.value(
-                                              value: BlocProvider.of<UserBloc>(
-                                                  context),
-                                            )
-                                          ], child: QuizPage()),
-                                        ),
+                                      PersistentNavBarNavigator.pushNewScreen(
+                                        context,
+                                        screen: QuizPage(),
+                                        withNavBar: false,
                                       );
                                     },
                                   ),
@@ -331,15 +253,14 @@ class HomeScreen extends StatelessWidget {
                                     onTap: () {
                                       BlocProvider.of<CoursesBloc>(context)
                                           .add(EnrollToCourseEvent(course.id));
-
+              
                                       BlocProvider.of<TopicsBloc>(context).add(
-                                          FetchTopicsEvent(
-                                              courseId: course.id));
+                                          FetchTopicsEvent(courseId: course.id));
                                       Navigator.push(
                                           context,
                                           PageRouteBuilder(
-                                            transitionDuration: const Duration(
-                                                milliseconds: 140),
+                                            transitionDuration:
+                                                const Duration(milliseconds: 140),
                                             transitionsBuilder: (context,
                                                 firstAnimation,
                                                 secondaryAnimation,
@@ -352,8 +273,7 @@ class HomeScreen extends StatelessWidget {
                                                 child: child,
                                               );
                                             },
-                                            pageBuilder: (context,
-                                                    firstAnimation,
+                                            pageBuilder: (context, firstAnimation,
                                                     secondaryAnimation) =>
                                                 MultiBlocProvider(
                                               providers: [
@@ -361,8 +281,9 @@ class HomeScreen extends StatelessWidget {
                                                     value: BlocProvider.of<
                                                         CoursesBloc>(context)),
                                                 BlocProvider.value(
-                                                  value: BlocProvider.of<
-                                                      TopicsBloc>(context),
+                                                  value:
+                                                      BlocProvider.of<TopicsBloc>(
+                                                          context),
                                                 )
                                               ],
                                               child: const PracticeScreen(),

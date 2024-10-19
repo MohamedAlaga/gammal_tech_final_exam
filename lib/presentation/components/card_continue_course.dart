@@ -52,7 +52,7 @@ class CardContinueCourse extends StatelessWidget {
                     child: Text(
                       quizzes,
                       style: const TextStyle(
-                        fontSize: 16,
+                        fontSize: 18,
                         fontWeight: FontWeight.bold,
                         fontFamily: 'Quicksand',
                         color: Colors.white,
@@ -65,7 +65,7 @@ class CardContinueCourse extends StatelessWidget {
                     child: Text(
                       courseTitle,
                       style: const TextStyle(
-                          fontSize: 22,
+                          fontSize: 18,
                           fontWeight: FontWeight.bold,
                           fontFamily: 'SourceSans3',
                           color: Color(0xff094546)),
@@ -128,7 +128,7 @@ class CardContinueCourse extends StatelessWidget {
               borderColor: const Color(0xff094546),
               width: double.infinity,
               borderRadius: 3,
-              fontSize: 16,
+              fontSize: 18,
               onTap: onTap ?? () {},
             ),
           ),

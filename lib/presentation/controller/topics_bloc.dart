@@ -25,7 +25,6 @@ class TopicsBloc extends Bloc<TopicsEvents, TopicsState> {
     });
     on<FetchSuggestedTopicsEvent>((event, emit) async {
       final result = await getUpNextTopicDataUsecase.execute();
-      print(result);
       result.fold(
           (l) => emit(state.copyWith(
               sugesstedRequestState: RequestState.error,
@@ -41,7 +40,6 @@ class TopicsBloc extends Bloc<TopicsEvents, TopicsState> {
           tempList.where((element) => element.isCompleted == false).first;
       int index =
           state.topics.indexWhere((element) => element.isCompleted == false);
-      print(index);
       if (index != -1) {
         state.topics[index] = TopicModel(
             id: nextTopic.id,
@@ -56,7 +54,6 @@ class TopicsBloc extends Bloc<TopicsEvents, TopicsState> {
             quizCount: nextTopic.quizCount,
             isCompleted: true);
       }
-      print(index);
       index =
           state.topics.indexWhere((element) => element.isCompleted == false);
     });

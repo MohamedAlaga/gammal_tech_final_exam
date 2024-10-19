@@ -404,7 +404,7 @@ class MemberCardShimmer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric( vertical: 6),
+      padding: const EdgeInsets.symmetric(vertical: 6),
       child: Shimmer.fromColors(
         baseColor: const Color.fromARGB(136, 9, 69, 70),
         highlightColor: const Color(0xffF4F5F7),
@@ -426,7 +426,7 @@ class MemberCardShimmer extends StatelessWidget {
               const SizedBox(width: 3),
               const CircleAvatar(
                 radius: 24,
-                backgroundColor: const Color(0xffFF904D),
+                backgroundColor: Color(0xffFF904D),
               ),
               const SizedBox(width: 6),
               Expanded(

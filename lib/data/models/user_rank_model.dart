@@ -2,14 +2,10 @@ import 'package:gammal_tech_final_exam/domain/entities/user_rank.dart';
 
 class UserRankModel extends UserRank {
   const UserRankModel({
-    required String name,
-    required int points,
-    required String state,
-  }) : super(
-          name: name,
-          points: points,
-          state: state,
-        );
+    required super.name,
+    required super.points,
+    required super.state,
+  });
 
   factory UserRankModel.fromJson(Map<String, dynamic> json) {
     return UserRankModel(

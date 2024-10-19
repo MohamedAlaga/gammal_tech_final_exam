@@ -4,7 +4,7 @@ import 'custom_button.dart';
 
 class PricingCard extends StatelessWidget {
   const PricingCard({
-    Key? key,
+    super.key,
     required this.title,
     required this.price,
     required this.features,
@@ -13,7 +13,7 @@ class PricingCard extends StatelessWidget {
     required this.textColor,
     required this.buttonText,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   final String title;
   final String price;
@@ -30,7 +30,7 @@ class PricingCard extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 6),
       child: Container(
         width: MediaQuery.of(context).size.width,
-        padding: EdgeInsets.all(12),
+        padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
           color: cardColor,
           borderRadius: BorderRadius.circular(8),
@@ -47,7 +47,7 @@ class PricingCard extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(height: 6),
+            const SizedBox(height: 6),
             Text(
               price,
               style: TextStyle(
@@ -56,12 +56,12 @@ class PricingCard extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(height: 6),
+            const SizedBox(height: 6),
             Divider(
               color: textColor,
               thickness: 1,
             ),
-            SizedBox(height: 6),
+            const SizedBox(height: 6),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: features.map((feature) {
@@ -69,8 +69,8 @@ class PricingCard extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(vertical: 4.0),
                   child: Row(
                     children: [
-                      Icon(Icons.check_circle, color: Colors.green, size: 20),
-                      SizedBox(width: 6),
+                      const Icon(Icons.check_circle, color: Colors.green, size: 20),
+                      const SizedBox(width: 6),
                       Text(
                         feature,
                         style: TextStyle(
@@ -83,7 +83,7 @@ class PricingCard extends StatelessWidget {
                 );
               }).toList(),
             ),
-            SizedBox(height: 6),
+            const SizedBox(height: 6),
             CustomButton(
               text: 'Start',
               textColor: borderColor,

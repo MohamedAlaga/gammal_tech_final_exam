@@ -56,7 +56,7 @@ List<PersistentBottomNavBarItem> _navBarsItems() {
     ),
     PersistentBottomNavBarItem(
       icon: const Icon(Icons.leaderboard),
-      title: ("LeaderBoard"),
+      title: ("Rank"),
       activeColorPrimary: const Color(0xffFF904D),
       inactiveColorPrimary: const Color(0xff094546),
     ),

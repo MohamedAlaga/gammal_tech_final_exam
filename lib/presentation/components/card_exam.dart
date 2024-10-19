@@ -71,7 +71,7 @@ class CardExam extends StatelessWidget {
                     Text(
                       time,
                       style: const TextStyle(
-                        fontSize: 20,
+                        fontSize: 18,
                         fontFamily: 'Quicksand',
                         fontWeight: FontWeight.w600,
                         color: Color(0xff094546),
@@ -93,7 +93,7 @@ class CardExam extends StatelessWidget {
                     Text(
                       courseTitle,
                       style: const TextStyle(
-                        fontSize: 22,
+                        fontSize: 20,
                         fontWeight: FontWeight.w700,
                         fontFamily: 'SourceSans3',
                         color: Color(0xff094546),
@@ -103,7 +103,7 @@ class CardExam extends StatelessWidget {
                     Text(
                       subtitle,
                       style: TextStyle(
-                        fontSize: 14,
+                        fontSize: 16,
                         fontFamily: 'SourceSans3',
                         color: const Color(0xff094546).withOpacity(0.6),
                       ),

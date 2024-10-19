@@ -61,7 +61,7 @@ class CardCanNotStartExam extends StatelessWidget {
                     child: Text(
                       courseTitle,
                       style: TextStyle(
-                        fontSize: 20,
+                        fontSize: 18,
                         fontWeight: FontWeight.w600,
                         fontFamily: fontFamily,
                         color: Colors.white,

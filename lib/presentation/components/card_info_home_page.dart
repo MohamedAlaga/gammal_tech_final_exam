@@ -88,7 +88,7 @@ class CardInfoHomePage extends StatelessWidget {
                   Container(
                     width: 2,
                     height: 48,
-                    color: Color(0xFFD3D3D3),
+                    color: const Color(0xFFD3D3D3),
                   ),
                   Column(
                     children: [
@@ -107,7 +107,7 @@ class CardInfoHomePage extends StatelessWidget {
                   Container(
                     width: 2,
                     height: 48,
-                    color: Color(0xFFD3D3D3),
+                    color: const Color(0xFFD3D3D3),
                   ),
                   Column(children: [
                     SourceSansText(

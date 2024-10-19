@@ -16,7 +16,8 @@ class RemoteHistoryDataSource extends BaseRemoteHistoryDataSource {
   Future<List<UserLogModel>> getHistoryList() async {
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      var result = await http.get(Uri.parse("${baseUrl}quiz/user/${prefs.getString("userId").toString()}"));
+      var result = await http.get(Uri.parse(
+          "${baseUrl}quiz/user/${prefs.getString("userId").toString()}"));
       if (result.statusCode == 200) {
         List<UserLogModel> userLogList = [];
         for (var item in jsonDecode(result.body)) {

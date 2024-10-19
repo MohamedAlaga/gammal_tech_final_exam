@@ -14,10 +14,9 @@ import '../screens/user_history_screen.dart';
 class NavBar extends StatelessWidget {
   final int currentIndex;
 
-  const NavBar({
-    Key? key,
+  const NavBar({super.key, 
     required this.currentIndex,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +33,7 @@ class NavBar extends StatelessWidget {
           case 0:
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (context) => HomeScreen()),
+              MaterialPageRoute(builder: (context) => const HomeScreen()),
             );
             break;
           case 1:

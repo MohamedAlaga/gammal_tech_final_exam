@@ -5,7 +5,8 @@ class InfoCard extends StatelessWidget {
   final String text;
   final Color circleBorderColor;
 
-  InfoCard({
+  const InfoCard({
+    super.key,
     required this.number,
     required this.text,
     this.circleBorderColor = Colors.black,
@@ -42,7 +43,7 @@ class InfoCard extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 6),
+            const SizedBox(height: 6),
             Text(
               text,
               style:

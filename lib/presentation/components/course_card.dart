@@ -60,7 +60,7 @@ class CourseCard extends StatelessWidget {
                           horizontal: 12, vertical: 6),
                       child: Text(
                         quizzes,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
                           fontFamily: 'Quicksand',

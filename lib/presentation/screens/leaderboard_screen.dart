@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gammal_tech_final_exam/core/utils/enums.dart';
-import 'package:gammal_tech_final_exam/presentation/components/main_app_bar.dart';
 import 'package:gammal_tech_final_exam/presentation/components/shimmers.dart';
-import 'package:gammal_tech_final_exam/presentation/controller/user_bloc.dart';
-import 'package:gammal_tech_final_exam/presentation/controller/user_state.dart';
-import 'package:gammal_tech_final_exam/presentation/screens/notification_screen.dart';
 
 import '../../domain/entities/user_rank.dart';
 import '../components/member_card.dart';
@@ -22,56 +18,27 @@ class LeaderboardScreen extends StatelessWidget {
     BlocProvider.of<UserRankBloc>(context).add(GetUserRankEvent());
 
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(52),
-        child: BlocBuilder<UserBloc, UserState>(
-          builder: (context, state) => MainAppBar(
-            rightIcon: Icons.notifications_none,
-            appBarrColor: Colors.white,
-            rightIconColor: const Color(0xff094546),
-            onNotificationPressed: () {
-              Navigator.push(
-                context,
-                PageRouteBuilder(
-                  transitionDuration: const Duration(milliseconds: 140),
-                  transitionsBuilder:
-                      (context, firstAnimation, secondaryAnimation, child) {
-                    return SlideTransition(
-                      position: Tween<Offset>(
-                        begin: const Offset(1.0, 0.0),
-                        end: Offset.zero,
-                      ).animate(firstAnimation),
-                      child: child,
-                    );
-                  },
-                  pageBuilder: (context, firstAnimation, secondaryAnimation) =>
-                      const NotificationScreen(),
-                ),
-              );
-            },
-            image: state.welcomeData.imageUrl,
-          ),
-        ),
-      ),
       backgroundColor: Colors.white,
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-        child: BlocBuilder<UserRankBloc, UserRankState>(
-          builder: (context, state) {
-            switch (state.userRankingsRequestState) {
-              case RequestState.loading:
-                return _buildLoadingState();
-              case RequestState.loaded:
-                final userRankings = state.userRankings;
-                return _buildLeaderboard(userRankings);
-              case RequestState.error:
-                return Center(
-                  child: Text(state.userRankingsErrorMessage),
-                );
-              default:
-                return const SizedBox();
-            }
-          },
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+          child: BlocBuilder<UserRankBloc, UserRankState>(
+            builder: (context, state) {
+              switch (state.userRankingsRequestState) {
+                case RequestState.loading:
+                  return _buildLoadingState();
+                case RequestState.loaded:
+                  final userRankings = state.userRankings;
+                  return _buildLeaderboard(userRankings);
+                case RequestState.error:
+                  return Center(
+                    child: Text(state.userRankingsErrorMessage),
+                  );
+                default:
+                  return const SizedBox();
+              }
+            },
+          ),
         ),
       ),
     );

@@ -60,7 +60,7 @@ class CardFinishExamCourse extends StatelessWidget {
                       child: Text(
                         courseTitle,
                         style: const TextStyle(
-                            fontSize: 20,
+                            fontSize: 18,
                             fontWeight: FontWeight.w600,
                             fontFamily: 'SourceSans3',
                             color: Color(0xff094546)),

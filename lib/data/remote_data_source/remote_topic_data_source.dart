@@ -122,8 +122,6 @@ class RemoteTopicDataSource extends BaseRemoteTopicDataSource {
         }
         return questions;
       } else {
-        print(result.body);
-        print(result.statusCode);
         throw ServerException(
             errorMessageModel: ErrorMessageModel(
                 message: "error accured getting topic questions",
@@ -131,7 +129,6 @@ class RemoteTopicDataSource extends BaseRemoteTopicDataSource {
                 success: false));
       }
     } catch (e) {
-      print(e.toString());
       throw const ServerException(
           errorMessageModel: ErrorMessageModel(
               message: "error accured getting topic questions",

@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 
 class TopMemberCard extends StatelessWidget {
   const TopMemberCard({
-    Key? key,
+    super.key,
     required this.rank,
     required this.name,
     required this.state,
     required this.points,
     required this.rankImage,
-  }) : super(key: key);
+  });
 
   final int rank;
   final String rankImage;
@@ -30,7 +30,7 @@ class TopMemberCard extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(height: 4),
+        const SizedBox(height: 4),
         Text(
           name,
           style: TextStyle(

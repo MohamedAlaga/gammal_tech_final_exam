@@ -8,14 +8,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gammal_tech_final_exam/core/services/fawry_payment.dart';
 import 'package:gammal_tech_final_exam/core/utils/bill_items.dart';
-import 'package:gammal_tech_final_exam/presentation/components/main_app_bar.dart';
 import 'package:gammal_tech_final_exam/presentation/components/pricing_card.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/payment_bloc.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/payment_events.dart';
-import 'package:gammal_tech_final_exam/presentation/screens/notification_screen.dart';
-
-import '../controller/user_bloc.dart';
-import '../controller/user_state.dart';
 
 class PricingScreen extends StatefulWidget {
   const PricingScreen({super.key});
@@ -69,72 +64,55 @@ class _PricingScreenState extends State<PricingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(52),
-        child: BlocBuilder<UserBloc, UserState>(
-          builder: (context, state) => MainAppBar(
-            rightIcon: Icons.notifications_none,
-            appBarrColor: Colors.white,
-            rightIconColor: const Color(0xff094546),
-            onNotificationPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const NotificationScreen(),
-                ),
-              );
-            },
-            image: state.welcomeData.imageUrl,
-          ),
-        ),
-      ),
       backgroundColor: Colors.white,
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 18),
-          child: Center(
-            child: Column(
-              children: [
-                PricingCard(
-                  title: 'Economy',
-                  price: '50EP',
-                  features: ['15 Attemps', '1 Month validity'],
-                  cardColor: Colors.white,
-                  textColor: Color(0xff094546),
-                  borderColor: Color(0xffFF904D),
-                  buttonText: 'Start',
-                  onTap: () async {
-                    BlocProvider.of<PaymentBloc>(context)
-                        .add(StartPaymentEvent([economy]));
-                  },
-                ),
-                PricingCard(
-                  title: 'Gold',
-                  price: '150EP',
-                  features: ['40 Attemps', '2 Month validity'],
-                  cardColor: Colors.white,
-                  textColor: Color(0xff094546),
-                  borderColor: Color(0xffFF904D),
-                  buttonText: 'Start',
-                  onTap: () async {
-                    BlocProvider.of<PaymentBloc>(context)
-                        .add(StartPaymentEvent([gold]));
-                  },
-                ),
-                PricingCard(
-                  title: 'Premium',
-                  price: '300EP',
-                  features: ['100 Attemps', '2 Month validity'],
-                  cardColor: Colors.white,
-                  textColor: Color(0xff094546),
-                  borderColor: Color(0xffFF904D),
-                  buttonText: 'Start',
-                  onTap: () async {
-                    BlocProvider.of<PaymentBloc>(context)
-                        .add(StartPaymentEvent([premium]));
-                  },
-                )
-              ],
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 18),
+            child: Center(
+              child: Column(
+                children: [
+                  PricingCard(
+                    title: 'Economy',
+                    price: '50EP',
+                    features: const ['15 Attemps', '1 Month validity'],
+                    cardColor: Colors.white,
+                    textColor: const Color(0xff094546),
+                    borderColor: const Color(0xffFF904D),
+                    buttonText: 'Start',
+                    onTap: () async {
+                      BlocProvider.of<PaymentBloc>(context)
+                          .add(StartPaymentEvent([economy]));
+                    },
+                  ),
+                  PricingCard(
+                    title: 'Gold',
+                    price: '150EP',
+                    features: const ['40 Attemps', '2 Month validity'],
+                    cardColor: Colors.white,
+                    textColor: const Color(0xff094546),
+                    borderColor: const Color(0xffFF904D),
+                    buttonText: 'Start',
+                    onTap: () async {
+                      BlocProvider.of<PaymentBloc>(context)
+                          .add(StartPaymentEvent([gold]));
+                    },
+                  ),
+                  PricingCard(
+                    title: 'Premium',
+                    price: '300EP',
+                    features: const ['100 Attemps', '2 Month validity'],
+                    cardColor: Colors.white,
+                    textColor: const Color(0xff094546),
+                    borderColor: const Color(0xffFF904D),
+                    buttonText: 'Start',
+                    onTap: () async {
+                      BlocProvider.of<PaymentBloc>(context)
+                          .add(StartPaymentEvent([premium]));
+                    },
+                  )
+                ],
+              ),
             ),
           ),
         ),
