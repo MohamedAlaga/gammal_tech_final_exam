@@ -9,7 +9,8 @@ import 'package:gammal_tech_final_exam/presentation/controller/user_bloc.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/user_profile_bloc.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/user_profile_state.dart';
 import 'package:gammal_tech_final_exam/presentation/screens/edit_user_profile_screen.dart';
-import 'package:gammal_tech_final_exam/presentation/screens/login_screen.dart';
+import 'package:gammal_tech_final_exam/presentation/screens/main_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../components/sub_app_bar.dart';
 import '../controller/user_events.dart';
@@ -164,16 +165,20 @@ class UserProfileScreen extends StatelessWidget {
                         buttonColor: Colors.red,
                         borderColor: Colors.red,
                         borderRadius: 8,
-                        onTap: () {
+                        onTap: () async {
+                          SharedPreferences prefs =
+                              await SharedPreferences.getInstance();
+                          await prefs.remove("token");
+                          await prefs.remove("userId");
+                          BlocProvider.of<UserBloc>(context).add(
+                            ValidateUserEvent(),
+                          );
                           Navigator.pushAndRemoveUntil<dynamic>(
                             context,
                             MaterialPageRoute<dynamic>(
-                              builder: (BuildContext context) => LoginScreen(),
+                              builder: (BuildContext context) => MainScreen(),
                             ),
                             (route) => false,
-                          );
-                          BlocProvider.of<UserBloc>(context).add(
-                            ValidateUserEvent(),
                           );
                         },
                         fontSize: 18,
