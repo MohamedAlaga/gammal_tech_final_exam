@@ -16,7 +16,7 @@ class CourseCard extends StatelessWidget {
     this.fontFamily = 'SourceSans3',
   });
 
-  final String quizzes;
+  final int quizzes;
   final String courseTitle;
   final String subtitle;
   final String image;
@@ -28,132 +28,136 @@ class CourseCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      shadowColor: Colors.transparent,
-      color: Colors.white,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8),
-        side: const BorderSide(
-          color: Color(0xffE3E5E8),
-          width: 1,
-        ),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(1),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    decoration: const BoxDecoration(
-                      color: Color(0xffFF904D),
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(8),
-                        bottomRight: Radius.circular(8),
-                      ),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 12, vertical: 6),
-                      child: Text(
-                        quizzes,
-                        style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                          fontFamily: 'Quicksand',
-                          color: Colors.white,
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12),
+      child: GestureDetector(
+        onTap: onTap,
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(color: const Color(0xffE3E5E8), width: 1),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(1),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        decoration: const BoxDecoration(
+                          color: Color(0xffFF904D),
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(8),
+                            bottomRight: Radius.circular(8),
+                          ),
                         ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 12),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          courseTitle,
-                          style: TextStyle(
-                              fontSize: 22,
-                              fontWeight: FontWeight.bold,
-                              fontFamily: fontFamily,
-                              color: const Color(0xff094546)),
-                        ),
-                        Text(
-                          subtitle,
-                          style: TextStyle(
-                              fontFamily: fontFamily,
-                              color: const Color(0xff094546).withOpacity(0.6)),
-                        ),
-                        const SizedBox(height: 10),
-                        Row(
-                          children: [
-                            RatingBar.builder(
-                              initialRating: rating,
-                              minRating: 1,
-                              direction: Axis.horizontal,
-                              allowHalfRating: true,
-                              itemCount: 5,
-                              itemSize: 20.0,
-                              ignoreGestures: true,
-                              itemBuilder: (context, index) => Icon(
-                                Icons.star,
-                                color: index < rating
-                                    ? Colors.amber
-                                    : const Color(0xffEBEBEC),
-                              ),
-                              onRatingUpdate: (rating) {},
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 12, vertical: 6),
+                          child: Text(
+                            "$quizzes Quizzes",
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                              fontFamily: 'Quicksand',
+                              color: Colors.white,
                             ),
-                            const SizedBox(width: 5),
-                            if (ratingCount != null)
-                              Text(
-                                '($ratingCount)',
-                                style: TextStyle(
-                                    fontFamily: fontFamily,
-                                    color: const Color(0xff094546)
-                                        .withOpacity(0.6)),
-                              ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 12),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              courseTitle,
+                              style: TextStyle(
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: fontFamily,
+                                  color: const Color(0xff094546)),
+                            ),
+                            Text(
+                              subtitle,
+                              style: TextStyle(
+                                  fontFamily: fontFamily,
+                                  color:
+                                      const Color(0xff094546).withOpacity(0.6)),
+                            ),
+                            const SizedBox(height: 10),
+                            Row(
+                              children: [
+                                RatingBar.builder(
+                                  initialRating: rating,
+                                  minRating: 1,
+                                  direction: Axis.horizontal,
+                                  allowHalfRating: true,
+                                  itemCount: 5,
+                                  itemSize: 20.0,
+                                  ignoreGestures: true,
+                                  itemBuilder: (context, index) => Icon(
+                                    Icons.star,
+                                    color: index < rating
+                                        ? Colors.amber
+                                        : const Color(0xffEBEBEC),
+                                  ),
+                                  onRatingUpdate: (rating) {},
+                                ),
+                                const SizedBox(width: 5),
+                                if (ratingCount != null)
+                                  Text(
+                                    '($ratingCount)',
+                                    style: TextStyle(
+                                        fontFamily: fontFamily,
+                                        color: const Color(0xff094546)
+                                            .withOpacity(0.6)),
+                                  ),
+                              ],
+                            ),
                           ],
                         ),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 24, right: 12, bottom: 12),
-              child: Column(
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: _getImageProvider(image),
-                        fit: BoxFit.cover,
+                      )
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding:
+                      const EdgeInsets.only(top: 24, right: 12, bottom: 12),
+                  child: Column(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: _getImageProvider(image),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        width: 48,
+                        height: 56,
                       ),
-                    ),
-                    width: 48,
-                    height: 56,
+                      const SizedBox(height: 18),
+                      CustomButton(
+                        text: buttonText,
+                        textColor: Colors.white,
+                        buttonColor: const Color(0xff094546),
+                        borderColor: const Color(0xff094546),
+                        width: 80,
+                        borderRadius: 3,
+                        fontSize: 16,
+                        onTap: onTap ?? () {},
+                      ),
+                    ],
                   ),
-                  const SizedBox(height: 18),
-                  CustomButton(
-                    text: buttonText,
-                    textColor: Colors.white,
-                    buttonColor: const Color(0xff094546),
-                    borderColor: const Color(0xff094546),
-                    width: 80,
-                    borderRadius: 3,
-                    fontSize: 16,
-                    onTap: onTap ?? () {},
-                  ),
-                ],
-              ),
-            )
-          ],
+                )
+              ],
+            ),
+          ),
         ),
       ),
     );

@@ -16,7 +16,6 @@ class LeaderboardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     BlocProvider.of<UserRankBloc>(context).add(GetUserRankEvent());
-
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -75,25 +74,28 @@ class LeaderboardScreen extends StatelessWidget {
     return Column(
       children: [
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             TopMemberCard(
               rank: 2,
-              name: userRankings[2].name,
+              fName: getFirstName(userRankings[2].name),
+              sName: getSecondName(userRankings[2].name),
               state: userRankings[2].state,
               points: userRankings[2].points,
               rankImage: 'assets/rank_three.png',
             ),
             TopMemberCard(
               rank: 1,
-              name: userRankings[0].name,
+              fName: getFirstName(userRankings[0].name),
+              sName: getSecondName(userRankings[0].name),
               state: userRankings[0].state,
               points: userRankings[0].points,
               rankImage: 'assets/rank_one.png',
             ),
             TopMemberCard(
               rank: 3,
-              name: userRankings[1].name,
+              fName: getFirstName(userRankings[1].name),
+              sName: getSecondName(userRankings[1].name),
               state: userRankings[1].state,
               points: userRankings[1].points,
               rankImage: 'assets/rank_two.png',
@@ -119,5 +121,15 @@ class LeaderboardScreen extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  String getFirstName(String fullName) {
+    List<String> nameParts = fullName.split(' ');
+    return nameParts.isNotEmpty ? nameParts[0] : '';
+  }
+
+  String getSecondName(String fullName) {
+    List<String> nameParts = fullName.split(' ');
+    return nameParts.length > 1 ? nameParts[1] : '';
   }
 }

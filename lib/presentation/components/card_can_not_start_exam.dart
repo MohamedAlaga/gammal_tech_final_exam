@@ -19,7 +19,7 @@ class CardCanNotStartExam extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 12.0),
+      padding: const EdgeInsets.only(bottom: 12),
       child: Container(
         width: double.infinity,
         decoration: BoxDecoration(
@@ -67,7 +67,8 @@ class CardCanNotStartExam extends StatelessWidget {
                         color: Colors.white,
                       ),
                       maxLines: 1, // Ensure single line
-                      overflow: TextOverflow.ellipsis, // Add ellipsis for long text
+                      overflow:
+                          TextOverflow.ellipsis, // Add ellipsis for long text
                     ),
                   ),
                 ],
@@ -93,14 +94,14 @@ class CardCanNotStartExam extends StatelessWidget {
   }
 
   ImageProvider _getImageProvider(String imageUrl) {
-    try {
-      if (imageUrl.isNotEmpty) {
+    if (imageUrl.isNotEmpty) {
+      try {
         return NetworkImage(imageUrl);
-      } else {
-        return const AssetImage('assets/course.png');
+      } catch (e) {
+        return const AssetImage('assets/course.png'); // fallback image
       }
-    } catch (e) {
-      return const AssetImage('assets/course.png');
+    } else {
+      return const AssetImage('assets/course.png'); // fallback image
     }
   }
 }

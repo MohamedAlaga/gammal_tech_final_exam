@@ -76,7 +76,7 @@ class CourseScreen extends StatelessWidget {
                   .toList();
               return SingleChildScrollView(
                 child: Padding(
-                  padding: const EdgeInsets.all(24),
+                  padding: const EdgeInsets.symmetric(horizontal: 24),
                   child: Center(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -159,7 +159,7 @@ class CourseScreen extends StatelessWidget {
                         for (var course in notEnrolledCourses)
                           FadeInRight(
                             child: CourseCard(
-                              quizzes: "${course.quizzes.toString()} Quizzes",
+                              quizzes: course.quizzes,
                               courseTitle: course.name,
                               subtitle: course.description,
                               image: course.imageUrl,

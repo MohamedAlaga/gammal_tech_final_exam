@@ -9,8 +9,10 @@ import 'package:gammal_tech_final_exam/presentation/controller/user_bloc.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/user_profile_bloc.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/user_profile_state.dart';
 import 'package:gammal_tech_final_exam/presentation/screens/edit_user_profile_screen.dart';
+import 'package:gammal_tech_final_exam/presentation/screens/login_screen.dart';
 
 import '../components/sub_app_bar.dart';
+import '../controller/user_events.dart';
 
 class UserProfileScreen extends StatelessWidget {
   const UserProfileScreen({super.key});
@@ -154,7 +156,28 @@ class UserProfileScreen extends StatelessWidget {
                         ProgressCard(
                           courseTitle: course,
                           progress: state.currentUser.progress[course]!,
-                        )
+                        ),
+                      const SizedBox(height: 18),
+                      CustomButton(
+                        text: 'Logout',
+                        textColor: Colors.white,
+                        buttonColor: Colors.red,
+                        borderColor: Colors.red,
+                        borderRadius: 8,
+                        onTap: () {
+                          Navigator.pushAndRemoveUntil<dynamic>(
+                            context,
+                            MaterialPageRoute<dynamic>(
+                              builder: (BuildContext context) => LoginScreen(),
+                            ),
+                            (route) => false,
+                          );
+                          BlocProvider.of<UserBloc>(context).add(
+                            ValidateUserEvent(),
+                          );
+                        },
+                        fontSize: 18,
+                      )
                     ],
                   ),
                 ),

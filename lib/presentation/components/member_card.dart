@@ -17,7 +17,7 @@ class MemberCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 6),
+      padding: const EdgeInsets.only(bottom: 12),
       child: Container(
         height: 55,
         padding: const EdgeInsets.only(right: 6, left: 6),

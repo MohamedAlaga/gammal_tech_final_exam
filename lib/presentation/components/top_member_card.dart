@@ -4,15 +4,17 @@ class TopMemberCard extends StatelessWidget {
   const TopMemberCard({
     super.key,
     required this.rank,
-    required this.name,
     required this.state,
     required this.points,
     required this.rankImage,
+    required this.fName,
+    required this.sName,
   });
 
   final int rank;
   final String rankImage;
-  final String name;
+  final String fName;
+  final String sName;
   final String state;
   final int points;
 
@@ -32,13 +34,23 @@ class TopMemberCard extends StatelessWidget {
         ),
         const SizedBox(height: 4),
         Text(
-          name,
+          fName,
           style: TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.bold,
             fontSize: rank == 1 ? 18 : 14,
           ),
         ),
+        sName != ''
+            ? Text(
+                sName,
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                  fontSize: rank == 1 ? 18 : 14,
+                ),
+              )
+            : SizedBox(),
         Text(
           state,
           style: TextStyle(
