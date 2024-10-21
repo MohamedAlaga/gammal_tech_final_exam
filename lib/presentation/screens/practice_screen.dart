@@ -23,13 +23,12 @@ class PracticeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const SubAppBar(
-        appBarColor: Colors.white,
-        iconsColor: Color(0xff094546),
-      ),
-      backgroundColor: Colors.white,
-      body: BlocBuilder<TopicsBloc, TopicsState>(
-        builder: (context, state) {
+        appBar: const SubAppBar(
+          appBarColor: Colors.white,
+          iconsColor: Color(0xff094546),
+        ),
+        backgroundColor: Colors.white,
+        body: BlocBuilder<TopicsBloc, TopicsState>(builder: (context, state) {
           switch (state.topicsRequestState) {
             case RequestState.loading:
               return const Center(
@@ -180,13 +179,28 @@ class PracticeScreen extends StatelessWidget {
                   ),
                 );
               } else {
-                return const Center(
-                  child: Text('No exams in this course'),
+                return Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        'assets/not_fond.png',
+                        width: 256,
+                      ),
+                      const Text(
+                        'No exams in this course',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontFamily: 'SourceSans3',
+                          fontWeight: FontWeight.w600,
+                          color: Color(0xff094546),
+                        ),
+                      ),
+                    ],
+                  ),
                 );
               }
           }
-        },
-      ),
-    );
+        }));
   }
 }

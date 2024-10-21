@@ -17,8 +17,25 @@ class NotificationScreen extends StatelessWidget {
               color: Color(0xff094546),
             )),
       ),
-      body: const Center(
-        child: Text('there is no any notification for the moment'),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              'assets/not_fond.png',
+              width: 256,
+            ),
+            const Text(
+              'There is no notification',
+              style: TextStyle(
+                fontSize: 18,
+                fontFamily: 'SourceSans3',
+                fontWeight: FontWeight.w600,
+                color: Color(0xff094546),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
