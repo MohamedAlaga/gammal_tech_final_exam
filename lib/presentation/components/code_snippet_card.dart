@@ -20,6 +20,9 @@ class _CodeSnippetCardState extends State<CodeSnippetCard> {
   String displayedCode = '';
   int currentIndex = 0;
   Timer? timer;
+  final ScrollController _scrollController =
+      ScrollController(); // Add a ScrollController
+
   @override
   void initState() {
     super.initState();
@@ -29,6 +32,7 @@ class _CodeSnippetCardState extends State<CodeSnippetCard> {
   @override
   void dispose() {
     timer?.cancel();
+    _scrollController.dispose(); // Dispose the ScrollController
     super.dispose();
   }
 
@@ -60,54 +64,31 @@ class _CodeSnippetCardState extends State<CodeSnippetCard> {
 
   @override
   Widget build(BuildContext context) {
-    
-  Map<String, TextStyle> backgroundColor = {
-        'root': TextStyle(backgroundColor: widget.theme["root"]!.backgroundColor, color: widget.theme["root"]!.backgroundColor),
-        'keyword': TextStyle(color: widget.theme["root"]!.backgroundColor),
-        'string': TextStyle(color: widget.theme["root"]!.backgroundColor),
-        'comment': TextStyle(color: widget.theme["root"]!.backgroundColor),
-        'variable': TextStyle(color: widget.theme["root"]!.backgroundColor),
-        'number': TextStyle(color: widget.theme["root"]!.backgroundColor),
-        'title': TextStyle(color: widget.theme["root"]!.backgroundColor),
-  };
-    return Stack(children: [
-      Container(
-        width: double.infinity,
-        clipBehavior: Clip.antiAliasWithSaveLayer,
-        decoration: BoxDecoration(
-          border: Border.all(color: const Color(0xFFFF904D)),
-          color: widget.theme["root"]!.backgroundColor,
-          borderRadius: const BorderRadius.all(Radius.circular(6)),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: HighlightView(
-            widget.codeSnippet,
-            theme: backgroundColor,
-            language: widget.language,
-            padding: const EdgeInsets.all(12),
-            textStyle: GoogleFonts.sourceCodePro(),
+    return Container(
+      height: MediaQuery.of(context).size.height * 0.4,
+      width: double.infinity,
+      clipBehavior: Clip.antiAliasWithSaveLayer,
+      decoration: BoxDecoration(
+        color: widget.theme["root"]!.backgroundColor,
+        borderRadius: const BorderRadius.all(Radius.circular(6)),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Scrollbar(
+          thumbVisibility: true,
+          controller: _scrollController,
+          child: SingleChildScrollView(
+            controller: _scrollController,
+            child: HighlightView(
+              displayedCode,
+              language: widget.language,
+              theme: widget.theme,
+              padding: const EdgeInsets.all(12),
+              textStyle: GoogleFonts.sourceCodePro(),
+            ),
           ),
         ),
       ),
-      Container(
-        width: double.infinity,
-        clipBehavior: Clip.antiAliasWithSaveLayer,
-        decoration: BoxDecoration(
-          color: widget.theme["root"]!.backgroundColor,
-          borderRadius: const BorderRadius.all(Radius.circular(6)),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: HighlightView(
-            displayedCode,
-            language: widget.language,
-            theme: widget.theme,
-            padding: const EdgeInsets.all(12),
-            textStyle: GoogleFonts.sourceCodePro(),
-          ),
-        ),
-      ),
-    ]);
+    );
   }
 }
