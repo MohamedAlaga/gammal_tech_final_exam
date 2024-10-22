@@ -56,7 +56,8 @@ class LoginScreen extends StatelessWidget {
                     BlocProvider.of<UserBloc>(context).add(
                       LoginUserEvent(
                           email: emailController.text,
-                          password: passwordController.text),
+                          password: passwordController.text,
+                          context: context),
                     );
                   },
                 ),

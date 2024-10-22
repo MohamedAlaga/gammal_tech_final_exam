@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gammal_tech_final_exam/core/utils/enums.dart';
 import 'package:gammal_tech_final_exam/domain/usecase/get_user_welcome_data_usecase.dart';
@@ -16,8 +17,15 @@ class UserBloc extends Bloc<UserEvents, UserState> {
       this.validateUserTokenUsecase)
       : super(const UserState()) {
     on<LoginUserEvent>((event, emit) async {
+      showDialog(
+          context: event.context,
+          builder: (context) => const Center(
+            child: SizedBox(
+                height: 36, width: 36, child: CircularProgressIndicator()),
+          ));
       var result = await loginUserUsecase.execute(event.email, event.password);
       SharedPreferences prefs = await SharedPreferences.getInstance();
+      Navigator.maybePop(event.context);
       result.fold((l) {
         showRedToast("invalid email or password");
         return emit(UserState(
