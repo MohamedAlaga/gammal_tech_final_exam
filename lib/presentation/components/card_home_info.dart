@@ -14,22 +14,15 @@ class InfoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
+    return Card(
+      color: Colors.white,
+      elevation: 4,
+      shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.2),
-            offset: const Offset(0, 4),
-            blurRadius: 4,
-            spreadRadius: 0,
-          ),
-        ],
       ),
       child: SizedBox(
-        width: 98,
-        height: 98,
+        width: MediaQuery.of(context).size.width * 0.24,
+        height: MediaQuery.of(context).size.width * 0.24,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -43,6 +36,7 @@ class InfoCard extends StatelessWidget {
               ),
               child: Center(
                 child: FittedBox(
+                  fit: BoxFit.scaleDown,
                   child: Text(
                     '$number',
                     style: TextStyle(fontSize: number > 100 ? 16 : 24),
@@ -51,11 +45,14 @@ class InfoCard extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 6),
-            Text(
-              text,
-              style:
-                  TextStyle(fontSize: 16, color: Colors.black.withOpacity(0.7)),
-              textAlign: TextAlign.center,
+            FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Text(
+                text,
+                style:
+                    TextStyle(fontSize: 16, color: Colors.black.withOpacity(0.7)),
+                textAlign: TextAlign.center,
+              ),
             ),
           ],
         ),

@@ -1,4 +1,3 @@
-import 'package:gammal_tech_final_exam/core/utils/env.dart';
 import 'package:gammal_tech_final_exam/domain/entities/welcome_data.dart';
 
 class WelcomeDataModel extends WelcomeData {
@@ -13,7 +12,7 @@ class WelcomeDataModel extends WelcomeData {
   factory WelcomeDataModel.fromJson(Map<String, dynamic> json) {
     return WelcomeDataModel(
       title: json['name'],
-      imageUrl: json['imageUrl'] ?? courseImageUrl,
+      imageUrl: json['imageUrl'] ?? "",
       solvedExams: json['finished_exams'],
       points: json['total_points'],
       totalRanks: json['total_ranks'],

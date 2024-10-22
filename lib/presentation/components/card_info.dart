@@ -19,7 +19,7 @@ class CardInfo extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
-          border: Border.all(color: borderColor, width: 2),
+          border: Border.all(color: borderColor, width: 1),
           borderRadius: BorderRadius.circular(8),
         ),
         child: Row(
@@ -28,7 +28,7 @@ class CardInfo extends StatelessWidget {
             Text(
               info,
               style: const TextStyle(
-                color: Colors.black,
+                color: Color(0xff094546),
                 fontSize: 16,
                 fontFamily: 'SourceSans3',
                 fontWeight: FontWeight.w600,
@@ -37,7 +37,7 @@ class CardInfo extends StatelessWidget {
             Text(
               information,
               style: const TextStyle(
-                color: Colors.black,
+                color: Color(0xff094546),
                 fontSize: 16,
                 fontFamily: 'SourceSans3',
                 fontWeight: FontWeight.w600,

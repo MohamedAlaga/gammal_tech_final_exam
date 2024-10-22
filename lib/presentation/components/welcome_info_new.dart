@@ -18,27 +18,26 @@ class WelcomeInfoNew extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(color: Color(0xff094546)),
-      child: Stack(
-        alignment: AlignmentDirectional.bottomStart,
-        children: [
-          Container(
-            width: double.infinity,
-            height: 49,
-            decoration: const BoxDecoration(
+      decoration: const BoxDecoration(
+        color: Color(0xff094546),
+      ),
+      child: Stack(alignment: AlignmentDirectional.bottomStart, children: [
+        Container(
+          width: double.infinity,
+          height: MediaQuery.of(context).size.width * 0.12,
+          decoration:  const BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(12),
-                topRight: Radius.circular(12),
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
+                  topLeft: Radius.circular(12), topRight: Radius.circular(12))),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(
                   'Good Evening, $name !',
                   style: const TextStyle(
                     color: Colors.white,
@@ -46,41 +45,44 @@ class WelcomeInfoNew extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                Text(
+              ),
+              FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(
                   "Let's start Exam!",
                   style: TextStyle(
                     color: Colors.white.withOpacity(0.8),
                     fontSize: 18,
                   ),
                 ),
-                const SizedBox(
-                  height: 24,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    InfoCard(
-                      number: card1,
-                      text: "Exam",
-                      circleBorderColor: const Color(0xffFF904D),
-                    ),
-                    InfoCard(
-                      number: card2Text1,
-                      text: "Rank",
-                      circleBorderColor: const Color(0xffFF904D),
-                    ),
-                    InfoCard(
-                      number: card3,
-                      text: "Points",
-                      circleBorderColor: const Color(0xffFF904D),
-                    ),
-                  ],
-                ),
-              ],
-            ),
+              ),
+              const SizedBox(
+                height: 24,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  InfoCard(
+                    number: card1,
+                    text: "Exam",
+                    circleBorderColor: const Color(0xffFF904D),
+                  ),
+                  InfoCard(
+                    number: card2Text1,
+                    text: "Rank",
+                    circleBorderColor: const Color(0xffFF904D),
+                  ),
+                  InfoCard(
+                    number: card3,
+                    text: "Points",
+                    circleBorderColor: const Color(0xffFF904D),
+                  ),
+                ],
+              ),
+            ],
           ),
-        ],
-      ),
+        ),
+      ]),
     );
   }
 }

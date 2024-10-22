@@ -1,4 +1,3 @@
-import 'package:gammal_tech_final_exam/core/utils/env.dart';
 import 'package:gammal_tech_final_exam/domain/entities/user.dart';
 
 class UserModel extends User {
@@ -26,9 +25,9 @@ class UserModel extends User {
       }
     }
     return UserModel(
-      bio: json['bio'] ?? "user bio",
+      bio: json['bio'] ?? "",
       collegeName: json['university'] ?? "user college",
-      imageUrl: json['imageUrl'] ?? courseImageUrl,
+      imageUrl: json['imageUrl'] ?? "",
       name: json['name'] ?? "user name",
       progress: progress,
       skills: skills,

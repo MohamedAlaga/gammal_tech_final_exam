@@ -18,7 +18,7 @@ class ProgressCard extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: Colors.grey, width: 1),
+          border: Border.all(color: const Color(0xFFFF904D), width: 1),
         ),
         child: Padding(
           padding: const EdgeInsets.all(12),
@@ -32,7 +32,7 @@ class ProgressCard extends StatelessWidget {
                     style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: Colors.black,
+                      color: Color(0xff094546),
                     ),
                   ),
                   const Spacer(),
@@ -41,7 +41,7 @@ class ProgressCard extends StatelessWidget {
                     style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: Colors.black,
+                      color: Color(0xff094546),
                     ),
                   ),
                 ],
@@ -54,7 +54,7 @@ class ProgressCard extends StatelessWidget {
                       value: progress,
                       backgroundColor: Colors.grey.shade300,
                       valueColor: const AlwaysStoppedAnimation<Color>(
-                        Colors.black,
+                        Color(0xff094546),
                       ),
                     ),
                   ),

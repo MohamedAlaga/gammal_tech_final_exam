@@ -66,22 +66,22 @@ class UserProfileScreen extends StatelessWidget {
                       ),
                       const SizedBox(height: 18),
                       CardInfo(
-                        borderColor: const Color(0xffE3E5E8),
+                        borderColor: const Color(0xFFFF904D),
                         info: "Email",
                         information: state.currentUser.email,
                       ),
                       CardInfo(
-                        borderColor: const Color(0xffE3E5E8),
+                        borderColor: const Color(0xFFFF904D),
                         info: "Phone number",
                         information: state.currentUser.phone,
                       ),
                       CardInfo(
-                        borderColor: const Color(0xffE3E5E8),
+                        borderColor: const Color(0xFFFF904D),
                         info: "Points",
                         information: state.currentUser.totalPoints.toString(),
                       ),
                       CardInfo(
-                        borderColor: const Color(0xffE3E5E8),
+                        borderColor: const Color(0xFFFF904D),
                         info: "Attempts left",
                         information:
                             state.currentUser.attemptsRemaining.toString(),

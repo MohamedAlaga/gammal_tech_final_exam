@@ -275,13 +275,19 @@ class QuizPage extends StatelessWidget {
           transform: Matrix4.translationValues(0.0, curvedValue * 200, 0.0),
           child: Opacity(
             opacity: a1.value,
-            child: AcceptCustomDialoge(
-              onTap: () {
-                BlocProvider.of<ExamsBloc>(context).add(StartQuizEvent());
-                countDownController.start();
-                Navigator.pop(context);
-              },
-            ),
+            child:
+                BlocBuilder<ExamsBloc, ExamsState>(builder: (context, state) {
+              return AcceptCustomDialoge(
+                onTap: () {
+                  BlocProvider.of<ExamsBloc>(context).add(StartQuizEvent());
+                  countDownController.start();
+                  Navigator.pop(context);
+                },
+                body:
+                    "the exam contains ${BlocProvider.of<ExamsBloc>(context).state.questions.length} questions \n you have ${BlocProvider.of<ExamsBloc>(context).state.duration} seconds to answer each question",
+                textAlign: TextAlign.center,
+              );
+            }),
           ),
         );
       },

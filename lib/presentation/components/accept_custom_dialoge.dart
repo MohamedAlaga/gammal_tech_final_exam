@@ -7,9 +7,13 @@ class AcceptCustomDialoge extends StatelessWidget {
     super.key,
     required this.onTap,
     this.title = "Enter exam",
+    this.body = "",
+    this.textAlign = TextAlign.center,
   });
   final void Function()? onTap;
   final String title;
+  final String body;
+  final TextAlign textAlign;
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +30,14 @@ class AcceptCustomDialoge extends StatelessWidget {
             children: [
               SourceSansText(
                   text: title, fontsize: 22, fontWeight: FontWeight.w600),
+              Padding(
+                padding: const EdgeInsets.only(top: 24.0, right: 24, left: 24),
+                child: SourceSansText(
+                    text: body,
+                    fontsize: 16,
+                    fontWeight: FontWeight.w500,
+                    textAlign: textAlign),
+              ),
               Padding(
                 padding: const EdgeInsets.only(top: 24.0, right: 24, left: 24),
                 child: Row(

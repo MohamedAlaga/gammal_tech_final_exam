@@ -23,9 +23,10 @@ class CardCanNotStartExam extends StatelessWidget {
       child: Container(
         width: double.infinity,
         decoration: BoxDecoration(
-          color: const Color(0xff094546),
+          color: const Color.fromARGB(255, 160, 164, 168),
+          border: Border.all(
+              color: const Color.fromARGB(255, 160, 164, 168), width: 1),
           borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: const Color(0xff094546), width: 1),
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -47,11 +48,11 @@ class CardCanNotStartExam extends StatelessWidget {
                         const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                     child: Text(
                       quizzes,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
-                        fontFamily: fontFamily,
-                        color: const Color(0xff094546),
+                        fontFamily: 'Quicksand',
+                        color: const Color.fromARGB(255, 160, 164, 168),
                       ),
                     ),
                   ),
@@ -76,15 +77,24 @@ class CardCanNotStartExam extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.only(right: 12, top: 6),
-              child: Container(
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: _getImageProvider(courseImage),
-                    fit: BoxFit.cover,
+              child: Stack(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: _getImageProvider(courseImage),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    width: 48,
+                    height: 56,
                   ),
-                ),
-                width: 48,
-                height: 56,
+                  Container(
+                    color: const Color.fromARGB(255, 160, 164, 168).withOpacity(0.5),
+                    width: 48,
+                    height: 56,
+                  )
+                ],
               ),
             ),
           ],

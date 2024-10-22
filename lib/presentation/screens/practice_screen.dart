@@ -92,16 +92,17 @@ class PracticeScreen extends StatelessWidget {
                       child: Center(
                         child: Column(
                           children: [
-                            for (Topic topic in finishedTopics)
+                            for (int i = 0; i < finishedTopics.length; i++)
                               CardFinishExamCourse(
-                                quizzes:
-                                    '${topic.quizCount.toString()} Questions',
-                                courseTitle: topic.title,
+                                quizzes: "${i + 1}- ${finishedTopics[i].title}",
+                                courseTitle:
+                                    '${finishedTopics[i].quizCount.toString()} Questions',
                               ),
                             CardExam(
                               questions:
+                                  "${finishedTopics.length + 1}- ${notFinishedTopics[0].title}",
+                              courseTitle:
                                   "${notFinishedTopics[0].quizCount.toString()} Questions",
-                              courseTitle: notFinishedTopics[0].title,
                               subtitle: notFinishedTopics[0].subtitle,
                               time:
                                   "${notFinishedTopics[0].duration.toString()} sec",
@@ -168,10 +169,11 @@ class PracticeScreen extends StatelessWidget {
                             ),
                             for (int i = 1; i < notFinishedTopics.length; i++)
                               CardCanNotStartExam(
-                                quizzes:
+                                quizzes: "${finishedTopics.length+1+i}- ${notFinishedTopics[i].title}",
+                                courseTitle:
                                     "${notFinishedTopics[i].quizCount.toString()} Questions",
-                                courseTitle: notFinishedTopics[i].title,
                                 courseImage: notFinishedTopics[i].imageUrl,
+                                fontFamily: 'SourceSans3',
                               ),
                           ],
                         ),

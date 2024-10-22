@@ -112,7 +112,6 @@ class EditUserProfileScreen extends StatelessWidget {
                                                     ? null
                                                     : phoneNumber.text));
                                     Navigator.pop(context);
-                                    Navigator.pop(context);
                                   },
                                   title: "Edit Profile data",
                                   content:

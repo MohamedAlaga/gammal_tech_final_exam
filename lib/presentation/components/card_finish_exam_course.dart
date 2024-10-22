@@ -71,7 +71,7 @@ class CardFinishExamCourse extends StatelessWidget {
                     padding: const EdgeInsets.only(right: 12),
                     child: Image.asset(
                       'assets/done.png',
-                      width: 54,
+                      width: 50,
                     ),
                   ),
                 ],

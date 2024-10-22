@@ -58,11 +58,7 @@ class RemoteTopicDataSource extends BaseRemoteTopicDataSource {
         }
         return suggestedTopics;
       } else {
-        throw ServerException(
-            errorMessageModel: ErrorMessageModel(
-                message: "error 1 accured getting up next topics",
-                statusCode: result.statusCode,
-                success: false));
+        return [];
       }
     } catch (e) {
       throw const ServerException(
