@@ -47,6 +47,7 @@ class QuizPage extends StatelessWidget {
                   content:
                       'Are you sure you want to exit the exam?\nOne attempt will be deducted.',
                   onTap: () {
+                    BlocProvider.of<ExamsBloc>(context).add(SubmitAnswersEvent());
                     BlocProvider.of<ExamsBloc>(context).add(ExitQuizEvent());
                     Navigator.pop(context);
                     Navigator.pop(context);

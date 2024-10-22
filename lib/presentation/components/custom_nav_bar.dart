@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gammal_tech_final_exam/presentation/controller/log_bloc.dart';
+import 'package:gammal_tech_final_exam/presentation/controller/log_events.dart';
+import 'package:gammal_tech_final_exam/presentation/controller/rank_bloc.dart';
+import 'package:gammal_tech_final_exam/presentation/controller/rank_event.dart';
 import 'package:gammal_tech_final_exam/presentation/screens/home_screen.dart';
 import 'package:gammal_tech_final_exam/presentation/screens/leaderboard_screen.dart';
 import 'package:gammal_tech_final_exam/presentation/screens/pricing_screen.dart';
@@ -7,10 +12,19 @@ import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
 class CustomNavBar extends StatelessWidget {
   CustomNavBar({super.key});
-  final PersistentTabController _controller = PersistentTabController(initialIndex: 0);
+  final PersistentTabController _controller =
+      PersistentTabController(initialIndex: 0);
   @override
   Widget build(BuildContext context) {
     return PersistentTabView(
+      onItemSelected: (int value) {
+        if (value == 1) {
+          BlocProvider.of<UserRankBloc>(context).add(const GetUserRankEvent());
+        }
+        if (value == 3) {
+          BlocProvider.of<LogBloc>(context).add(FetchLogEvent());
+        }
+      },
       context,
       controller: _controller,
       screens: const [
@@ -52,7 +66,6 @@ List<PersistentBottomNavBarItem> _navBarsItems() {
       title: ("Home"),
       activeColorPrimary: const Color(0xffFF904D),
       inactiveColorPrimary: const Color(0xff094546),
-      
     ),
     PersistentBottomNavBarItem(
       icon: const Icon(Icons.leaderboard),
