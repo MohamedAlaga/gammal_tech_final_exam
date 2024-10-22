@@ -37,23 +37,27 @@ class CardExam extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Container(
-                  decoration: const BoxDecoration(
-                    color: Color(0xffFF904D),
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(8),
-                      bottomRight: Radius.circular(8),
+                Flexible(
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      color: Color(0xffFF904D),
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(8),
+                        bottomRight: Radius.circular(8),
+                      ),
                     ),
-                  ),
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                  child: Text(
-                    questions,
-                    style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'Quicksand',
-                      color: Colors.white,
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                    child: Text(
+                      courseTitle,
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Quicksand',
+                        color: Colors.white,
+                      ),
+                      overflow:
+                          TextOverflow.ellipsis, // Add this to handle overflow
                     ),
                   ),
                 ),
@@ -66,6 +70,7 @@ class CardExam extends StatelessWidget {
                         width: 25,
                         height: 28,
                       ),
+                      const SizedBox(width: 4),
                       Text(
                         time,
                         style: const TextStyle(
@@ -89,7 +94,7 @@ class CardExam extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        courseTitle,
+                        "$questions Questions",
                         style: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.w700,

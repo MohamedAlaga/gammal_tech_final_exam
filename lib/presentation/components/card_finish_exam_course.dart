@@ -29,42 +29,47 @@ class CardFinishExamCourse extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        decoration: const BoxDecoration(
-                          color: Color(0xffFF904D),
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(8),
-                            bottomRight: Radius.circular(8),
+                  Expanded(
+                    // Ensures text doesn't overflow and adjusts dynamically
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          decoration: const BoxDecoration(
+                            color: Color(0xffFF904D),
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(8),
+                              bottomRight: Radius.circular(8),
+                            ),
                           ),
-                        ),
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 12, vertical: 6),
-                        child: Text(
-                          quizzes,
-                          style: const TextStyle(
-                            fontSize: 18,
-                            fontFamily: 'Quicksand',
-                            fontWeight: FontWeight.w600,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 12),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 12, bottom: 12),
-                        child: Text(
-                          courseTitle,
-                          style: const TextStyle(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 12, vertical: 6),
+                          child: Text(
+                            courseTitle,
+                            style: const TextStyle(
                               fontSize: 18,
+                              fontFamily: 'Quicksand',
                               fontWeight: FontWeight.w600,
-                              fontFamily: 'SourceSans3',
-                              color: Color(0xff094546)),
+                              color: Colors.white,
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
                         ),
-                      ),
-                    ],
+                        const SizedBox(height: 12),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 12, bottom: 12),
+                          child: Text(
+                            "$quizzes Questions",
+                            style: const TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600,
+                                fontFamily: 'SourceSans3',
+                                color: Color(0xff094546)),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                   const Spacer(),
                   Padding(

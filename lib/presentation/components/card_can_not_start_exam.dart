@@ -13,7 +13,7 @@ class CardCanNotStartExam extends StatelessWidget {
     required this.courseTitle,
     required this.courseImage,
     this.onTap,
-    this.fontFamily = 'Quicksand',
+    this.fontFamily = 'SourceSans3',
   });
 
   @override
@@ -33,6 +33,7 @@ class CardCanNotStartExam extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Expanded(
+              // Ensure the text adjusts dynamically
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -47,20 +48,22 @@ class CardCanNotStartExam extends StatelessWidget {
                     padding:
                         const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                     child: Text(
-                      quizzes,
+                      courseTitle,
                       style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                         fontFamily: 'Quicksand',
-                        color: const Color.fromARGB(255, 160, 164, 168),
+                        color: Color.fromARGB(255, 160, 164, 168),
                       ),
+                      maxLines: 1, // Ensure it stays on one line
+                      overflow: TextOverflow.ellipsis, // Handle overflow
                     ),
                   ),
                   const SizedBox(height: 12),
                   Padding(
                     padding: const EdgeInsets.only(left: 12, bottom: 12),
                     child: Text(
-                      courseTitle,
+                      "$quizzes Questions",
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w600,
@@ -68,8 +71,7 @@ class CardCanNotStartExam extends StatelessWidget {
                         color: Colors.white,
                       ),
                       maxLines: 1, // Ensure single line
-                      overflow:
-                          TextOverflow.ellipsis, // Add ellipsis for long text
+                      overflow: TextOverflow.ellipsis, // Handle overflow
                     ),
                   ),
                 ],
@@ -90,10 +92,11 @@ class CardCanNotStartExam extends StatelessWidget {
                     height: 56,
                   ),
                   Container(
-                    color: const Color.fromARGB(255, 160, 164, 168).withOpacity(0.5),
+                    color: const Color.fromARGB(255, 160, 164, 168)
+                        .withOpacity(0.5),
                     width: 48,
                     height: 56,
-                  )
+                  ),
                 ],
               ),
             ),

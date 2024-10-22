@@ -93,15 +93,15 @@ class PracticeScreen extends StatelessWidget {
                           children: [
                             for (int i = 0; i < finishedTopics.length; i++)
                               CardFinishExamCourse(
-                                quizzes: "${i + 1}- ${finishedTopics[i].title}",
+                                quizzes: finishedTopics[i].quizCount.toString(),
                                 courseTitle:
-                                    '${finishedTopics[i].quizCount.toString()} Questions',
+                                    "${i + 1}- ${finishedTopics[i].title}",
                               ),
                             CardExam(
                               questions:
-                                  "${finishedTopics.length + 1}- ${notFinishedTopics[0].title}",
+                                  notFinishedTopics[0].quizCount.toString(),
                               courseTitle:
-                                  "${notFinishedTopics[0].quizCount.toString()} Questions",
+                                  "${finishedTopics.length + 1}- ${notFinishedTopics[0].title}",
                               subtitle: notFinishedTopics[0].subtitle,
                               time:
                                   "${notFinishedTopics[0].duration.toString()} sec",
@@ -168,9 +168,10 @@ class PracticeScreen extends StatelessWidget {
                             ),
                             for (int i = 1; i < notFinishedTopics.length; i++)
                               CardCanNotStartExam(
-                                quizzes: "${finishedTopics.length+1+i}- ${notFinishedTopics[i].title}",
+                                quizzes:
+                                    notFinishedTopics[i].quizCount.toString(),
                                 courseTitle:
-                                    "${notFinishedTopics[i].quizCount.toString()} Questions",
+                                    "${finishedTopics.length + 1 + i}- ${notFinishedTopics[i].title}",
                                 courseImage: notFinishedTopics[i].imageUrl,
                                 fontFamily: 'SourceSans3',
                               ),

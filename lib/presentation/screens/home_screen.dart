@@ -145,7 +145,7 @@ class HomeScreen extends StatelessWidget {
                                   courseImage: topic.imageUrl,
                                   courseTitle: topic.title,
                                   subtitle: topic.subtitle,
-                                  questions: "${topic.quizCount} Questions",
+                                  questions: topic.quizCount.toString(),
                                   time: "${topic.duration.toString()} sec",
                                   onMorePressed: () {
                                     Navigator.push(

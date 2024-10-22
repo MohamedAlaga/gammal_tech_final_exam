@@ -59,62 +59,65 @@ class UserProfileScreen extends StatelessWidget {
                           Text(
                             state.currentUser.name,
                             style: const TextStyle(
-                                fontSize: 18, color: Colors.black),
+                              fontSize: 18,
+                              color: Colors.black,
+                            ),
                           ),
                           IconButton(
-                              onPressed: () {
-                                showGeneralDialog(
-                                  context: context,
-                                  transitionDuration:
-                                      const Duration(milliseconds: 300),
-                                  barrierDismissible: true,
-                                  barrierLabel: '',
-                                  transitionBuilder: (context, a1, a2, widget) {
-                                    final curvedValue = Curves.easeInOutBack
-                                            .transform(a1.value) -
-                                        1.0;
-                                    return Transform(
-                                      transform: Matrix4.translationValues(
-                                          0.0, curvedValue * 200, 0.0),
-                                      child: Opacity(
-                                        opacity: a1.value,
-                                        child: CustomTextDialog(
-                                          controller: nameController,
-                                          acceptText: "Save",
-                                          cancelText: "",
-                                          title: "Edit your name",
-                                          hintText: "Enter your name",
-                                          onAccept: () {
-                                            if (nameController
-                                                .text.isNotEmpty) {
-                                              BlocProvider.of<UserProfileBloc>(
-                                                      context)
-                                                  .add(
-                                                UpdateUserProfileEvent(
-                                                  name: nameController.text,
-                                                ),
-                                              );
-                                              Navigator.pop(context);
-                                            } else {
-                                              Navigator.pop(context);
-                                              showRedToast(
-                                                  "Please enter a valid name");
-                                            }
-                                          },
-                                        ),
+                            onPressed: () {
+                              showGeneralDialog(
+                                context: context,
+                                transitionDuration:
+                                    const Duration(milliseconds: 300),
+                                barrierDismissible: true,
+                                barrierLabel: '',
+                                transitionBuilder: (context, a1, a2, widget) {
+                                  final curvedValue =
+                                      Curves.easeInOutBack.transform(a1.value) -
+                                          1.0;
+                                  return Transform(
+                                    transform: Matrix4.translationValues(
+                                        0.0, curvedValue * 200, 0.0),
+                                    child: Opacity(
+                                      opacity: a1.value,
+                                      child: CustomTextDialog(
+                                        controller: nameController,
+                                        acceptText: "Save",
+                                        cancelText: "",
+                                        title: "Edit your name",
+                                        hintText: "Enter your name",
+                                        onAccept: () {
+                                          if (nameController.text.isNotEmpty) {
+                                            BlocProvider.of<UserProfileBloc>(
+                                                    context)
+                                                .add(
+                                              UpdateUserProfileEvent(
+                                                name: nameController.text,
+                                              ),
+                                            );
+                                            Navigator.pop(context);
+                                          } else {
+                                            Navigator.pop(context);
+                                            showRedToast(
+                                                "Please enter a valid name");
+                                          }
+                                        },
                                       ),
-                                    );
-                                  },
-                                  pageBuilder:
-                                      (context, animation1, animation2) {
-                                    return const SizedBox();
-                                  },
-                                );
-                              },
-                              icon: const Icon(Icons.edit))
+                                    ),
+                                  );
+                                },
+                                pageBuilder: (context, animation1, animation2) {
+                                  return const SizedBox();
+                                },
+                              );
+                            },
+                            icon: const Icon(
+                              Icons.edit,
+                              size: 20,
+                            ),
+                          )
                         ],
                       ),
-                      const SizedBox(height: 12),
                       Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
@@ -125,60 +128,62 @@ class UserProfileScreen extends StatelessWidget {
                                 color: Colors.black.withOpacity(0.7)),
                           ),
                           IconButton(
-                              onPressed: () {
-                                showGeneralDialog(
-                                  context: context,
-                                  transitionDuration:
-                                      const Duration(milliseconds: 300),
-                                  barrierDismissible: true,
-                                  barrierLabel: '',
-                                  transitionBuilder: (context, a1, a2, widget) {
-                                    final curvedValue = Curves.easeInOutBack
-                                            .transform(a1.value) -
-                                        1.0;
-                                    return Transform(
-                                      transform: Matrix4.translationValues(
-                                          0.0, curvedValue * 200, 0.0),
-                                      child: Opacity(
-                                        opacity: a1.value,
-                                        child: CustomTextDialog(
-                                          controller: collegeController,
-                                          acceptText: "Save",
-                                          cancelText: "",
-                                          title: "Edit your university",
-                                          hintText:
-                                              "Enter your university name",
-                                          onAccept: () {
-                                            if (collegeController
-                                                .text.isNotEmpty) {
-                                              BlocProvider.of<UserProfileBloc>(
-                                                      context)
-                                                  .add(
-                                                UpdateUserProfileEvent(
-                                                  university: collegeController.text,
-                                                ),
-                                              );
-                                              Navigator.pop(context);
-                                            } else {
-                                              Navigator.pop(context);
-                                              showRedToast(
-                                                  "Please enter a valid university name");
-                                            }
-                                          },
-                                        ),
+                            onPressed: () {
+                              showGeneralDialog(
+                                context: context,
+                                transitionDuration:
+                                    const Duration(milliseconds: 300),
+                                barrierDismissible: true,
+                                barrierLabel: '',
+                                transitionBuilder: (context, a1, a2, widget) {
+                                  final curvedValue =
+                                      Curves.easeInOutBack.transform(a1.value) -
+                                          1.0;
+                                  return Transform(
+                                    transform: Matrix4.translationValues(
+                                        0.0, curvedValue * 200, 0.0),
+                                    child: Opacity(
+                                      opacity: a1.value,
+                                      child: CustomTextDialog(
+                                        controller: collegeController,
+                                        acceptText: "Save",
+                                        cancelText: "",
+                                        title: "Edit your university",
+                                        hintText: "Enter your university name",
+                                        onAccept: () {
+                                          if (collegeController
+                                              .text.isNotEmpty) {
+                                            BlocProvider.of<UserProfileBloc>(
+                                                    context)
+                                                .add(
+                                              UpdateUserProfileEvent(
+                                                university:
+                                                    collegeController.text,
+                                              ),
+                                            );
+                                            Navigator.pop(context);
+                                          } else {
+                                            Navigator.pop(context);
+                                            showRedToast(
+                                                "Please enter a valid university name");
+                                          }
+                                        },
                                       ),
-                                    );
-                                  },
-                                  pageBuilder:
-                                      (context, animation1, animation2) {
-                                    return const SizedBox();
-                                  },
-                                );
-                              },
-                              icon: const Icon(Icons.edit))
+                                    ),
+                                  );
+                                },
+                                pageBuilder: (context, animation1, animation2) {
+                                  return const SizedBox();
+                                },
+                              );
+                            },
+                            icon: const Icon(
+                              Icons.edit,
+                              size: 20,
+                            ),
+                          )
                         ],
                       ),
-                      const SizedBox(height: 12),
                       Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
@@ -194,59 +199,61 @@ class UserProfileScreen extends StatelessWidget {
                             ),
                           ),
                           IconButton(
-                              onPressed: () {
-                                showGeneralDialog(
-                                  context: context,
-                                  transitionDuration:
-                                      const Duration(milliseconds: 300),
-                                  barrierDismissible: true,
-                                  barrierLabel: '',
-                                  transitionBuilder: (context, a1, a2, widget) {
-                                    final curvedValue = Curves.easeInOutBack
-                                            .transform(a1.value) -
-                                        1.0;
-                                    return Transform(
-                                      transform: Matrix4.translationValues(
-                                          0.0, curvedValue * 200, 0.0),
-                                      child: Opacity(
-                                        opacity: a1.value,
-                                        child: CustomTextDialog(
-                                          controller: bioController,
-                                          acceptText: "Save",
-                                          cancelText: "",
-                                          title: "Edit your bio",
-                                          hintText: "Enter your bio",
-                                          onAccept: () {
-                                            if (bioController
-                                                .text.isNotEmpty) {
-                                              BlocProvider.of<UserProfileBloc>(
-                                                      context)
-                                                  .add(
-                                                UpdateUserProfileEvent(
-                                                  bio: bioController.text,
-                                                ),
-                                              );
-                                              Navigator.pop(context);
-                                            } else {
-                                              Navigator.pop(context);
-                                              showRedToast(
-                                                  "Please enter a valid bio");
-                                            }
-                                          },
-                                        ),
+                            onPressed: () {
+                              showGeneralDialog(
+                                context: context,
+                                transitionDuration:
+                                    const Duration(milliseconds: 300),
+                                barrierDismissible: true,
+                                barrierLabel: '',
+                                transitionBuilder: (context, a1, a2, widget) {
+                                  final curvedValue =
+                                      Curves.easeInOutBack.transform(a1.value) -
+                                          1.0;
+                                  return Transform(
+                                    transform: Matrix4.translationValues(
+                                        0.0, curvedValue * 200, 0.0),
+                                    child: Opacity(
+                                      opacity: a1.value,
+                                      child: CustomTextDialog(
+                                        controller: bioController,
+                                        acceptText: "Save",
+                                        cancelText: "",
+                                        title: "Edit your bio",
+                                        hintText: "Enter your bio",
+                                        onAccept: () {
+                                          if (bioController.text.isNotEmpty) {
+                                            BlocProvider.of<UserProfileBloc>(
+                                                    context)
+                                                .add(
+                                              UpdateUserProfileEvent(
+                                                bio: bioController.text,
+                                              ),
+                                            );
+                                            Navigator.pop(context);
+                                          } else {
+                                            Navigator.pop(context);
+                                            showRedToast(
+                                                "Please enter a valid bio");
+                                          }
+                                        },
                                       ),
-                                    );
-                                  },
-                                  pageBuilder:
-                                      (context, animation1, animation2) {
-                                    return const SizedBox();
-                                  },
-                                );
-                              },
-                              icon: const Icon(Icons.edit))
+                                    ),
+                                  );
+                                },
+                                pageBuilder: (context, animation1, animation2) {
+                                  return const SizedBox();
+                                },
+                              );
+                            },
+                            icon: const Icon(
+                              Icons.edit,
+                              size: 20,
+                            ),
+                          )
                         ],
                       ),
-                      const SizedBox(height: 18),
+                      const SizedBox(height: 12),
                       CardInfo(
                         borderColor: const Color(0xFFFF904D),
                         info: "Email",
@@ -372,7 +379,9 @@ class UserProfileScreen extends StatelessWidget {
                                                       context)
                                                   .add(
                                                 UpdateUserProfileEvent(
-                                                  phoneNumber: phoneNumberController.text,
+                                                  phoneNumber:
+                                                      phoneNumberController
+                                                          .text,
                                                 ),
                                               );
                                               Navigator.pop(context);
