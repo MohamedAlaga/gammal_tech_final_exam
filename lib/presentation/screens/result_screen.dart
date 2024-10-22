@@ -85,6 +85,10 @@ class ResultScreen extends StatelessWidget {
                                     .last
                                     .id))
                           CustomButton(
+                            icon: const Icon(
+                              Icons.arrow_forward,
+                              color: Colors.white,
+                            ),
                             text: "Next Exam",
                             textColor: Colors.white,
                             buttonColor: const Color(0xff094546),
@@ -142,6 +146,10 @@ class ResultScreen extends StatelessWidget {
                           ),
                         if (state.result!.round() / 100 != 1)
                           CustomButton(
+                              icon: const Icon(
+                                Icons.refresh,
+                                color: Colors.white,
+                              ),
                               text: "try again",
                               textColor: Colors.white,
                               buttonColor: const Color(0xff094546),
@@ -168,6 +176,10 @@ class ResultScreen extends StatelessWidget {
                               }),
                         const SizedBox(height: 24),
                         CustomButton(
+                          icon: const Icon(
+                            Icons.arrow_back,
+                            color: Colors.white,
+                          ),
                           text: 'Back',
                           textColor: Colors.white,
                           buttonColor: const Color(0xff094546),

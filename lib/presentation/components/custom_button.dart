@@ -11,6 +11,7 @@ class CustomButton extends StatelessWidget {
     required this.borderRadius,
     required this.onTap,
     required this.fontSize,
+    this.icon,
   });
 
   final String text;
@@ -21,6 +22,7 @@ class CustomButton extends StatelessWidget {
   final double borderRadius;
   final double fontSize;
   final VoidCallback onTap;
+  final Icon? icon;
 
   @override
   Widget build(BuildContext context) {
@@ -38,13 +40,20 @@ class CustomButton extends StatelessWidget {
         child: Center(
           child: Padding(
             padding: const EdgeInsets.all(6),
-            child: Text(
-              text,
-              style: TextStyle(
-                color: textColor,
-                fontSize: fontSize,
-                fontFamily: 'SourceSans3',
-              ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                if (icon != null) icon!,
+                if (icon != null) const SizedBox(width: 2),
+                Text(
+                  text,
+                  style: TextStyle(
+                    color: textColor,
+                    fontSize: fontSize,
+                    fontFamily: 'SourceSans3',
+                  ),
+                ),
+              ],
             ),
           ),
         ),
