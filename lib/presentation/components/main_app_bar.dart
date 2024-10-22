@@ -52,7 +52,7 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
                   BlocProvider.value(
                     value: BlocProvider.of<UserProfileBloc>(context),
                   )
-                ], child: const UserProfileScreen()),
+                ], child: UserProfileScreen()),
               ),
             );
           },

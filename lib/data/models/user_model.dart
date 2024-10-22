@@ -25,7 +25,7 @@ class UserModel extends User {
       }
     }
     return UserModel(
-      bio: json['bio'] ?? "",
+      bio: json['bio'] ?? "Gammal Tech Learner Exploring Coding Challenges",
       collegeName: json['university'] ?? "user college",
       imageUrl: json['imageUrl'] ?? "",
       name: json['name'] ?? "user name",

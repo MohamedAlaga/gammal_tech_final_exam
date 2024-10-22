@@ -32,10 +32,15 @@ class UserRepository extends BaseUserRepository {
 
   @override
   Future<Either<Failure, UserModel>> updateUserProfile(
-      String? university, String? email, String? phoneNumber) async {
+      String? university,
+      String? email,
+      String? phoneNumber,
+      String? bio,
+      String? imageUrl,
+      String? name) async {
     try {
-      return right(
-          await remoteUserDataSource.updateUserProfile(university, email, phoneNumber));
+      return right(await remoteUserDataSource.updateUserProfile(
+          university, email, phoneNumber, bio, imageUrl, name));
     } on ServerException catch (faliure) {
       return Left(ServerFailure(faliure.errorMessageModel.message));
     }

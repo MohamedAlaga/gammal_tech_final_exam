@@ -21,7 +21,12 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
     });
     on<UpdateUserProfileEvent>((event, emit) async {
       final result = await updateUserDataUsecase.execute(
-          event.university, event.email, event.phoneNumber);
+          event.university,
+          event.email,
+          event.phoneNumber,
+          event.bio,
+          event.imageUrl,
+          event.name);
       result.fold((l) {
         showRedToast("Error occures updating user profile, please try again");
       }, (r) {

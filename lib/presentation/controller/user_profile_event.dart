@@ -11,6 +11,15 @@ class UpdateUserProfileEvent extends UserProfileEvent {
   final String? university;
   final String? email;
   final String? phoneNumber;
+  final String? bio;
+  final String? imageUrl;
+  final String? name;
 
-  UpdateUserProfileEvent({this.university, this.email, this.phoneNumber});
+  UpdateUserProfileEvent(
+      {this.university,
+      this.email,
+      this.phoneNumber,
+      this.bio,
+      this.imageUrl,
+      this.name});
 }

@@ -8,7 +8,9 @@ class UpdateUserDataUsecase {
 
   UpdateUserDataUsecase(this.baseUserRepository);
 
-  Future<Either<Failure, User>> execute(String? university, String? email, String? phoneNumber) async{
-    return await baseUserRepository.updateUserProfile(university, email, phoneNumber);
+  Future<Either<Failure, User>> execute(String? university, String? email,
+      String? phoneNumber, String? bio, String? imageUrl, String? name) async {
+    return await baseUserRepository.updateUserProfile(
+        university, email, phoneNumber, bio, imageUrl, name);
   }
 }

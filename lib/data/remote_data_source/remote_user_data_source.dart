@@ -12,8 +12,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 abstract class BaseRemoteUserDataSource {
   Future<UserModel> getUserData();
   Future<WelcomeDataModel> getWelcomeData(String userToken);
-  Future<UserModel> updateUserProfile(
-      String? university, String? email, String? phoneNumber);
+  Future<UserModel> updateUserProfile(String? university, String? email,
+      String? phoneNumber, String? bio, String? imageUrl, String? name);
   Future<bool> loginUser(String email, String password);
   Future<bool> logoutUser();
   Future<bool> validateUserToken();
@@ -86,8 +86,8 @@ class RemoteUserDataSource extends BaseRemoteUserDataSource {
   }
 
   @override
-  Future<UserModel> updateUserProfile(
-      String? university, String? email, String? phoneNumber) async {
+  Future<UserModel> updateUserProfile(String? university, String? email,
+      String? phoneNumber, String? bio, String? imageUrl, String? name) async {
     try {
       Map<String, String> user = {};
       if (email != null) {
@@ -98,6 +98,15 @@ class RemoteUserDataSource extends BaseRemoteUserDataSource {
       }
       if (university != null) {
         user["university"] = university;
+      }
+      if (bio != null) {
+        user["bio"] = bio;
+      }
+      if (imageUrl != null) {
+        user["image"] = imageUrl;
+      }
+      if (name != null) {
+        user["name"] = name;
       }
       SharedPreferences prefs = await SharedPreferences.getInstance();
       var result = await http.put(
