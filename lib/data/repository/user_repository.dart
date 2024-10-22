@@ -81,4 +81,13 @@ class UserRepository extends BaseUserRepository {
       return Left(ServerFailure(faliure.errorMessageModel.message));
     }
   }
+
+  @override
+  Future<Either<Failure, bool>> recordUserPaymentInfo(String merRefNum) async {
+    try {
+      return right(await remoteUserDataSource.recordUserPaymentInfo(merRefNum));
+    } on ServerException catch (faliure) {
+      return Left(ServerFailure(faliure.errorMessageModel.message));
+    }
+  }
 }

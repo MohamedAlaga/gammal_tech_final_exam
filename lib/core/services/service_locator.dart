@@ -33,6 +33,7 @@ import 'package:gammal_tech_final_exam/presentation/controller/payment_bloc.dart
 import 'package:gammal_tech_final_exam/presentation/controller/topics_bloc.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/user_bloc.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/user_profile_bloc.dart';
+import 'package:gammal_tech_final_exam/domain/usecase/record_user_payment_info_usecase.dart';
 import 'package:get_it/get_it.dart';
 
 import '../../data/remote_data_source/remote_user_rank_data_source.dart';
@@ -44,7 +45,7 @@ final GetIt sl = GetIt.instance;
 class ServiceLocator {
   void init() {
     //blocs
-    sl.registerFactory<PaymentBloc>(() => PaymentBloc(sl()));
+    sl.registerFactory<PaymentBloc>(() => PaymentBloc(sl(), sl()));
     sl.registerFactory<ExamsBloc>(() => ExamsBloc(sl(), sl()));
     sl.registerFactory<TopicsBloc>(() => TopicsBloc(sl(), sl()));
     sl.registerFactory<CoursesBloc>(() => CoursesBloc(sl(), sl(), sl()));
@@ -53,6 +54,8 @@ class ServiceLocator {
     sl.registerFactory<UserProfileBloc>(() => UserProfileBloc(sl(), sl()));
     sl.registerFactory<LogBloc>(() => LogBloc(sl()));
     //usecases
+    sl.registerLazySingleton<RecordUserPaymentInfoUsecase>(
+        () => RecordUserPaymentInfoUsecase(sl()));
     sl.registerLazySingleton<GetUserHistoryUsecase>(
       () => GetUserHistoryUsecase(sl()),
     );

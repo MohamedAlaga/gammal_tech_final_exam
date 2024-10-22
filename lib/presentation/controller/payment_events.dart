@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:fawry_sdk/model/bill_item.dart';
+import 'package:flutter/widgets.dart';
 
 class PaymentEvents extends Equatable {
   @override
@@ -11,6 +12,10 @@ class StartPaymentEvent extends PaymentEvents {
   StartPaymentEvent(this.items);
 }
 
-class EndPaymentEvent extends PaymentEvents {}
-
-class CancelPaymentEvent extends PaymentEvents {}
+class RecordPaymentEvent extends PaymentEvents {
+  final Map<String, dynamic> data;
+  final BuildContext context;
+  final String refNumber;
+  final bool showRefNumber;
+  RecordPaymentEvent(this.refNumber, this.showRefNumber, this.context,this.data);
+}

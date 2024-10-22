@@ -18,6 +18,7 @@ abstract class BaseRemoteUserDataSource {
   Future<bool> logoutUser();
   Future<bool> validateUserToken();
   Future<LaunchCustomerModel> getUserPaymentInfo();
+  Future<bool> recordUserPaymentInfo(String merRefNum);
 }
 
 class RemoteUserDataSource extends BaseRemoteUserDataSource {
@@ -221,6 +222,41 @@ class RemoteUserDataSource extends BaseRemoteUserDataSource {
       throw const ServerException(
           errorMessageModel: ErrorMessageModel(
               message: "error accured getting user payment info",
+              statusCode: 0,
+              success: false));
+    }
+  }
+
+  @override
+  Future<bool> recordUserPaymentInfo(String merRefNum) async {
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      final Map<String, dynamic> requestBody = {
+        "user_id": prefs.getString("userId").toString(),
+        "merRefNum": merRefNum,
+      };
+
+      var result = await http.post(
+        Uri.parse("${baseUrl}payments"),
+        headers: {"Content-Type": "application/json"},
+        body: json.encode(requestBody),
+      );
+      if (result.statusCode == 200) {
+        print("payment recorded user refNumber: $merRefNum");
+        return true;
+      } else {
+        print("request body: $requestBody");
+        print("status code: ${result.statusCode} , body: ${result.body}");
+        throw ServerException(
+            errorMessageModel: ErrorMessageModel(
+                message: "error accured recording user payment info",
+                statusCode: result.statusCode,
+                success: false));
+      }
+    } catch (e) {
+      throw const ServerException(
+          errorMessageModel: ErrorMessageModel(
+              message: "error accured recording user payment info",
               statusCode: 0,
               success: false));
     }

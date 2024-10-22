@@ -11,9 +11,11 @@ import 'package:fawry_sdk/model/payment_methods.dart';
 import 'package:fawry_sdk/model/response.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gammal_tech_final_exam/core/utils/env.dart';
 import 'package:gammal_tech_final_exam/presentation/components/custom_toast.dart';
-import 'package:gammal_tech_final_exam/presentation/screens/show_payment_data_screen.dart';
+import 'package:gammal_tech_final_exam/presentation/controller/payment_bloc.dart';
+import 'package:gammal_tech_final_exam/presentation/controller/payment_events.dart';
 
 class FawryService {
   static LaunchMerchantModel getMerchantModel() {
@@ -40,31 +42,28 @@ class FawryService {
 void handleResponse(ResponseStatus response, BuildContext context) {
   switch (response.status) {
     case FawrySDK.RESPONSE_SUCCESS:
-      {
-        debugPrint('Message: ${response.message}');
-        debugPrint('Json Response: ${response.data}');
-        var data = jsonDecode(response.data!);
-        if (data["paymentMethod"] == "PayAtFawry") {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => ShowPaymentDataScreen(
-                      name: data["customerName"].toString(),
-                      price: data["paymentAmount"].toString(),
-                      refNumber: data["referenceNumber"].toString())));
-        }
-      }
+      {}
       break;
     case FawrySDK.RESPONSE_ERROR:
       {
-        debugPrint('Error: ${response.message}');
-        showRedToast("error occured while processing payment please try again");
+        if (response.message != "Cancelled") {
+          showRedToast(
+              "error occured while processing payment please try again");
+        }
       }
       break;
     case FawrySDK.RESPONSE_PAYMENT_COMPLETED:
       {
+        print("FawrySDK.RESPONSE_PAYMENT_COMPLETED");
         debugPrint('Payment Completed: ${response.message}, ${response.data}');
-        showGreenToast("Payment Completed");
+        var data = jsonDecode(response.data!);
+        if (data["paymentMethod"] == "PayAtFawry") {
+          BlocProvider.of<PaymentBloc>(context).add(RecordPaymentEvent(
+              data["referenceNumber"].toString(), true, context, data));
+        } else {
+          BlocProvider.of<PaymentBloc>(context).add(RecordPaymentEvent(
+              data["referenceNumber"].toString(), false, context, data));
+        }
       }
       break;
   }
@@ -94,6 +93,7 @@ Future<void> startPayment(
     payWithCardToken: false,
     paymentMethods: PaymentMethods.ALL,
   );
-  model.launchMerchantModel.merchantRefNum = "78${FawryUtils.randomAlphaNumeric(8)}";
+  model.launchMerchantModel.merchantRefNum =
+      "78${FawryUtils.randomAlphaNumeric(8)}";
   await FawryService().startPayment(model);
 }
