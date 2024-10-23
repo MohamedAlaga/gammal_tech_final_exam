@@ -26,6 +26,12 @@ class WelcomeInfoNew extends StatelessWidget {
           width: double.infinity,
           height: MediaQuery.of(context).size.width * 0.12,
           decoration:  const BoxDecoration(
+              border: Border(
+                bottom: BorderSide(
+                  color: Color(0xFFFFFFFF),
+                  width: 4,
+                ),
+              ),
               color: Colors.white,
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(12), topRight: Radius.circular(12))),

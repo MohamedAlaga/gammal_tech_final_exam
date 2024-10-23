@@ -90,4 +90,22 @@ class UserRepository extends BaseUserRepository {
       return Left(ServerFailure(faliure.errorMessageModel.message));
     }
   }
+
+  @override
+  Future<Either<Failure, bool>> checkUserAttempts() async {
+    try {
+      return right(await remoteUserDataSource.checkUserAttempts());
+    } on ServerException catch (faliure) {
+      return Left(ServerFailure(faliure.errorMessageModel.message));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> subtractAttempt() async {
+    try {
+      return right(await remoteUserDataSource.subtractAttempt());
+    } on ServerException catch (faliure) {
+      return Left(ServerFailure(faliure.errorMessageModel.message));
+    }
+  }
 }

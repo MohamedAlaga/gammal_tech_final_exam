@@ -1,14 +1,19 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gammal_tech_final_exam/core/utils/enums.dart';
+import 'package:gammal_tech_final_exam/domain/usecase/check_user_attempts_usecase.dart';
 import 'package:gammal_tech_final_exam/domain/usecase/get_topic_questions_usecase.dart';
 import 'package:gammal_tech_final_exam/domain/usecase/save_answer_usecase.dart';
+import 'package:gammal_tech_final_exam/domain/usecase/subtract_user_attempt_usecase.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/exams_event.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/exams_state.dart';
 
 class ExamsBloc extends Bloc<ExamsEvent, ExamsState> {
   final GetTopicQuestionsUsecase getTopicQuestionsUsecase;
   final SaveAnswerUsecase saveAnswerUsecase;
-  ExamsBloc(this.getTopicQuestionsUsecase, this.saveAnswerUsecase)
+  final CheckUserAttemptsUsecase checkUserAttemptsUsecase;
+  final SubtractUserAttemptUsecase subtractUserAttemptUsecase;
+  ExamsBloc(this.getTopicQuestionsUsecase, this.saveAnswerUsecase,
+      this.checkUserAttemptsUsecase, this.subtractUserAttemptUsecase)
       : super(const ExamsState()) {
     on<FetchQuestionsEvent>((event, emit) async {
       final result =
@@ -39,7 +44,9 @@ class ExamsBloc extends Bloc<ExamsEvent, ExamsState> {
     });
     on<StartQuizEvent>(
       (event, emit) {
-        emit(state.copyWith(isStarted: true, selectedAnswers: {} ,currentQuestionIndex: 0));
+        subtractUserAttemptUsecase.execute();
+        emit(state.copyWith(
+            isStarted: true, selectedAnswers: {}, currentQuestionIndex: 0));
       },
     );
     on<SubmitAnswersEvent>((event, emit) async {
@@ -54,7 +61,10 @@ class ExamsBloc extends Bloc<ExamsEvent, ExamsState> {
       });
     });
     on<ExitQuizEvent>((event, emit) {
-      emit(ExamsState(quizId: state.quizId,duration: state.duration , currentQuestionIndex: 0));
+      emit(ExamsState(
+          quizId: state.quizId,
+          duration: state.duration,
+          currentQuestionIndex: 0));
     });
   }
 }

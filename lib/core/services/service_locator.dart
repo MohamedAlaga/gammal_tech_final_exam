@@ -11,6 +11,7 @@ import 'package:gammal_tech_final_exam/domain/repository/base_course_repository.
 import 'package:gammal_tech_final_exam/domain/repository/base_history_repository.dart';
 import 'package:gammal_tech_final_exam/domain/repository/base_topic_repository.dart';
 import 'package:gammal_tech_final_exam/domain/repository/base_user_repository.dart';
+import 'package:gammal_tech_final_exam/domain/usecase/check_user_attempts_usecase.dart';
 import 'package:gammal_tech_final_exam/domain/usecase/enroll_to_course_usecase.dart';
 import 'package:gammal_tech_final_exam/domain/usecase/get_all_courses_usecase.dart';
 import 'package:gammal_tech_final_exam/domain/usecase/get_course_suggestions_usecase.dart';
@@ -23,6 +24,7 @@ import 'package:gammal_tech_final_exam/domain/usecase/get_user_profile_data_usec
 import 'package:gammal_tech_final_exam/domain/usecase/get_user_welcome_data_usecase.dart';
 import 'package:gammal_tech_final_exam/domain/usecase/login_user_usecase.dart';
 import 'package:gammal_tech_final_exam/domain/usecase/save_answer_usecase.dart';
+import 'package:gammal_tech_final_exam/domain/usecase/subtract_user_attempt_usecase.dart';
 import 'package:gammal_tech_final_exam/domain/usecase/update_user_data_usecase.dart';
 import 'package:gammal_tech_final_exam/domain/usecase/validate_user_token_usecase.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/courses_bloc.dart';
@@ -46,7 +48,7 @@ class ServiceLocator {
   void init() {
     //blocs
     sl.registerFactory<PaymentBloc>(() => PaymentBloc(sl(), sl()));
-    sl.registerFactory<ExamsBloc>(() => ExamsBloc(sl(), sl()));
+    sl.registerFactory<ExamsBloc>(() => ExamsBloc(sl(), sl(), sl(), sl()));
     sl.registerFactory<TopicsBloc>(() => TopicsBloc(sl(), sl()));
     sl.registerFactory<CoursesBloc>(() => CoursesBloc(sl(), sl(), sl()));
     sl.registerFactory<UserBloc>(() => UserBloc(sl(), sl(), sl()));
@@ -54,6 +56,10 @@ class ServiceLocator {
     sl.registerFactory<UserProfileBloc>(() => UserProfileBloc(sl(), sl()));
     sl.registerFactory<LogBloc>(() => LogBloc(sl()));
     //usecases
+    sl.registerLazySingleton<SubtractUserAttemptUsecase>(
+        () => SubtractUserAttemptUsecase(sl()));
+    sl.registerLazySingleton<CheckUserAttemptsUsecase>(
+        () => CheckUserAttemptsUsecase(sl()));
     sl.registerLazySingleton<RecordUserPaymentInfoUsecase>(
         () => RecordUserPaymentInfoUsecase(sl()));
     sl.registerLazySingleton<GetUserHistoryUsecase>(

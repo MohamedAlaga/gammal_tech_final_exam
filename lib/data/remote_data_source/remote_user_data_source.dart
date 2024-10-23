@@ -19,6 +19,8 @@ abstract class BaseRemoteUserDataSource {
   Future<bool> validateUserToken();
   Future<LaunchCustomerModel> getUserPaymentInfo();
   Future<bool> recordUserPaymentInfo(String merRefNum);
+  Future<bool> checkUserAttempts();
+  Future<void> subtractAttempt();
 }
 
 class RemoteUserDataSource extends BaseRemoteUserDataSource {
@@ -242,11 +244,8 @@ class RemoteUserDataSource extends BaseRemoteUserDataSource {
         body: json.encode(requestBody),
       );
       if (result.statusCode == 200) {
-        print("payment recorded user refNumber: $merRefNum");
         return true;
       } else {
-        print("request body: $requestBody");
-        print("status code: ${result.statusCode} , body: ${result.body}");
         throw ServerException(
             errorMessageModel: ErrorMessageModel(
                 message: "error accured recording user payment info",
@@ -258,6 +257,44 @@ class RemoteUserDataSource extends BaseRemoteUserDataSource {
           errorMessageModel: ErrorMessageModel(
               message: "error accured recording user payment info",
               statusCode: 0,
+              success: false));
+    }
+  }
+
+  @override
+  Future<bool> checkUserAttempts() async {
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      var result = await http.get(Uri.parse(
+          "${baseUrl}users/${prefs.getString("userId").toString()}/attempts"));
+      if (result.statusCode == 200) {
+        return jsonDecode(result.body)["hasAttempts"];
+      } else {
+        throw ServerException(
+            errorMessageModel: ErrorMessageModel(
+                message: "error accured getting user attempts",
+                statusCode: result.statusCode,
+                success: false));
+      }
+    } catch (e) {
+      throw const ServerException(
+          errorMessageModel: ErrorMessageModel(
+              message: "error accured getting user attempts",
+              statusCode: 404,
+              success: false));
+    }
+  }
+
+  @override
+  Future<void> subtractAttempt() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var result = await http.put(Uri.parse(
+        "${baseUrl}users/${prefs.getString("userId").toString()}/attempts/subtract"));
+    if (result.statusCode != 200) {
+      throw ServerException(
+          errorMessageModel: ErrorMessageModel(
+              message: "error accured subtracting user attempts",
+              statusCode: result.statusCode,
               success: false));
     }
   }

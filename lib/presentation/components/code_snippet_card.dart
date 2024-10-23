@@ -21,7 +21,7 @@ class _CodeSnippetCardState extends State<CodeSnippetCard> {
   int currentIndex = 0;
   Timer? timer;
   final ScrollController _scrollController =
-      ScrollController(); // Add a ScrollController
+      ScrollController();
 
   @override
   void initState() {
@@ -32,7 +32,7 @@ class _CodeSnippetCardState extends State<CodeSnippetCard> {
   @override
   void dispose() {
     timer?.cancel();
-    _scrollController.dispose(); // Dispose the ScrollController
+    _scrollController.dispose();
     super.dispose();
   }
 
@@ -73,7 +73,7 @@ class _CodeSnippetCardState extends State<CodeSnippetCard> {
         borderRadius: const BorderRadius.all(Radius.circular(6)),
       ),
       child: Padding(
-        padding: const EdgeInsets.all(12.0),
+        padding: const EdgeInsets.all(6),
         child: Scrollbar(
           thumbVisibility: true,
           controller: _scrollController,
@@ -83,7 +83,7 @@ class _CodeSnippetCardState extends State<CodeSnippetCard> {
               displayedCode,
               language: widget.language,
               theme: widget.theme,
-              padding: const EdgeInsets.all(12),
+              padding: const EdgeInsets.all(6),
               textStyle: GoogleFonts.sourceCodePro(),
             ),
           ),

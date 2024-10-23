@@ -1,11 +1,15 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gammal_tech_final_exam/core/services/service_locator.dart';
 import 'package:gammal_tech_final_exam/core/utils/enums.dart';
 import 'package:gammal_tech_final_exam/domain/entities/topic.dart';
+import 'package:gammal_tech_final_exam/domain/usecase/check_user_attempts_usecase.dart';
+import 'package:gammal_tech_final_exam/presentation/components/accept_custom_dialoge.dart';
 import 'package:gammal_tech_final_exam/presentation/components/card_can_not_start_exam.dart';
 import 'package:gammal_tech_final_exam/presentation/components/card_exam.dart';
 import 'package:gammal_tech_final_exam/presentation/components/card_finish_exam_course.dart';
+import 'package:gammal_tech_final_exam/presentation/components/custom_toast.dart';
 import 'package:gammal_tech_final_exam/presentation/components/shimmers.dart';
 import 'package:gammal_tech_final_exam/presentation/components/sub_app_bar.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/courses_bloc.dart';
@@ -154,15 +158,80 @@ class PracticeScreen extends StatelessWidget {
                                       ),
                                     ));
                               },
-                              onStartPressed: () {
-                                BlocProvider.of<ExamsBloc>(context).add(
-                                    FetchQuestionsEvent(notFinishedTopics[0].id,
-                                        notFinishedTopics[0].duration));
+                              onStartPressed: () async {
+                                showDialog(
+                                  context: context,
+                                  barrierDismissible: false,
+                                  builder: (BuildContext dialogContext) {
+                                    return const Center(
+                                      child: SizedBox(
+                                        height: 36,
+                                        width: 36,
+                                        child: CircularProgressIndicator(),
+                                      ),
+                                    );
+                                  },
+                                );
+                                var result =
+                                    await sl<CheckUserAttemptsUsecase>()
+                                        .execute();
+                                Navigator.of(context, rootNavigator: true)
+                                    .pop();
+                                result.fold(
+                                  (failure) {
+                                    showRedToast(
+                                        "Error occured while checking attempts remaning");
+                                  },
+                                  (hasAttemptsLeft) {
+                                    if (hasAttemptsLeft) {
+                                      BlocProvider.of<ExamsBloc>(context).add(
+                                          FetchQuestionsEvent(
+                                              notFinishedTopics[0].id,
+                                              notFinishedTopics[0].duration));
 
-                                PersistentNavBarNavigator.pushNewScreen(
-                                  context,
-                                  screen: QuizPage(),
-                                  withNavBar: false,
+                                      PersistentNavBarNavigator.pushNewScreen(
+                                        context,
+                                        screen: QuizPage(),
+                                        withNavBar: false,
+                                      );
+                                    } else {
+                                      showGeneralDialog(
+                                        context: context,
+                                        transitionDuration:
+                                            const Duration(milliseconds: 300),
+                                        barrierDismissible: true,
+                                        barrierLabel: '',
+                                        transitionBuilder:
+                                            (context, a1, a2, widget) {
+                                          final curvedValue = Curves
+                                                  .easeInOutBack
+                                                  .transform(a1.value) -
+                                              1.0;
+                                          return Transform(
+                                            transform:
+                                                Matrix4.translationValues(0.0,
+                                                    curvedValue * 200, 0.0),
+                                            child: Opacity(
+                                              opacity: a1.value,
+                                              child: AcceptCustomDialoge(
+                                                onTap: () {
+                                                  Navigator.pop(
+                                                      context); // Close the custom dialog
+                                                },
+                                                body:
+                                                    "You do not have any attempts left",
+                                                textAlign: TextAlign.center,
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                        pageBuilder:
+                                            (context, animation1, animation2) {
+                                          return const SizedBox();
+                                        },
+                                      );
+                                    }
+                                  },
                                 );
                               },
                             ),
