@@ -32,20 +32,29 @@ class CustomTextDialog extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               SourceSansText(
-                  text: title, fontsize: 22, fontWeight: FontWeight.w600),
+                text: title,
+                fontsize: 22,
+                fontWeight: FontWeight.w600,
+              ),
               Padding(
                 padding:
-                    const EdgeInsets.symmetric(vertical: 24.0, horizontal: 24),
+                    const EdgeInsets.symmetric(vertical: 24, horizontal: 24),
                 child: TextField(
                   controller: controller,
-                  decoration:  InputDecoration(
+                  cursorColor: const Color(0xff094546),
+                  decoration: InputDecoration(
                     hintText: hintText,
-                    border: const OutlineInputBorder(),
+                    hintStyle: TextStyle(
+                      color: Colors.black.withOpacity(0.5),
+                    ),
+                    border: buildBorder(const Color(0xffE3E5E8)),
+                    enabledBorder: buildBorder(const Color(0xffE3E5E8)),
+                    focusedBorder: buildBorder(const Color(0xff094546)),
                   ),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                padding: const EdgeInsets.symmetric(horizontal: 24),
                 child: Row(
                   children: [
                     Expanded(
@@ -62,7 +71,7 @@ class CustomTextDialog extends StatelessWidget {
                           child: Align(
                             alignment: Alignment.center,
                             child: SourceSansText(
-                              text: "no",
+                              text: "No",
                               fontsize: 18,
                               fontWeight: FontWeight.w500,
                               color: Color(0xffFFFFFF),
@@ -87,10 +96,11 @@ class CustomTextDialog extends StatelessWidget {
                           child: Align(
                             alignment: Alignment.center,
                             child: SourceSansText(
-                                text: "yes",
-                                fontsize: 18,
-                                fontWeight: FontWeight.w500,
-                                color: Color(0xffFFFFFF)),
+                              text: "Yes",
+                              fontsize: 18,
+                              fontWeight: FontWeight.w500,
+                              color: Color(0xffFFFFFF),
+                            ),
                           ),
                         ),
                       ),
@@ -101,6 +111,15 @@ class CustomTextDialog extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  OutlineInputBorder buildBorder(Color color) {
+    return OutlineInputBorder(
+      borderRadius: BorderRadius.circular(8),
+      borderSide: BorderSide(
+        color: color,
       ),
     );
   }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class CardCanNotStartExam extends StatelessWidget {
-  final String quizzes;
+  final int courseNumber;
   final String courseTitle;
   final String courseImage;
   final void Function()? onTap;
@@ -9,7 +9,7 @@ class CardCanNotStartExam extends StatelessWidget {
 
   const CardCanNotStartExam({
     super.key,
-    required this.quizzes,
+    required this.courseNumber,
     required this.courseTitle,
     required this.courseImage,
     this.onTap,
@@ -47,26 +47,30 @@ class CardCanNotStartExam extends StatelessWidget {
                     ),
                     padding:
                         const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                    child: Text(
-                      courseTitle,
-                      style: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'Quicksand',
-                        color: Color.fromARGB(255, 160, 164, 168),
+                    child: SizedBox(
+                      width: 32,
+                      child: Center(
+                        child: Text(
+                          '$courseNumber',
+                          style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'Quicksand',
+                            color: Color.fromARGB(255, 160, 164, 168),
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
-                      maxLines: 1, // Ensure it stays on one line
-                      overflow: TextOverflow.ellipsis, // Handle overflow
                     ),
                   ),
                   const SizedBox(height: 12),
                   Padding(
                     padding: const EdgeInsets.only(left: 12, bottom: 12),
                     child: Text(
-                      "$quizzes Questions",
+                      courseTitle,
                       style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
                         fontFamily: fontFamily,
                         color: Colors.white,
                       ),

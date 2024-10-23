@@ -4,8 +4,8 @@ import 'package:gammal_tech_final_exam/core/services/service_locator.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/courses_bloc.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/exams_bloc.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/log_bloc.dart';
-import 'package:gammal_tech_final_exam/presentation/controller/rank_bloc.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/payment_bloc.dart';
+import 'package:gammal_tech_final_exam/presentation/controller/rank_bloc.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/topics_bloc.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/user_bloc.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/user_events.dart';
@@ -35,15 +35,20 @@ class MyApp extends StatelessWidget {
           BlocProvider<PaymentBloc>(create: (context) => sl<PaymentBloc>()),
           BlocProvider<UserProfileBloc>(
               create: (context) => sl<UserProfileBloc>()),
-          BlocProvider<LogBloc>(
-              create: (context) => sl<LogBloc>())
+          BlocProvider<LogBloc>(create: (context) => sl<LogBloc>())
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
-              scaffoldBackgroundColor: Colors.white,
-              progressIndicatorTheme:
-                  const ProgressIndicatorThemeData(color: Color(0xff094546))),
+            scaffoldBackgroundColor: Colors.white,
+            progressIndicatorTheme: const ProgressIndicatorThemeData(
+              color: Color(0xff094546),
+            ),
+            textSelectionTheme: TextSelectionThemeData(
+              selectionColor: Colors.teal.withOpacity(0.3),
+              selectionHandleColor: const Color(0xff094546),
+            ),
+          ),
           home: const MainScreen(),
         ),
       ),

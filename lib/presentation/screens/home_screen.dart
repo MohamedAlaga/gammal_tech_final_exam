@@ -25,7 +25,6 @@ import '../controller/topics_state.dart';
 import '../controller/user_bloc.dart';
 import '../controller/user_state.dart';
 import 'course_screen.dart';
-import 'more_data_screen.dart';
 import 'notification_screen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -146,54 +145,54 @@ class HomeScreen extends StatelessWidget {
                                   courseTitle: topic.title,
                                   subtitle: topic.subtitle,
                                   questions: topic.quizCount.toString(),
-                                  time: "${topic.duration.toString()} sec",
-                                  onMorePressed: () {
-                                    Navigator.push(
-                                        context,
-                                        PageRouteBuilder(
-                                          transitionDuration:
-                                              const Duration(milliseconds: 140),
-                                          transitionsBuilder: (context,
-                                              firstAnimation,
-                                              secondaryAnimation,
-                                              child) {
-                                            return SlideTransition(
-                                              position: Tween<Offset>(
-                                                begin: const Offset(1.0, 0.0),
-                                                end: Offset.zero,
-                                              ).animate(firstAnimation),
-                                              child: child,
-                                            );
-                                          },
-                                          pageBuilder: (context, firstAnimation,
-                                                  secondaryAnimation) =>
-                                              MultiBlocProvider(
-                                            providers: [
-                                              BlocProvider.value(
-                                                  value: BlocProvider.of<
-                                                      ExamsBloc>(context)),
-                                              BlocProvider.value(
-                                                value:
-                                                    BlocProvider.of<TopicsBloc>(
-                                                        context),
-                                              ),
-                                              BlocProvider.value(
-                                                value:
-                                                    BlocProvider.of<UserBloc>(
-                                                        context),
-                                              )
-                                            ],
-                                            child: MoreDataScreen(
-                                              description: topic.description,
-                                              imageUrl: topic.imageUrl,
-                                              neededSkills: topic.skills,
-                                              points: topic.points.toString(),
-                                              quizId: topic.id,
-                                              duration: topic.duration,
-                                            ),
-                                          ),
-                                        ));
-                                  },
+                                  time: topic.duration,
+                                  // onMorePressed: () {
+                                  //   Navigator.push(
+                                  //       context,
+                                  //       PageRouteBuilder(
+                                  //         transitionDuration:
+                                  //             const Duration(milliseconds: 140),
+                                  //         transitionsBuilder: (context,
+                                  //             firstAnimation,
+                                  //             secondaryAnimation,
+                                  //             child) {
+                                  //           return SlideTransition(
+                                  //             position: Tween<Offset>(
+                                  //               begin: const Offset(1.0, 0.0),
+                                  //               end: Offset.zero,
+                                  //             ).animate(firstAnimation),
+                                  //             child: child,
+                                  //           );
+                                  //         },
+                                  //         pageBuilder: (context, firstAnimation,
+                                  //                 secondaryAnimation) =>
+                                  //             MultiBlocProvider(
+                                  //           providers: [
+                                  //             BlocProvider.value(
+                                  //                 value: BlocProvider.of<
+                                  //                     ExamsBloc>(context)),
+                                  //             BlocProvider.value(
+                                  //               value:
+                                  //                   BlocProvider.of<TopicsBloc>(
+                                  //                       context),
+                                  //             ),
+                                  //             BlocProvider.value(
+                                  //               value:
+                                  //                   BlocProvider.of<UserBloc>(
+                                  //                       context),
+                                  //             )
+                                  //           ],
+                                  //           child: MoreDataScreen(
+                                  //             description: topic.description,
+                                  //             imageUrl: topic.imageUrl,
+                                  //             neededSkills: topic.skills,
+                                  //             points: topic.points.toString(),
+                                  //             quizId: topic.id,
+                                  //             duration: topic.duration,
+                                  //           ),
+                                  //         ),
+                                  //       ));
+                                  // },
                                   onStartPressed: () {
                                     BlocProvider.of<ExamsBloc>(context).add(
                                         FetchQuestionsEvent(

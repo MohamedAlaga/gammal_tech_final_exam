@@ -85,7 +85,7 @@ class UserProfileScreen extends StatelessWidget {
                                         acceptText: "Save",
                                         cancelText: "",
                                         title: "Edit your name",
-                                        hintText: "Enter your name",
+                                        hintText: "Name",
                                         onAccept: () {
                                           if (nameController.text.isNotEmpty) {
                                             BlocProvider.of<UserProfileBloc>(
@@ -149,7 +149,7 @@ class UserProfileScreen extends StatelessWidget {
                                         acceptText: "Save",
                                         cancelText: "",
                                         title: "Edit your university",
-                                        hintText: "Enter your university name",
+                                        hintText: "University Name",
                                         onAccept: () {
                                           if (collegeController
                                               .text.isNotEmpty) {
@@ -220,7 +220,7 @@ class UserProfileScreen extends StatelessWidget {
                                         acceptText: "Save",
                                         cancelText: "",
                                         title: "Edit your bio",
-                                        hintText: "Enter your bio",
+                                        hintText: "Bio",
                                         onAccept: () {
                                           if (bioController.text.isNotEmpty) {
                                             BlocProvider.of<UserProfileBloc>(
@@ -275,7 +275,7 @@ class UserProfileScreen extends StatelessWidget {
                         information:
                             state.currentUser.attemptsRemaining.toString(),
                       ),
-                      const SizedBox(height: 18),
+                      const SizedBox(height: 6),
                       Row(
                         children: [
                           Expanded(
@@ -308,7 +308,7 @@ class UserProfileScreen extends StatelessWidget {
                                           acceptText: "Save",
                                           cancelText: "",
                                           title: "Edit your email",
-                                          hintText: "Enter your new email",
+                                          hintText: "Email",
                                           onAccept: () {
                                             if (emailController
                                                 .text.isNotEmpty) {
@@ -338,9 +338,7 @@ class UserProfileScreen extends StatelessWidget {
                               },
                             ),
                           ),
-                          const SizedBox(
-                            width: 12,
-                          ),
+                          const SizedBox(width: 12),
                           Expanded(
                             child: CustomButton(
                               width: double.infinity,
@@ -371,7 +369,7 @@ class UserProfileScreen extends StatelessWidget {
                                           acceptText: "Save",
                                           cancelText: "",
                                           title: "Edit your phone number",
-                                          hintText: "Enter your phone nummber",
+                                          hintText: "Phone Number",
                                           onAccept: () {
                                             if (phoneNumberController
                                                 .text.isNotEmpty) {
