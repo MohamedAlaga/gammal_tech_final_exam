@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:gammal_tech_final_exam/presentation/components/custom_button.dart';
 
-class CardExam extends StatelessWidget {
-  const CardExam({
+class PracticeCardExam extends StatelessWidget {
+  const PracticeCardExam({
     super.key,
-    required this.questions,
+    required this.courseNumber,
     required this.courseTitle,
     required this.subtitle,
     required this.time,
     required this.courseImage,
-    // this.onMorePressed,
+    this.onMorePressed,
     this.onStartPressed,
   });
 
-  final String questions;
+  final int courseNumber;
   final String courseTitle;
   final String subtitle;
   final int time;
   final String courseImage;
-  // final void Function()? onMorePressed;
+  final void Function()? onMorePressed;
   final void Function()? onStartPressed;
 
   @override
@@ -35,32 +35,41 @@ class CardExam extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Flexible(
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      color: Color(0xffFF904D),
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(8),
-                        bottomRight: Radius.circular(8),
-                      ),
+                Container(
+                  decoration: const BoxDecoration(
+                    color: Color(0xffFF904D),
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(8),
+                      bottomRight: Radius.circular(8),
                     ),
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                    child: Text(
-                      courseTitle,
-                      style: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'Quicksand',
-                        color: Colors.white,
+                  ),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  child: SizedBox(
+                    width: 32,
+                    child: Center(
+                      child: Text(
+                        '$courseNumber',
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'Quicksand',
+                          color: Colors.white,
+                        ),
+                        overflow: TextOverflow.ellipsis,
                       ),
-                      overflow:
-                          TextOverflow.ellipsis, // Add this to handle overflow
                     ),
                   ),
                 ),
+                IconButton(
+                  onPressed: onMorePressed,
+                  icon: const Icon(
+                    Icons.info_outline,
+                    color: Color(0xff094546),
+                  ),
+                ),
+                const Spacer(),
                 Padding(
                   padding: const EdgeInsets.only(right: 12),
                   child: Row(
@@ -85,7 +94,7 @@ class CardExam extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 12),
+            const SizedBox(height: 6),
             Padding(
               padding: const EdgeInsets.only(left: 12, right: 12),
               child: Row(
@@ -94,7 +103,7 @@ class CardExam extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "$questions Questions",
+                        courseTitle,
                         style: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.w700,
@@ -135,7 +144,7 @@ class CardExam extends StatelessWidget {
                 buttonColor: const Color(0xff094546),
                 borderColor: const Color(0xff094546),
                 width: MediaQuery.of(context).size.width - 72,
-                borderRadius: 3,
+                borderRadius: 8,
                 fontSize: 16,
                 onTap: onStartPressed ?? () {},
               ),

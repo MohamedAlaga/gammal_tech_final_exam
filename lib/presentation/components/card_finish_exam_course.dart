@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 class CardFinishExamCourse extends StatelessWidget {
-  final String quizzes;
+  final int courseNumber;
   final String courseTitle;
   final void Function()? onTap;
 
   const CardFinishExamCourse({
     super.key,
-    required this.quizzes,
+    required this.courseNumber,
     required this.courseTitle,
     this.onTap,
   });
@@ -44,26 +44,30 @@ class CardFinishExamCourse extends StatelessWidget {
                           ),
                           padding: const EdgeInsets.symmetric(
                               horizontal: 12, vertical: 6),
-                          child: Text(
-                            courseTitle,
-                            style: const TextStyle(
-                              fontSize: 18,
-                              fontFamily: 'Quicksand',
-                              fontWeight: FontWeight.w600,
-                              color: Colors.white,
+                          child: SizedBox(
+                            width: 32,
+                            child: Center(
+                              child: Text(
+                                '$courseNumber',
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'Quicksand',
+                                  color: Colors.white,
+                                ),
+                                overflow: TextOverflow.ellipsis,
+                              ),
                             ),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
                           ),
                         ),
                         const SizedBox(height: 12),
                         Padding(
                           padding: const EdgeInsets.only(left: 12, bottom: 12),
                           child: Text(
-                            "$quizzes Questions",
+                            "$courseTitle",
                             style: const TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
                                 fontFamily: 'SourceSans3',
                                 color: Color(0xff094546)),
                           ),

@@ -29,7 +29,6 @@ import '../controller/topics_state.dart';
 import '../controller/user_bloc.dart';
 import '../controller/user_state.dart';
 import 'course_screen.dart';
-import 'more_data_screen.dart';
 import 'notification_screen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -153,131 +152,62 @@ class HomeScreen extends StatelessWidget {
                                   courseTitle: topic.title,
                                   subtitle: topic.subtitle,
                                   questions: topic.quizCount.toString(),
-                                  time: "${topic.duration.toString()} sec",
-                                  onMorePressed: () {
-                                    Navigator.push(
-                                        context,
-                                        PageRouteBuilder(
-                                          transitionDuration:
-                                              const Duration(milliseconds: 140),
-                                          transitionsBuilder: (context,
-                                              firstAnimation,
-                                              secondaryAnimation,
-                                              child) {
-                                            return SlideTransition(
-                                              position: Tween<Offset>(
-                                                begin: const Offset(1.0, 0.0),
-                                                end: Offset.zero,
-                                              ).animate(firstAnimation),
-                                              child: child,
-                                            );
-                                          },
-                                          pageBuilder: (context, firstAnimation,
-                                                  secondaryAnimation) =>
-                                              MultiBlocProvider(
-                                            providers: [
-                                              BlocProvider.value(
-                                                  value: BlocProvider.of<
-                                                      ExamsBloc>(context)),
-                                              BlocProvider.value(
-                                                value:
-                                                    BlocProvider.of<TopicsBloc>(
-                                                        context),
-                                              ),
-                                              BlocProvider.value(
-                                                value:
-                                                    BlocProvider.of<UserBloc>(
-                                                        context),
-                                              )
-                                            ],
-                                            child: MoreDataScreen(
-                                              description: topic.description,
-                                              imageUrl: topic.imageUrl,
-                                              neededSkills: topic.skills,
-                                              points: topic.points.toString(),
-                                              quizId: topic.id,
-                                              duration: topic.duration,
-                                            ),
-                                          ),
-                                        ));
-                                  },
-                                  onStartPressed: () async {
-                                    showDialog(
-                                      context: context,
-                                      barrierDismissible: false,
-                                      builder: (BuildContext dialogContext) {
-                                        return const Center(
-                                          child: SizedBox(
-                                            height: 36,
-                                            width: 36,
-                                            child: CircularProgressIndicator(),
-                                          ),
-                                        );
-                                      },
-                                    );
-                                    var result =
-                                        await sl<CheckUserAttemptsUsecase>()
-                                            .execute();
-                                    Navigator.of(context, rootNavigator: true)
-                                        .pop();
-                                    result.fold(
-                                      (failure) {
-                                        showRedToast(
-                                            "Error occured while checking attempts remaning");
-                                      },
-                                      (hasAttemptsLeft) {
-                                        if (hasAttemptsLeft) {
-                                          BlocProvider.of<ExamsBloc>(context)
-                                              .add(
-                                            FetchQuestionsEvent(
-                                                topic.id, topic.duration),
-                                          );
-                                          PersistentNavBarNavigator
-                                              .pushNewScreen(
-                                            context,
-                                            screen: QuizPage(),
-                                            withNavBar: false,
-                                          );
-                                        } else {
-                                          showGeneralDialog(
-                                            context: context,
-                                            transitionDuration: const Duration(
-                                                milliseconds: 300),
-                                            barrierDismissible: true,
-                                            barrierLabel: '',
-                                            transitionBuilder:
-                                                (context, a1, a2, widget) {
-                                              final curvedValue = Curves
-                                                      .easeInOutBack
-                                                      .transform(a1.value) -
-                                                  1.0;
-                                              return Transform(
-                                                transform:
-                                                    Matrix4.translationValues(
-                                                        0.0,
-                                                        curvedValue * 200,
-                                                        0.0),
-                                                child: Opacity(
-                                                  opacity: a1.value,
-                                                  child: AcceptCustomDialoge(
-                                                    onTap: () {
-                                                      Navigator.pop(
-                                                          context);
-                                                    },
-                                                    body:
-                                                        "You do not have any attempts left",
-                                                    textAlign: TextAlign.center,
-                                                  ),
-                                                ),
-                                              );
-                                            },
-                                            pageBuilder: (context, animation1,
-                                                animation2) {
-                                              return const SizedBox();
-                                            },
-                                          );
-                                        }
-                                      },
+                                  time: topic.duration,
+                                  // onMorePressed: () {
+                                  //   Navigator.push(
+                                  //       context,
+                                  //       PageRouteBuilder(
+                                  //         transitionDuration:
+                                  //             const Duration(milliseconds: 140),
+                                  //         transitionsBuilder: (context,
+                                  //             firstAnimation,
+                                  //             secondaryAnimation,
+                                  //             child) {
+                                  //           return SlideTransition(
+                                  //             position: Tween<Offset>(
+                                  //               begin: const Offset(1.0, 0.0),
+                                  //               end: Offset.zero,
+                                  //             ).animate(firstAnimation),
+                                  //             child: child,
+                                  //           );
+                                  //         },
+                                  //         pageBuilder: (context, firstAnimation,
+                                  //                 secondaryAnimation) =>
+                                  //             MultiBlocProvider(
+                                  //           providers: [
+                                  //             BlocProvider.value(
+                                  //                 value: BlocProvider.of<
+                                  //                     ExamsBloc>(context)),
+                                  //             BlocProvider.value(
+                                  //               value:
+                                  //                   BlocProvider.of<TopicsBloc>(
+                                  //                       context),
+                                  //             ),
+                                  //             BlocProvider.value(
+                                  //               value:
+                                  //                   BlocProvider.of<UserBloc>(
+                                  //                       context),
+                                  //             )
+                                  //           ],
+                                  //           child: MoreDataScreen(
+                                  //             description: topic.description,
+                                  //             imageUrl: topic.imageUrl,
+                                  //             neededSkills: topic.skills,
+                                  //             points: topic.points.toString(),
+                                  //             quizId: topic.id,
+                                  //             duration: topic.duration,
+                                  //           ),
+                                  //         ),
+                                  //       ));
+                                  // },
+                                  onStartPressed: () {
+                                    BlocProvider.of<ExamsBloc>(context).add(
+                                        FetchQuestionsEvent(
+                                            topic.id, topic.duration));
+                                    PersistentNavBarNavigator.pushNewScreen(
+                                      context,
+                                      screen: QuizPage(),
+                                      withNavBar: false,
                                     );
                                   },
                                 ),

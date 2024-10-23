@@ -7,7 +7,6 @@ import 'package:gammal_tech_final_exam/domain/entities/topic.dart';
 import 'package:gammal_tech_final_exam/domain/usecase/check_user_attempts_usecase.dart';
 import 'package:gammal_tech_final_exam/presentation/components/accept_custom_dialoge.dart';
 import 'package:gammal_tech_final_exam/presentation/components/card_can_not_start_exam.dart';
-import 'package:gammal_tech_final_exam/presentation/components/card_exam.dart';
 import 'package:gammal_tech_final_exam/presentation/components/card_finish_exam_course.dart';
 import 'package:gammal_tech_final_exam/presentation/components/custom_toast.dart';
 import 'package:gammal_tech_final_exam/presentation/components/shimmers.dart';
@@ -20,6 +19,8 @@ import 'package:gammal_tech_final_exam/presentation/controller/topics_state.dart
 import 'package:gammal_tech_final_exam/presentation/screens/more_data_screen.dart';
 import 'package:gammal_tech_final_exam/presentation/screens/quiz_page.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
+
+import '../components/practice_card_exam.dart';
 
 class PracticeScreen extends StatelessWidget {
   const PracticeScreen({super.key});
@@ -97,18 +98,14 @@ class PracticeScreen extends StatelessWidget {
                           children: [
                             for (int i = 0; i < finishedTopics.length; i++)
                               CardFinishExamCourse(
-                                quizzes: finishedTopics[i].quizCount.toString(),
-                                courseTitle:
-                                    "${i + 1}- ${finishedTopics[i].title}",
+                                courseNumber: i + 1,
+                                courseTitle: finishedTopics[i].title,
                               ),
-                            CardExam(
-                              questions:
-                                  notFinishedTopics[0].quizCount.toString(),
-                              courseTitle:
-                                  "${finishedTopics.length + 1}- ${notFinishedTopics[0].title}",
+                            PracticeCardExam(
+                              courseNumber: finishedTopics.length + 1,
+                              courseTitle: notFinishedTopics[0].title,
                               subtitle: notFinishedTopics[0].subtitle,
-                              time:
-                                  "${notFinishedTopics[0].duration.toString()} sec",
+                              time: notFinishedTopics[0].duration,
                               courseImage: notFinishedTopics[0].imageUrl,
                               onMorePressed: () {
                                 Navigator.push(
@@ -237,10 +234,8 @@ class PracticeScreen extends StatelessWidget {
                             ),
                             for (int i = 1; i < notFinishedTopics.length; i++)
                               CardCanNotStartExam(
-                                quizzes:
-                                    notFinishedTopics[i].quizCount.toString(),
-                                courseTitle:
-                                    "${finishedTopics.length + 1 + i}- ${notFinishedTopics[i].title}",
+                                courseNumber: finishedTopics.length + 1 + i,
+                                courseTitle: notFinishedTopics[i].title,
                                 courseImage: notFinishedTopics[i].imageUrl,
                                 fontFamily: 'SourceSans3',
                               ),

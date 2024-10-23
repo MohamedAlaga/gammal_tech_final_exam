@@ -42,9 +42,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         },
         cursorColor: const Color(0xff094546),
         maxLines: widget.isPassword ? 1 : widget.maxLines,
-        obscureText: widget.isPassword
-            ? _obscureText
-            : false, // Toggle obscureText for password
+        obscureText: widget.isPassword ? _obscureText : false,
         decoration: InputDecoration(
           hintText: widget.hint,
           hintStyle: TextStyle(
