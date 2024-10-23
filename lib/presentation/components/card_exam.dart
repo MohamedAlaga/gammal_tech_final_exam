@@ -9,7 +9,6 @@ class CardExam extends StatelessWidget {
     required this.subtitle,
     required this.time,
     required this.courseImage,
-    // this.onMorePressed,
     this.onStartPressed,
   });
 
@@ -18,7 +17,6 @@ class CardExam extends StatelessWidget {
   final String subtitle;
   final int time;
   final String courseImage;
-  // final void Function()? onMorePressed;
   final void Function()? onStartPressed;
 
   @override
@@ -56,8 +54,7 @@ class CardExam extends StatelessWidget {
                         fontFamily: 'Quicksand',
                         color: Colors.white,
                       ),
-                      overflow:
-                          TextOverflow.ellipsis, // Add this to handle overflow
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
                 ),
