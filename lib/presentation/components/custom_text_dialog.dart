@@ -2,15 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:gammal_tech_final_exam/presentation/components/source_sans_text.dart';
 
 class CustomTextDialog extends StatelessWidget {
-  const CustomTextDialog(
-      {super.key,
-      required this.title,
-      required this.hintText,
-      required this.controller,
-      required this.acceptText,
-      required this.onAccept,
-      this.onCancel,
-      required this.cancelText});
+  const CustomTextDialog({
+    super.key,
+    required this.title,
+    required this.hintText,
+    required this.controller,
+    required this.acceptText,
+    required this.onAccept,
+    this.onCancel,
+    required this.cancelText,
+  });
+
   final String title;
   final String hintText;
   final TextEditingController controller;
@@ -18,6 +20,7 @@ class CustomTextDialog extends StatelessWidget {
   final void Function() onAccept;
   final void Function()? onCancel;
   final String cancelText;
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
