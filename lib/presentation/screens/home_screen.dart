@@ -5,10 +5,6 @@ import 'package:gammal_tech_final_exam/presentation/components/welcome_info_new.
 import 'package:gammal_tech_final_exam/presentation/screens/practice_screen.dart';
 import 'package:gammal_tech_final_exam/presentation/screens/quiz_page.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
-
-import '/presentation/components/welcome_info_new.dart';
-import '/presentation/screens/practice_screen.dart';
-import '/presentation/screens/quiz_page.dart';
 import '../../core/utils/enums.dart';
 import '../../domain/entities/course.dart';
 import '../components/card_exam.dart';
