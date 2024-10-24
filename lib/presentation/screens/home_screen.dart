@@ -1,10 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gammal_tech_final_exam/core/services/service_locator.dart';
-import 'package:gammal_tech_final_exam/domain/usecase/check_user_attempts_usecase.dart';
-import 'package:gammal_tech_final_exam/presentation/components/accept_custom_dialoge.dart';
-import 'package:gammal_tech_final_exam/presentation/components/custom_toast.dart';
 import 'package:gammal_tech_final_exam/presentation/components/welcome_info_new.dart';
 import 'package:gammal_tech_final_exam/presentation/screens/practice_screen.dart';
 import 'package:gammal_tech_final_exam/presentation/screens/quiz_page.dart';
@@ -85,7 +81,6 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
             ),
-            
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24),
               child: Column(
@@ -153,53 +148,6 @@ class HomeScreen extends StatelessWidget {
                                   subtitle: topic.subtitle,
                                   questions: topic.quizCount.toString(),
                                   time: topic.duration,
-                                  // onMorePressed: () {
-                                  //   Navigator.push(
-                                  //       context,
-                                  //       PageRouteBuilder(
-                                  //         transitionDuration:
-                                  //             const Duration(milliseconds: 140),
-                                  //         transitionsBuilder: (context,
-                                  //             firstAnimation,
-                                  //             secondaryAnimation,
-                                  //             child) {
-                                  //           return SlideTransition(
-                                  //             position: Tween<Offset>(
-                                  //               begin: const Offset(1.0, 0.0),
-                                  //               end: Offset.zero,
-                                  //             ).animate(firstAnimation),
-                                  //             child: child,
-                                  //           );
-                                  //         },
-                                  //         pageBuilder: (context, firstAnimation,
-                                  //                 secondaryAnimation) =>
-                                  //             MultiBlocProvider(
-                                  //           providers: [
-                                  //             BlocProvider.value(
-                                  //                 value: BlocProvider.of<
-                                  //                     ExamsBloc>(context)),
-                                  //             BlocProvider.value(
-                                  //               value:
-                                  //                   BlocProvider.of<TopicsBloc>(
-                                  //                       context),
-                                  //             ),
-                                  //             BlocProvider.value(
-                                  //               value:
-                                  //                   BlocProvider.of<UserBloc>(
-                                  //                       context),
-                                  //             )
-                                  //           ],
-                                  //           child: MoreDataScreen(
-                                  //             description: topic.description,
-                                  //             imageUrl: topic.imageUrl,
-                                  //             neededSkills: topic.skills,
-                                  //             points: topic.points.toString(),
-                                  //             quizId: topic.id,
-                                  //             duration: topic.duration,
-                                  //           ),
-                                  //         ),
-                                  //       ));
-                                  // },
                                   onStartPressed: () {
                                     BlocProvider.of<ExamsBloc>(context).add(
                                         FetchQuestionsEvent(

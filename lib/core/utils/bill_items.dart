@@ -1,3 +1,5 @@
+/// this file contains the pyament plans for the application
+library;
 
 import 'package:fawry_sdk/model/bill_item.dart';
 

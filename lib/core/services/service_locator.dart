@@ -1,3 +1,10 @@
+///this file contains the service locator class to register all the services and dependencies
+///[init] initialize the service locator
+///[sl] get the instance of the service locator
+///[ServiceLocator] service locator class to register all the services and dependencies
+///[GetIt] get the instance of the service locator
+library;
+
 import 'package:gammal_tech_final_exam/data/remote_data_source/remote_course_data_source.dart';
 import 'package:gammal_tech_final_exam/data/remote_data_source/remote_history_data_source.dart';
 import 'package:gammal_tech_final_exam/data/remote_data_source/remote_topic_data_source.dart';
@@ -36,14 +43,16 @@ import 'package:gammal_tech_final_exam/presentation/controller/topics_bloc.dart'
 import 'package:gammal_tech_final_exam/presentation/controller/user_bloc.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/user_profile_bloc.dart';
 import 'package:gammal_tech_final_exam/domain/usecase/record_user_payment_info_usecase.dart';
+import 'package:gammal_tech_final_exam/data/remote_data_source/remote_user_rank_data_source.dart';
+import 'package:gammal_tech_final_exam/domain/repository/base_user_rank_repository.dart';
+import 'package:gammal_tech_final_exam/domain/usecase/get_user_rank_data_usecase.dart';
 import 'package:get_it/get_it.dart';
 
-import '../../data/remote_data_source/remote_user_rank_data_source.dart';
-import '../../domain/repository/base_user_rank_repository.dart';
-import '../../domain/usecase/get_user_rank_data_usecase.dart';
 
 final GetIt sl = GetIt.instance;
 
+
+/// Service locator class to register all the services and dependencies
 class ServiceLocator {
   void init() {
     //blocs

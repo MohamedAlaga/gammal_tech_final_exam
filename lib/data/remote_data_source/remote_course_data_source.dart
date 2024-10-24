@@ -1,3 +1,9 @@
+/// This file contains the RemoteCourseDataSource class which is responsible for
+/// handling all the remote data sources for the course entity.
+/// The class is responsible for fetching all the courses, getting course suggestions,
+/// and enrolling a user to a course.
+library;
+
 import 'dart:convert';
 
 import 'package:gammal_tech_final_exam/core/error/error_message_model.dart';
@@ -8,17 +14,21 @@ import 'package:gammal_tech_final_exam/domain/entities/course.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
+/// base class for the remote course data source
 abstract class BaseRemoteCourseDataSource {
   Future<List<Course>> getAllCourses();
   Future<List<Course>> getCoursesSuggetions(String userToken);
   Future<void> enrollUserToCourse(String courseId);
 }
 
+/// RemoteCourseDataSource class is responsible for handling all the remote data sources for the course entity.
 class RemoteCourseDataSource extends BaseRemoteCourseDataSource {
+  /// get all courses from the server
+  /// on success : return list of courses
+  /// on failure : throw ServerException contains the error message and code
   @override
   Future<List<CourseModel>> getAllCourses() async {
     try {
-      //https://exam.gammal.tech/API/courses/v2/1325
       SharedPreferences prefs = await SharedPreferences.getInstance();
       var result = await http.get(Uri.parse(
           "${baseUrl}courses/v2/${prefs.getString("userId").toString()}"));
@@ -44,6 +54,9 @@ class RemoteCourseDataSource extends BaseRemoteCourseDataSource {
     }
   }
 
+  /// get courses suggestions from the server
+  /// on success : return list of courses
+  /// on failure : throw ServerException contains the error message and code
   @override
   Future<List<CourseModel>> getCoursesSuggetions(String userToken) async {
     try {
@@ -74,6 +87,9 @@ class RemoteCourseDataSource extends BaseRemoteCourseDataSource {
     }
   }
 
+  /// enroll user to a course
+  /// on success : return void
+  /// on failure : throw ServerException contains the error message and code
   @override
   Future<void> enrollUserToCourse(String courseId) async {
     try {

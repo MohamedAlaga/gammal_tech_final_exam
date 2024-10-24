@@ -64,7 +64,7 @@ class CardFinishExamCourse extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.only(left: 12, bottom: 12),
                           child: Text(
-                            "$courseTitle",
+                            courseTitle,
                             style: const TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,

@@ -1,12 +1,16 @@
+/// this file contains the abstract class [BaseUserRepository] that is used to define the methods that should be implemented in the data layer to get the user data from the server.
+library;
+
 import 'package:dartz/dartz.dart';
 import 'package:fawry_sdk/model/launch_customer_model.dart';
 import 'package:gammal_tech_final_exam/core/error/faliure.dart';
 import 'package:gammal_tech_final_exam/domain/entities/user.dart';
 import 'package:gammal_tech_final_exam/domain/entities/welcome_data.dart';
 
+/// [BaseUserRepository] abstract class to define the methods that should be implemented in the data layer to get the user data from the server.
 abstract class BaseUserRepository {
   Future<Either<Failure, User>> getUserData();
-  Future<Either<Failure, WelcomeData>> getWelcomeData(String userToken);
+  Future<Either<Failure, WelcomeData>> getWelcomeData();
   Future<Either<Failure, User>> updateUserProfile(
       String? university,
       String? email,

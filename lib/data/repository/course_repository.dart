@@ -1,3 +1,6 @@
+/// This file contains the implementation of the [BaseCourseRepository] interface.
+library;
+
 import 'package:dartz/dartz.dart';
 import 'package:gammal_tech_final_exam/core/error/exceptions.dart';
 import 'package:gammal_tech_final_exam/core/error/faliure.dart';
@@ -5,10 +8,14 @@ import 'package:gammal_tech_final_exam/data/remote_data_source/remote_course_dat
 import 'package:gammal_tech_final_exam/domain/entities/course.dart';
 import 'package:gammal_tech_final_exam/domain/repository/base_course_repository.dart';
 
+/// CourseRepository class is responsible for handling all the remote data sources for the course entity.
 class CourseRepository extends BaseCourseRepository {
   final BaseRemoteCourseDataSource baseRemoteCourseDataSource;
   CourseRepository(this.baseRemoteCourseDataSource);
 
+  /// get all courses from the server
+  /// on success : return list of courses
+  /// on failure : throw ServerException contains the error message and code
   @override
   Future<Either<Failure, List<Course>>> getAllCourses(String userToken) async {
     try {
@@ -18,6 +25,9 @@ class CourseRepository extends BaseCourseRepository {
     }
   }
 
+  /// get courses suggestions from the server
+  /// on success : return list of courses
+  /// on failure : throw ServerException contains the error message and code
   @override
   Future<Either<Failure, List<Course>>> getCoursesSuggetions(
       String userToken) async {
@@ -29,6 +39,9 @@ class CourseRepository extends BaseCourseRepository {
     }
   }
 
+  /// enroll a user to a course
+  /// on success : return void
+  /// on failure : throw ServerException contains the error message and code
   @override
   Future<Either<Failure, void>> enrollUserToCourse(String courseId) async {
     try {

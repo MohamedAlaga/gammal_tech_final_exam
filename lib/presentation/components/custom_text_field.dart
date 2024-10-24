@@ -23,7 +23,7 @@ class CustomTextField extends StatefulWidget {
 }
 
 class _CustomTextFieldState extends State<CustomTextField> {
-  bool _obscureText = true; // Initial state to obscure password text
+  bool _obscureText = true;
 
   @override
   Widget build(BuildContext context) {

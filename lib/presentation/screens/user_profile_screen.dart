@@ -455,7 +455,7 @@ class UserProfileScreen extends StatelessWidget {
                           Navigator.pushAndRemoveUntil<dynamic>(
                             context,
                             MaterialPageRoute<dynamic>(
-                              builder: (BuildContext context) => MainScreen(),
+                              builder: (BuildContext context) => const MainScreen(),
                             ),
                             (route) => false,
                           );

@@ -1,6 +1,10 @@
+/// The model class is used to convert the courses json data to the entity object and vice versa.
+library;
+
 import 'package:gammal_tech_final_exam/core/utils/env.dart';
 import 'package:gammal_tech_final_exam/domain/entities/course.dart';
 
+/// class to convert Course json data to dart object and vice versa
 class CourseModel extends Course {
   const CourseModel({
     required super.id,
@@ -14,6 +18,7 @@ class CourseModel extends Course {
     required super.isEnrolled,
   });
 
+  /// convert json data to dart object
   factory CourseModel.fromJson(Map<String, dynamic> json) {
     return CourseModel(
       id: json['id'].toString(),
@@ -28,6 +33,7 @@ class CourseModel extends Course {
     );
   }
 
+  /// convert dart object to json data
   Map<String, dynamic> toJson() {
     return {
       'id': id,

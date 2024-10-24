@@ -1,5 +1,9 @@
+/// The model class is used to convert the user json data to the entity object and vice versa.
+library;
+
 import 'package:gammal_tech_final_exam/domain/entities/user.dart';
 
+/// class to convert User json data to dart object and vice versa
 class UserModel extends User {
   const UserModel({
     required super.bio,
@@ -14,6 +18,7 @@ class UserModel extends User {
     required super.phone,
   });
 
+  /// convert json data to dart object
   factory UserModel.fromJson(
       Map<String, dynamic> json, Map<String, double> progress) {
     List<String> skills = [];
@@ -38,6 +43,7 @@ class UserModel extends User {
     );
   }
 
+  /// convert dart object to json data
   Map<String, dynamic> toJson() {
     return {
       'bio': bio,
@@ -53,6 +59,7 @@ class UserModel extends User {
     };
   }
 
+  /// copy with method to update the user model
   UserModel copyWith({
     String? bio,
     String? collegeName,

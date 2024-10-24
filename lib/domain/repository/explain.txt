@@ -1,1 +1,0 @@
-this folder will contain base repository for the app

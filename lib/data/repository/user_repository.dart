@@ -1,3 +1,7 @@
+/// This file contains the implementation of the [BaseUserRepository] interface.
+/// This class is responsible for handling all the remote data sources for the user entity.
+library;
+
 import 'package:dartz/dartz.dart';
 import 'package:fawry_sdk/model/launch_customer_model.dart';
 import 'package:gammal_tech_final_exam/core/error/exceptions.dart';
@@ -7,10 +11,14 @@ import 'package:gammal_tech_final_exam/data/models/welcome_data_model.dart';
 import 'package:gammal_tech_final_exam/data/remote_data_source/remote_user_data_source.dart';
 import 'package:gammal_tech_final_exam/domain/repository/base_user_repository.dart';
 
+/// UserRepository class is responsible for handling all the remote data sources for the user entity.
 class UserRepository extends BaseUserRepository {
   final BaseRemoteUserDataSource remoteUserDataSource;
   UserRepository(this.remoteUserDataSource);
 
+  /// get all user data from the server
+  /// on success : return user model
+  /// on failure : throw ServerException contains the error message and code
   @override
   Future<Either<Failure, UserModel>> getUserData() async {
     try {
@@ -20,16 +28,21 @@ class UserRepository extends BaseUserRepository {
     }
   }
 
+  /// get welcome data from the server
+  /// on success : return welcome data model
+  /// on failure : throw ServerException contains the error message and code
   @override
-  Future<Either<Failure, WelcomeDataModel>> getWelcomeData(
-      String userToken) async {
+  Future<Either<Failure, WelcomeDataModel>> getWelcomeData() async {
     try {
-      return right(await remoteUserDataSource.getWelcomeData(userToken));
+      return right(await remoteUserDataSource.getWelcomeData());
     } on ServerException catch (faliure) {
       return Left(ServerFailure(faliure.errorMessageModel.message));
     }
   }
 
+  /// update user profile data on the server
+  /// on success : return user model
+  /// on failure : throw ServerException contains the error message and code
   @override
   Future<Either<Failure, UserModel>> updateUserProfile(
       String? university,
@@ -46,6 +59,9 @@ class UserRepository extends BaseUserRepository {
     }
   }
 
+  /// login user to the server
+  /// on success : return bool
+  /// on failure : throw ServerException contains the error message and code
   @override
   Future<Either<Failure, bool>> loginUser(String email, String password) async {
     try {
@@ -55,6 +71,9 @@ class UserRepository extends BaseUserRepository {
     }
   }
 
+  /// register user to the server
+  /// on success : return bool
+  /// on failure : throw ServerException contains the error message and code
   @override
   Future<Either<Failure, bool>> logoutUser() async {
     try {
@@ -64,6 +83,9 @@ class UserRepository extends BaseUserRepository {
     }
   }
 
+  /// validate user token on the server
+  /// on success : return bool
+  /// on failure : throw ServerException contains the error message and code
   @override
   Future<Either<Failure, bool>> validateUserToken() async {
     try {
@@ -73,6 +95,9 @@ class UserRepository extends BaseUserRepository {
     }
   }
 
+  /// get the user payment info from the server
+  /// on success : return launch customer model
+  /// on failure : throw ServerException contains the error message and code
   @override
   Future<Either<Failure, LaunchCustomerModel>> getUserPaymentInfo() async {
     try {
@@ -82,6 +107,9 @@ class UserRepository extends BaseUserRepository {
     }
   }
 
+  /// record user payment info on the server
+  /// on success : return bool
+  /// on failure : throw ServerException contains the error message and code
   @override
   Future<Either<Failure, bool>> recordUserPaymentInfo(String merRefNum) async {
     try {
@@ -91,6 +119,9 @@ class UserRepository extends BaseUserRepository {
     }
   }
 
+  /// check user attempts on the server
+  /// on success : return bool
+  /// on failure : throw ServerException contains the error message and code
   @override
   Future<Either<Failure, bool>> checkUserAttempts() async {
     try {
@@ -100,6 +131,9 @@ class UserRepository extends BaseUserRepository {
     }
   }
 
+  /// add user attempt on the server
+  /// on success : return void
+  /// on failure : throw ServerException contains the error message and code
   @override
   Future<Either<Failure, void>> subtractAttempt() async {
     try {

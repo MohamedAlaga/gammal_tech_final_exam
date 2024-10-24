@@ -1,3 +1,6 @@
+///this file contains the fawry payment service
+library;
+
 import 'dart:async';
 import 'dart:convert';
 
@@ -17,6 +20,10 @@ import 'package:gammal_tech_final_exam/presentation/components/custom_toast.dart
 import 'package:gammal_tech_final_exam/presentation/controller/payment_bloc.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/payment_events.dart';
 
+/// Fawry service class to handle fawry payment
+/// [getMerchantModel] get the merchant data model
+/// [startPayment] start the payment
+///
 class FawryService {
   static LaunchMerchantModel getMerchantModel() {
     return LaunchMerchantModel(
@@ -39,6 +46,14 @@ class FawryService {
   }
 }
 
+/// Handle the response from the fawry payment
+/// [response] response status
+/// [context] current context
+///
+/// on success, show success message and notify server,
+///   if the payment method is pay at fawry show reference 
+///   number and notify server
+/// on failure, show error message
 void handleResponse(ResponseStatus response, BuildContext context) {
   switch (response.status) {
     case FawrySDK.RESPONSE_SUCCESS:
@@ -54,7 +69,6 @@ void handleResponse(ResponseStatus response, BuildContext context) {
       break;
     case FawrySDK.RESPONSE_PAYMENT_COMPLETED:
       {
-        print("FawrySDK.RESPONSE_PAYMENT_COMPLETED");
         debugPrint('Payment Completed: ${response.message}, ${response.data}');
         var data = jsonDecode(response.data!);
         if (data["paymentMethod"] == "PayAtFawry") {
@@ -69,7 +83,7 @@ void handleResponse(ResponseStatus response, BuildContext context) {
   }
 }
 
-// Get the current platform
+/// Get the current platform
 String currentPlatform() {
   switch (defaultTargetPlatform) {
     case TargetPlatform.android:
@@ -81,6 +95,13 @@ String currentPlatform() {
   }
 }
 
+/// Start the payment
+/// [customer] customer data
+/// [item] list of items to be paid
+///
+/// start the payment with the customer data and the items to be paid
+/// all payments methods are allowed
+/// the merchent referance number is generated randomly but starts with 78
 Future<void> startPayment(
     LaunchCustomerModel customer, List<BillItem> item) async {
   FawryLaunchModel model = FawryLaunchModel(

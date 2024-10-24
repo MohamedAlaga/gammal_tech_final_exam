@@ -1,3 +1,6 @@
+/// This file contains the remote data source for the user history.
+library;
+
 import 'dart:convert';
 import 'package:gammal_tech_final_exam/core/error/error_message_model.dart';
 import 'package:gammal_tech_final_exam/core/error/exceptions.dart';
@@ -7,6 +10,7 @@ import 'package:gammal_tech_final_exam/data/models/topic_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
+/// base class for the remote topic data source
 abstract class BaseRemoteTopicDataSource {
   Future<List<TopicModel>> getCourseTopicsById(
     String courseId,
@@ -16,7 +20,11 @@ abstract class BaseRemoteTopicDataSource {
   Future<List<QuestionsModel>> getTopicQuestions(String topicId);
 }
 
+/// RemoteTopicDataSource class is responsible for handling all the remote data sources for the topic entity.
 class RemoteTopicDataSource extends BaseRemoteTopicDataSource {
+  /// get course topics by course id from the server
+  /// on success : return list of topics
+  /// on failure : throw ServerException contains the error message and code
   @override
   Future<List<TopicModel>> getCourseTopicsById(String courseId) async {
     try {
@@ -45,6 +53,9 @@ class RemoteTopicDataSource extends BaseRemoteTopicDataSource {
     }
   }
 
+  /// get up next topics from the server
+  /// on success : return list of topics
+  /// on failure : throw ServerException contains the error message and code
   @override
   Future<List<TopicModel>> upNextTopics() async {
     try {
@@ -69,6 +80,9 @@ class RemoteTopicDataSource extends BaseRemoteTopicDataSource {
     }
   }
 
+  /// save user answer to the server
+  /// on success : return the score
+  /// on failure : throw ServerException contains the error message and code
   @override
   Future<double> saveAnswer(String topicId, Map<int, int?> userAnswer) async {
     try {
@@ -107,6 +121,9 @@ class RemoteTopicDataSource extends BaseRemoteTopicDataSource {
     }
   }
 
+  /// get topic questions from the server
+  /// on success : return list of questions
+  /// on failure : throw ServerException contains the error message and code
   @override
   Future<List<QuestionsModel>> getTopicQuestions(String topicId) async {
     try {
