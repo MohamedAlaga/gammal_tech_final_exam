@@ -47,10 +47,11 @@ class UserProfileScreen extends StatelessWidget {
                   child: Column(
                     children: [
                       CircleAvatar(
-                        radius: 60,
-                        backgroundImage:
-                            _getImageProvider(state.currentUser.imageUrl),
-                        backgroundColor: Colors.grey[400],
+                        radius: 50,
+                        backgroundImage: _getImageProvider(
+                          state.currentUser.imageUrl,
+                        ),
+                        backgroundColor: Colors.white,
                       ),
                       const SizedBox(height: 12),
                       Row(
