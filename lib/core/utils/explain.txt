@@ -1,1 +1,0 @@
-this folder will contain all the utilites and global variables

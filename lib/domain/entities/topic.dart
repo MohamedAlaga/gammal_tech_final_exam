@@ -1,5 +1,18 @@
+/// Topic entity class
 import 'package:equatable/equatable.dart';
 
+/// class to handel topic data model
+/// [id] topic id
+/// [courseId] course id
+/// [duration] topic duration
+/// [title] topic title
+/// [subtitle] topic subtitle
+/// [description] topic description
+/// [imageUrl] topic image url
+/// [skills] topic skills
+/// [points] topic points
+/// [quizCount] topic quiz count
+/// [isCompleted] topic completion status
 class Topic extends Equatable {
   final String id;
   final String courseId;

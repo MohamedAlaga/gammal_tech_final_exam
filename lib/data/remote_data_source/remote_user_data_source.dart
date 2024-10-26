@@ -1,3 +1,6 @@
+/// This file contains the remote data source for the User Data.
+library;
+
 import 'dart:convert';
 
 import 'package:fawry_sdk/model/launch_customer_model.dart';
@@ -9,9 +12,10 @@ import 'package:gammal_tech_final_exam/data/models/welcome_data_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
+/// base class for the remote user data source
 abstract class BaseRemoteUserDataSource {
   Future<UserModel> getUserData();
-  Future<WelcomeDataModel> getWelcomeData(String userToken);
+  Future<WelcomeDataModel> getWelcomeData();
   Future<UserModel> updateUserProfile(String? university, String? email,
       String? phoneNumber, String? bio, String? imageUrl, String? name);
   Future<bool> loginUser(String email, String password);
@@ -23,7 +27,11 @@ abstract class BaseRemoteUserDataSource {
   Future<void> subtractAttempt();
 }
 
+/// RemoteUserDataSource class is responsible for handling all the remote data sources for the user entity.
 class RemoteUserDataSource extends BaseRemoteUserDataSource {
+  /// get user data from the server
+  /// on success : return user data
+  /// on failure : throw ServerException contains the error message and code
   @override
   Future<UserModel> getUserData() async {
     try {
@@ -64,8 +72,11 @@ class RemoteUserDataSource extends BaseRemoteUserDataSource {
     }
   }
 
+  /// get welcome data from the server
+  /// on success : return welcome data
+  /// on failure : throw ServerException contains the error message and code
   @override
-  getWelcomeData(String userToken) async {
+  getWelcomeData() async {
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       var result = await http.get(Uri.parse(
@@ -88,6 +99,9 @@ class RemoteUserDataSource extends BaseRemoteUserDataSource {
     }
   }
 
+  /// update user profile on the server
+  /// on success : return updated user data
+  /// on failure : throw ServerException contains the error message and code
   @override
   Future<UserModel> updateUserProfile(String? university, String? email,
       String? phoneNumber, String? bio, String? imageUrl, String? name) async {
@@ -106,7 +120,7 @@ class RemoteUserDataSource extends BaseRemoteUserDataSource {
         user["bio"] = bio;
       }
       if (imageUrl != null) {
-        user["image"] = imageUrl;
+        user["image_url"] = imageUrl;
       }
       if (name != null) {
         user["name"] = name;
@@ -133,6 +147,14 @@ class RemoteUserDataSource extends BaseRemoteUserDataSource {
     }
   }
 
+  /// login user to the server
+  /// 
+  /// try to login the user to the server using the email and password
+  /// if the login success the user token will be saved in the shared preferences
+  /// and the user id will be saved in the shared preferences
+  /// 
+  /// on success : return true
+  /// on failure : throw ServerException contains the error message and code
   @override
   Future<bool> loginUser(String email, String password) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -156,6 +178,10 @@ class RemoteUserDataSource extends BaseRemoteUserDataSource {
     }
   }
 
+  /// logout user from the server
+  /// delete the user token and user id from the shared preferences
+  /// on success : return true
+  /// on failure : throw ServerException contains the error message and code
   @override
   Future<bool> logoutUser() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -170,6 +196,13 @@ class RemoteUserDataSource extends BaseRemoteUserDataSource {
     }
   }
 
+  /// validate user token
+  /// 
+  /// validate the user token by sending a request to the server
+  /// if the token is valid the user id will be saved in the shared preferences
+  ///
+  /// on success : return true
+  /// on failure : throw ServerException contains the error message and code
   @override
   Future<bool> validateUserToken() async {
     try {
@@ -201,6 +234,9 @@ class RemoteUserDataSource extends BaseRemoteUserDataSource {
     }
   }
 
+  /// get user payment info from the server
+  /// on success : return user payment info
+  /// on failure : throw ServerException contains the error message and code
   @override
   Future<LaunchCustomerModel> getUserPaymentInfo() async {
     try {
@@ -229,6 +265,9 @@ class RemoteUserDataSource extends BaseRemoteUserDataSource {
     }
   }
 
+  /// record user payment info on the server
+  /// on success : return true
+  /// on failure : throw ServerException contains the error message and code
   @override
   Future<bool> recordUserPaymentInfo(String merRefNum) async {
     try {
@@ -261,6 +300,9 @@ class RemoteUserDataSource extends BaseRemoteUserDataSource {
     }
   }
 
+  /// check user attempts
+  /// on success : return true if the user has attempts
+  /// on failure : throw ServerException contains the error message and code
   @override
   Future<bool> checkUserAttempts() async {
     try {
@@ -285,6 +327,9 @@ class RemoteUserDataSource extends BaseRemoteUserDataSource {
     }
   }
 
+  /// subtract one attempt from the user attempts
+  /// on success : return void
+  /// on failure : throw ServerException contains the error message and code
   @override
   Future<void> subtractAttempt() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();

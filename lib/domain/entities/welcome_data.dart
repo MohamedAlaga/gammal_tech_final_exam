@@ -1,5 +1,15 @@
+/// this file conatins the welcome data entity
+library;
+
 import 'package:equatable/equatable.dart';
 
+/// class to handel welcome data
+/// [title] welcome title
+/// [imageUrl] welcome image url
+/// [rank] user rank
+/// [solvedExams] user solved exams
+/// [points] user points
+/// [totalRanks] total ranks
 class WelcomeData extends Equatable {
   final String title;
   final String imageUrl;

@@ -1,5 +1,9 @@
+/// The model class is used to convert the welcome json data to the entity object and vice versa.
+library;
+
 import 'package:gammal_tech_final_exam/domain/entities/welcome_data.dart';
 
+/// class to convert WelcomeData json data to dart object and vice versa
 class WelcomeDataModel extends WelcomeData {
   const WelcomeDataModel(
       {required super.title,
@@ -9,6 +13,7 @@ class WelcomeDataModel extends WelcomeData {
       required super.totalRanks,
       required super.rank});
 
+  /// convert json data to dart object
   factory WelcomeDataModel.fromJson(Map<String, dynamic> json) {
     return WelcomeDataModel(
       title: json['name'],
@@ -20,6 +25,7 @@ class WelcomeDataModel extends WelcomeData {
     );
   }
 
+  /// convert dart object to json data
   Map<String, dynamic> toJson() {
     return {
       'title': super.title,

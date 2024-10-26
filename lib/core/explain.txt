@@ -1,1 +1,0 @@
-this folder will contain all the static data , and global vars for the app 

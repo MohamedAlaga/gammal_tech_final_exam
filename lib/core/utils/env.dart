@@ -1,3 +1,4 @@
+/// this file contains all the environment variables that are used in the app
 String domainName = "https://exam.gammal.tech/";
 String apiVersion = "API/";
 String baseUrl = domainName + apiVersion;

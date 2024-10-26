@@ -15,7 +15,7 @@ class LeaderboardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    BlocProvider.of<UserRankBloc>(context).add(GetUserRankEvent());
+    BlocProvider.of<UserRankBloc>(context).add(const GetUserRankEvent());
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(

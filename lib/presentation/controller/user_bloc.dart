@@ -40,9 +40,8 @@ class UserBloc extends Bloc<UserEvents, UserState> {
       });
     });
     on<GetWelcomeUserData>((event, emit) async {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
       var result = await getUserWelcomeDataUsecase
-          .execute(prefs.getString("userid").toString());
+          .execute();
       result.fold(
           (l) => emit(state.copyWith(
               welcomeRequestState: RequestState.error,

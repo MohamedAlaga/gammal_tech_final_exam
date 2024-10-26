@@ -50,7 +50,7 @@ class TopMemberCard extends StatelessWidget {
                   fontSize: rank == 1 ? 18 : 14,
                 ),
               )
-            : SizedBox(),
+            : const SizedBox(),
         Text(
           state,
           style: TextStyle(

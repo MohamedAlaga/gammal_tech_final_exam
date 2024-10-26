@@ -1,5 +1,19 @@
+///this file contains the user entity
+library;
+
 import 'package:equatable/equatable.dart';
 
+///class to handel user data model
+///[name] user name
+///[email] user email
+///[phone] user phone
+///[collegeName] user college name
+///[bio] user bio
+///[attemptsRemaining] user attempts remaining
+///[totalPoints] user total points
+///[skills] user skills
+///[progress] user progress
+///[imageUrl] user image url
 class User extends Equatable {
   final String name;
   final String email;

@@ -1,1 +1,0 @@
-this folder will contain all the error types and classes 

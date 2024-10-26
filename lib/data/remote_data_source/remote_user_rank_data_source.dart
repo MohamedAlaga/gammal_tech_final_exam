@@ -1,3 +1,6 @@
+/// this file contains the remote data source for user rank
+library;
+
 import 'dart:convert';
 
 import 'package:gammal_tech_final_exam/core/error/error_message_model.dart';
@@ -8,12 +11,18 @@ import 'package:http/http.dart' as http;
 
 import '../../core/utils/env.dart';
 
+/// base class for the remote user rank data source
 abstract class BaseRemoteUserRankDataSource {
   Future<List<UserRank>> getUserRankings();
 }
 
+/// RemoteUserRankDataSource class is responsible for handling all the remote data sources for the user rank entity.
 class RemoteUserRankDataSource extends BaseRemoteUserRankDataSource {
   @override
+
+  /// get user rankings from the server
+  /// on success : return list of user rankings
+  /// on failure : throw ServerException contains the error message and code
   Future<List<UserRankModel>> getUserRankings() async {
     try {
       var result = await http.get(Uri.parse("${baseUrl}users/rankings"));
