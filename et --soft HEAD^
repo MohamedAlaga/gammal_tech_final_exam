@@ -1,0 +1,251 @@
+[33mcommit 41657190b6cfad88a2e1e8ffcfa1a85545eb09b6[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Merge: 79e639d f2d9b8a
+Author: Mohamed-AlAzab <mohamedazb20059@gmail.com>
+Date:   Sat Oct 26 15:48:05 2024 +0300
+
+    add the app on my github
+
+[33mcommit 79e639d29cbcf627d9bf2c7b1b4cfc83e87e7fb4[m
+Author: Mohamed-AlAzab <mohamedazb20059@gmail.com>
+Date:   Sat Oct 26 15:45:41 2024 +0300
+
+    add the app on my github
+
+[33mcommit f2d9b8ad12a58bbf04e6c55e53530fb5c8c536d5[m
+Author: Mohamed Alaga <malaga.142014@gmail.com>
+Date:   Thu Oct 24 13:26:27 2024 +0300
+
+    fix merge
+
+[33mcommit 0313bf2b6cabed8e90278b3aa0e3dd78f908260c[m
+Author: Mohamed Alaga <malaga.142014@gmail.com>
+Date:   Thu Oct 24 13:05:26 2024 +0300
+
+    merge
+
+[33mcommit c52055e273457aeed1e774841f9298edfd9b54ed[m
+Merge: 6924cb1 d0dbd15
+Author: Mohamed Alaga <malaga.142014@gmail.com>
+Date:   Thu Oct 24 13:05:16 2024 +0300
+
+    Merge branch 'main' of https://github.com/MohamedAlaga/gammal_tech_final_exam
+
+[33mcommit 6924cb1f78d56a86c0b97b274bca0fde05f7da71[m
+Author: Mohamed Alaga <malaga.142014@gmail.com>
+Date:   Thu Oct 24 13:03:32 2024 +0300
+
+    add documentation
+
+[33mcommit d0dbd15a491deac28b984cca72dd90adf781870e[m
+Author: Mohamed-AlAzab <mohamedazb20059@gmail.com>
+Date:   Wed Oct 23 22:13:28 2024 +0300
+
+    make new card for prctice and change the olg cards and some edit..!!
+
+[33mcommit 2d2fa9b7dfa1d02d419aeaee9e6e996320ff5f72[m
+Author: Mohamed-AlAzab <mohamedazb20059@gmail.com>
+Date:   Wed Oct 23 22:11:05 2024 +0300
+
+    make new card for prctice and change the olg cards and some edit..!!
+
+[33mcommit 26a569ed710c8798cfb5571966e2f083654d76fe[m
+Merge: 1ed5bbf de1ebb8
+Author: Mohamed Alaga <malaga.142014@gmail.com>
+Date:   Wed Oct 23 21:21:04 2024 +0300
+
+    Merge branch 'main' of https://github.com/MohamedAlaga/gammal_tech_final_exam
+
+[33mcommit 1ed5bbf857e33519355c424eef539678be237ffe[m
+Author: Mohamed Alaga <malaga.142014@gmail.com>
+Date:   Wed Oct 23 21:19:41 2024 +0300
+
+    subtract and check attempt feature + ui retouches
+
+[33mcommit de1ebb869116f168e8539a0c1e88a587b931fb6e[m
+Author: Mohamed-AlAzab <mohamedazb20059@gmail.com>
+Date:   Wed Oct 23 21:15:59 2024 +0300
+
+    make new card for prctice and change the olg cards and some edit..!!
+
+[33mcommit 608b96a547b1085e4756306fbe81d1a782f1e4aa[m
+Author: Mohamed-AlAzab <mohamedazb20059@gmail.com>
+Date:   Tue Oct 22 21:16:14 2024 +0300
+
+    make some edit in profilr page and some color..!
+
+[33mcommit 03747477a6bb67693c85d179a46c5b9c635db110[m
+Author: Mohamed Alaga <malaga.142014@gmail.com>
+Date:   Tue Oct 22 14:08:20 2024 +0300
+
+    fix state managment for exit quiz and navbar
+
+[33mcommit b3ae2be10b5090b0d42f453aaafaa0b30ebd4d05[m
+Author: Mohamed Alaga <malaga.142014@gmail.com>
+Date:   Tue Oct 22 13:51:43 2024 +0300
+
+    add loading animation after pressing login
+
+[33mcommit 9e065ba0e5357135433ac00f59261b20b7939306[m
+Author: Mohamed Alaga <malaga.142014@gmail.com>
+Date:   Tue Oct 22 13:31:11 2024 +0300
+
+    make the code snippet card scrollabel with static height
+
+[33mcommit 4f4fe89c06cc8ac031e835295d062dfed0ec9d4e[m
+Author: Mohamed Alaga <malaga.142014@gmail.com>
+Date:   Tue Oct 22 13:08:31 2024 +0300
+
+    add icons to result screen buttons
+
+[33mcommit 273b0b6b5ccd284fc0b8bf77783b43456f802b20[m
+Author: Mohamed Alaga <malaga.142014@gmail.com>
+Date:   Tue Oct 22 12:51:54 2024 +0300
+
+    add (record payment) feature
+
+[33mcommit 79b09b91bd1203ff7e388abbf00c25893e2b2704[m
+Author: Mohamed Alaga <malaga.142014@gmail.com>
+Date:   Tue Oct 22 11:08:44 2024 +0300
+
+    fix build bug + enhance profile screen ui
+
+[33mcommit 6966590d0e3478dcac9c6537c150450ad279aa27[m
+Merge: e50e39b 76ace2c
+Author: Mohamed Alaga <malaga.142014@gmail.com>
+Date:   Tue Oct 22 06:22:52 2024 +0300
+
+    Merge branch 'main' of https://github.com/MohamedAlaga/gammal_tech_final_exam
+
+[33mcommit e50e39bb8c8232a70500b941848fa50a143bd338[m
+Author: Mohamed Alaga <malaga.142014@gmail.com>
+Date:   Tue Oct 22 06:22:46 2024 +0300
+
+    ui improvments
+
+[33mcommit 76ace2c933b5feccb1e69c2ef1577bd96c4c95b0[m
+Author: Mohamed-AlAzab <mohamedazb20059@gmail.com>
+Date:   Mon Oct 21 21:59:52 2024 +0300
+
+    make some edit and solve proplem in exam app..!!
+
+[33mcommit 87f0709ec063d10e876686cf715921d945cdf9a3[m
+Author: Mohamed-AlAzab <mohamedazb20059@gmail.com>
+Date:   Sun Oct 20 23:00:17 2024 +0300
+
+    make some edit and solve proplem in exam app..!!
+
+[33mcommit 91a9ebe79e7d490e818143090e839053c910293c[m
+Author: Mohamed-AlAzab <mohamedazb20059@gmail.com>
+Date:   Sun Oct 20 19:14:53 2024 +0300
+
+    make some edit and solve proplem in exam app..!!
+
+[33mcommit 22c902e6f286c6312fdf6f3877ff3e209f720309[m
+Author: Mohamed-AlAzab <mohamedazb20059@gmail.com>
+Date:   Sun Oct 20 19:04:21 2024 +0300
+
+    make some edit and solve proplem in exam app..!!
+
+[33mcommit 217a79e368c71aa5941ab2a204855061d1e66056[m
+Author: MohamedAlaga <malaga.142014@gmail.com>
+Date:   Sat Oct 19 14:36:41 2024 +0300
+
+    fix ui +fix build config android
+
+[33mcommit bf0614ec9aaaf2c6d6516e0da83008ef8611da7b[m
+Merge: f99b03e d80f8d6
+Author: MohamedAlaga <malaga.142014@gmail.com>
+Date:   Thu Oct 17 19:18:23 2024 +0300
+
+    Merge branch 'main' of https://github.com/MohamedAlaga/gammal_tech_final_exam
+
+[33mcommit f99b03eb194f73773fc44a7e10e0866c80354de2[m
+Author: MohamedAlaga <malaga.142014@gmail.com>
+Date:   Thu Oct 17 19:16:42 2024 +0300
+
+    fix navbar + add animations
+
+[33mcommit d80f8d6e9d6990906d3aaa4e93fd643168a16c0d[m
+Author: Mohamed-AlAzab <mohamedazb20059@gmail.com>
+Date:   Thu Oct 17 18:59:17 2024 +0300
+
+    make new home screen and edit some component..!!
+
+[33mcommit dffb6fdccdde0e276a4beba8119b1df54e53073a[m
+Author: Mohamed-AlAzab <mohamedazb20059@gmail.com>
+Date:   Thu Oct 17 18:55:36 2024 +0300
+
+    make new home screen and edit some component..!!
+
+[33mcommit 023c2f824a4c4950c4205e2bd517b76a01552077[m
+Author: Mohamed-AlAzab <mohamedazb20059@gmail.com>
+Date:   Thu Oct 17 14:59:05 2024 +0300
+
+    some edit on leaderboard screen and some component..!!
+
+[33mcommit 8ead611738b24139cd4ce2bffab85c19e2656ac4[m
+Author: Mohamed-AlAzab <mohamedazb20059@gmail.com>
+Date:   Wed Oct 16 21:43:16 2024 +0300
+
+    some edit on profile and edit profile screens..!!
+
+[33mcommit dc85755093af94b569cf143953d744164ac6df26[m
+Author: MohamedAlaga <malaga.142014@gmail.com>
+Date:   Wed Oct 16 20:06:04 2024 +0300
+
+    fix progress
+
+[33mcommit d8f432db05715b969cd0d107472e720ce73a80ac[m
+Author: MohamedAlaga <malaga.142014@gmail.com>
+Date:   Wed Oct 16 19:59:49 2024 +0300
+
+    add try again and go to next exam after finish quiz
+
+[33mcommit bb9464b75bb935e54fcebabedaee0be640094dde[m
+Author: Mohamed-AlAzab <mohamedazb20059@gmail.com>
+Date:   Wed Oct 16 18:14:39 2024 +0300
+
+    edit the leaderboaed screen..!!
+
+[33mcommit 0da872f557d5ff76fbf9bd0d1611218a655170f1[m
+Author: MohamedAlaga <malaga.142014@gmail.com>
+Date:   Wed Oct 16 11:11:42 2024 +0300
+
+    histoy + edit profile
+
+[33mcommit d1bffae6e4c45316edb287d152f057b42acda607[m
+Merge: fdf16c1 6abdc82
+Author: MohamedAlaga <malaga.142014@gmail.com>
+Date:   Wed Oct 16 00:14:00 2024 +0300
+
+    Merge branch 'main' of https://github.com/MohamedAlaga/gammal_tech_final_exam
+
+[33mcommit fdf16c10dbd34c473a23378322855cfbf3c8d9b9[m
+Author: MohamedAlaga <malaga.142014@gmail.com>
+Date:   Wed Oct 16 00:12:54 2024 +0300
+
+    payment using fawry + user profile api integration
+
+[33mcommit 6abdc821f9be560e737fb7018238a88eb1d88f35[m
+Author: Mohamed-AlAzab <mohamedazb20059@gmail.com>
+Date:   Wed Oct 16 00:08:01 2024 +0300
+
+    add leaderboard api integration..!
+
+[33mcommit 0fa077148ce171a917e6660d03a56ad93b6f9288[m
+Author: Mohamed-AlAzab <mohamedazb20059@gmail.com>
+Date:   Tue Oct 15 09:33:54 2024 +0300
+
+    home
+
+[33mcommit 8e955b8049ed4361b0c91d242ef67c2783314dbc[m
+Author: Mohamed-AlAzab <mohamedazb20059@gmail.com>
+Date:   Mon Oct 14 22:49:52 2024 +0300
+
+    add pricing screen and make card pricing ..!
+
+[33mcommit adce65682e203bed3e66f22a75713bdfc90abadd[m
+Merge: cce4c20 6f73efe
+Author: MohamedAlaga <malaga.142014@gmail.com>
+Date:   Mon Oct 14 22:26:07 2024 +0300
+
