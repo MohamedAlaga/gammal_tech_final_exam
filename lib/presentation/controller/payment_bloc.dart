@@ -21,20 +21,21 @@ class PaymentBloc extends Bloc<PaymentEvents, PaymentState> {
               requestState: RequestState.error,
               errorMessage: l.message)), (r) async {
         startPayment(r, event.items);
-        return emit(
-            PaymentState(customerModel: r));
+        return emit(PaymentState(customerModel: r));
       });
     });
     on<RecordPaymentEvent>((event, emit) async {
-      emit(const PaymentState(
-            requestState: RequestState.loading));
+      emit(const PaymentState(requestState: RequestState.loading));
       Navigator.push(
-              event.context,
-              MaterialPageRoute(
-                  builder: (context) => ShowPaymentDataScreen(
-                      name: event.data["customerName"].toString(),
-                      price: event.data["paymentAmount"].toString(),
-                      refNumber: event.data["referenceNumber"].toString())));
+        event.context,
+        MaterialPageRoute(
+          builder: (context) => ShowPaymentDataScreen(
+            name: event.data["customerName"].toString(),
+            price: event.data["paymentAmount"].toString(),
+            refNumber: event.data["referenceNumber"].toString(),
+          ),
+        ),
+      );
       final result =
           await recordUserPaymentInfoUsecase.execute(event.refNumber);
       result.fold((l) {
@@ -47,8 +48,7 @@ class PaymentBloc extends Bloc<PaymentEvents, PaymentState> {
           Navigator.pop(event.context);
         }
         showGreenToast("Payment Completed");
-         return emit(const PaymentState(
-            requestState: RequestState.loaded));
+        return emit(const PaymentState(requestState: RequestState.loaded));
       });
     });
   }

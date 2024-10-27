@@ -17,7 +17,7 @@ class SignUpScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Padding(
-        padding: const EdgeInsets.all(24),
+        padding: const EdgeInsets.symmetric(horizontal: 24),
         child: Center(
           child: SingleChildScrollView(
             child: Column(
@@ -34,23 +34,22 @@ class SignUpScreen extends StatelessWidget {
                   style: TextStyle(fontSize: 48, fontWeight: FontWeight.bold),
                   textAlign: TextAlign.start,
                 ),
-                const SizedBox(height: 24),
+                const SizedBox(height: 18),
                 CustomTextField(hint: "userName...", controller: userName),
-                const SizedBox(height: 12),
                 CustomTextField(hint: "email...", controller: emailController),
-                const SizedBox(height: 12),
                 CustomTextField(
-                    hint: "password...",
-                    isPassword: true,
-                    controller: passwordController),
-                const SizedBox(height: 12),
+                  hint: "password...",
+                  isPassword: true,
+                  controller: passwordController,
+                ),
                 CustomTextField(
-                    hint: "confirm password...",
-                    isPassword: true,
-                    controller: confirmPasswordController),
-                const SizedBox(height: 24),
+                  hint: "confirm password...",
+                  isPassword: true,
+                  controller: confirmPasswordController,
+                ),
+                const SizedBox(height: 18),
                 CustomButton(
-                  text: "Login",
+                  text: "SignUp",
                   textColor: Colors.white,
                   buttonColor: const Color(0xff094546),
                   borderColor: const Color(0xff094546),

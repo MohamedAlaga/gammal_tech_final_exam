@@ -148,11 +148,11 @@ class RemoteUserDataSource extends BaseRemoteUserDataSource {
   }
 
   /// login user to the server
-  /// 
+  ///
   /// try to login the user to the server using the email and password
   /// if the login success the user token will be saved in the shared preferences
   /// and the user id will be saved in the shared preferences
-  /// 
+  ///
   /// on success : return true
   /// on failure : throw ServerException contains the error message and code
   @override
@@ -197,7 +197,7 @@ class RemoteUserDataSource extends BaseRemoteUserDataSource {
   }
 
   /// validate user token
-  /// 
+  ///
   /// validate the user token by sending a request to the server
   /// if the token is valid the user id will be saved in the shared preferences
   ///
