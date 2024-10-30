@@ -22,6 +22,7 @@ abstract class BaseUserRepository {
   Future<Either<Failure, bool>> logoutUser();
   Future<Either<Failure, bool>> validateUserToken();
   Future<Either<Failure, LaunchCustomerModel>> getUserPaymentInfo();
+  Future<Either<Failure, LaunchCustomerModel>> getUserCardsManagerInfo();
   Future<Either<Failure, bool>> recordUserPaymentInfo(String merRefNum);
   Future<Either<Failure, bool>> checkUserAttempts();
   Future<Either<Failure, void>> subtractAttempt();

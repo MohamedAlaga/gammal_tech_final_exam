@@ -9,20 +9,29 @@ import 'package:gammal_tech_final_exam/presentation/controller/payment_events.da
 import 'package:gammal_tech_final_exam/presentation/controller/payment_state.dart';
 import 'package:gammal_tech_final_exam/presentation/screens/show_payment_data_screen.dart';
 
+import '../../domain/usecase/get_user_cards_manager_info_usecase.dart';
+
 class PaymentBloc extends Bloc<PaymentEvents, PaymentState> {
   final GetUserPaymentInfoUsecase getUserPaymentInfoUsecase;
   final RecordUserPaymentInfoUsecase recordUserPaymentInfoUsecase;
-  PaymentBloc(this.getUserPaymentInfoUsecase, this.recordUserPaymentInfoUsecase)
-      : super(const PaymentState()) {
+  final GetUserCardsManagerInfoUsecase getUserCardsManagerInfoUsecase;
+  PaymentBloc(
+    this.getUserPaymentInfoUsecase,
+    this.recordUserPaymentInfoUsecase,
+    this.getUserCardsManagerInfoUsecase,
+  ) : super(const PaymentState()) {
     on<StartPaymentEvent>((event, emit) async {
       final result = await getUserPaymentInfoUsecase.execute();
       result.fold(
-          (l) => emit(PaymentState(
-              requestState: RequestState.error,
-              errorMessage: l.message)), (r) async {
-        startPayment(r, event.items);
-        return emit(PaymentState(customerModel: r));
-      });
+        (l) => emit(
+          PaymentState(
+              requestState: RequestState.error, errorMessage: l.message),
+        ),
+        (r) async {
+          startPayment(r, event.items);
+          return emit(PaymentState(customerModel: r));
+        },
+      );
     });
     on<RecordPaymentEvent>((event, emit) async {
       emit(const PaymentState(requestState: RequestState.loading));
@@ -41,8 +50,12 @@ class PaymentBloc extends Bloc<PaymentEvents, PaymentState> {
       result.fold((l) {
         Navigator.pop(event.context);
         showRedToast("error occured while processing payment please try again");
-        return emit(PaymentState(
-            requestState: RequestState.error, errorMessage: l.message));
+        return emit(
+          PaymentState(
+            requestState: RequestState.error,
+            errorMessage: l.message,
+          ),
+        );
       }, (r) {
         if (!event.showRefNumber) {
           Navigator.pop(event.context);
@@ -50,6 +63,21 @@ class PaymentBloc extends Bloc<PaymentEvents, PaymentState> {
         showGreenToast("Payment Completed");
         return emit(const PaymentState(requestState: RequestState.loaded));
       });
+    });
+    on<OpenCardsManagerEvent>((event, emit) async {
+      final result = await getUserCardsManagerInfoUsecase.execute();
+      result.fold(
+        (l) => emit(
+          PaymentState(
+            requestState: RequestState.error,
+            errorMessage: l.message,
+          ),
+        ),
+        (r) async {
+          openCardsManager(r);
+          return emit(PaymentState(customerModel: r));
+        },
+      );
     });
   }
 }

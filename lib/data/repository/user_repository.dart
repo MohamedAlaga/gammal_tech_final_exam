@@ -107,6 +107,18 @@ class UserRepository extends BaseUserRepository {
     }
   }
 
+  /// get the user info from the server
+  /// on success : return launch customer model
+  /// on failure : throw ServerException contains the error message and code
+  @override
+  Future<Either<Failure, LaunchCustomerModel>> getUserCardsManagerInfo() async {
+    try {
+      return right(await remoteUserDataSource.getUserCardsManagerInfo());
+    } on ServerException catch (faliure) {
+      return Left(ServerFailure(faliure.errorMessageModel.message));
+    }
+  }
+
   /// record user payment info on the server
   /// on success : return bool
   /// on failure : throw ServerException contains the error message and code
