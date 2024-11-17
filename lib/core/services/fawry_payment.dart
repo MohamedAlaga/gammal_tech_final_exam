@@ -44,6 +44,18 @@ class FawryService {
       debugPrint('Error starting payment: $e');
     }
   }
+
+  Future<void> openCardsManager(FawryLaunchModel model) async {
+    try {
+      await FawrySDK.instance.openCardsManager(
+        launchModel: model,
+        baseURL: paymentUrl,
+        lang: FawrySDK.LANGUAGE_ENGLISH,
+      );
+    } catch (e) {
+      debugPrint('Error opening cards manager: $e');
+    }
+  }
 }
 
 /// Handle the response from the fawry payment
@@ -51,7 +63,7 @@ class FawryService {
 /// [context] current context
 ///
 /// on success, show success message and notify server,
-///   if the payment method is pay at fawry show reference 
+///   if the payment method is pay at fawry show reference
 ///   number and notify server
 /// on failure, show error message
 void handleResponse(ResponseStatus response, BuildContext context) {
@@ -117,4 +129,26 @@ Future<void> startPayment(
   model.launchMerchantModel.merchantRefNum =
       "78${FawryUtils.randomAlphaNumeric(8)}";
   await FawryService().startPayment(model);
+}
+
+/// Start the open cards manager
+/// [customer] customer data
+///
+/// start the open cards manager with the customer data
+/// all open cards manager methods are allowed
+/// the merchent referance number is generated randomly but starts with 78
+Future<void> openCardsManager(LaunchCustomerModel customer) async {
+  FawryLaunchModel model = FawryLaunchModel(
+    allow3DPayment: true,
+    chargeItems: [],
+    launchCustomerModel: customer,
+    launchMerchantModel: FawryService.getMerchantModel(),
+    skipLogin: true,
+    skipReceipt: true,
+    payWithCardToken: false,
+    paymentMethods: PaymentMethods.ALL,
+  );
+  model.launchMerchantModel.merchantRefNum =
+      "78${FawryUtils.randomAlphaNumeric(8)}";
+  await FawryService().openCardsManager(model);
 }

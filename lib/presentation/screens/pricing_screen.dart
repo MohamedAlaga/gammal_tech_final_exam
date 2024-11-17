@@ -8,9 +8,14 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gammal_tech_final_exam/core/services/fawry_payment.dart';
 import 'package:gammal_tech_final_exam/core/utils/bill_items.dart';
+import 'package:gammal_tech_final_exam/presentation/components/main_app_bar.dart';
 import 'package:gammal_tech_final_exam/presentation/components/pricing_card.dart';
+import 'package:gammal_tech_final_exam/presentation/components/source_sans_text.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/payment_bloc.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/payment_events.dart';
+
+import '../controller/user_bloc.dart';
+import '../controller/user_state.dart';
 
 class PricingScreen extends StatefulWidget {
   const PricingScreen({super.key});
@@ -65,13 +70,56 @@ class _PricingScreenState extends State<PricingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(45),
+        child: BlocBuilder<UserBloc, UserState>(
+          builder: (context, state) => MainAppBar(
+            rightIcon: Icons.add_card,
+            onNotificationPressed: () async {
+              BlocProvider.of<PaymentBloc>(context).add(
+                OpenCardsManagerEvent(),
+              );
+            },
+            appBarrColor: Colors.white,
+            rightIconColor: const Color(0xff094546),
+            image: state.welcomeData.imageUrl,
+          ),
+        ),
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 18),
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
             child: Center(
               child: Column(
                 children: [
+                  const Row(
+                    children: [
+                      SourceSansText(text: 'Subscription:'),
+                    ],
+                  ),
+                  const SizedBox(height: 6),
+                  PricingCard(
+                    title: 'Monthly Subscription',
+                    price: '500EP',
+                    features: const ['Infinity attempts', '1 Month validity'],
+                    cardColor: Colors.white,
+                    textColor: const Color(0xff094546),
+                    borderColor: const Color(0xffFF904D),
+                    buttonText: 'Start',
+                    onTap: () async {
+                      BlocProvider.of<PaymentBloc>(context).add(
+                        StartPaymentEvent([monthlySup]),
+                      );
+                    },
+                  ),
+                  const SizedBox(height: 18),
+                  const Row(
+                    children: [
+                      SourceSansText(text: 'Attempts:'),
+                    ],
+                  ),
+                  const SizedBox(height: 6),
                   PricingCard(
                     title: 'Economy',
                     price: '50EP',

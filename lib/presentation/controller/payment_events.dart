@@ -17,5 +17,12 @@ class RecordPaymentEvent extends PaymentEvents {
   final BuildContext context;
   final String refNumber;
   final bool showRefNumber;
-  RecordPaymentEvent(this.refNumber, this.showRefNumber, this.context,this.data);
+  RecordPaymentEvent(
+    this.refNumber,
+    this.showRefNumber,
+    this.context,
+    this.data,
+  );
 }
+
+class OpenCardsManagerEvent extends PaymentEvents {}

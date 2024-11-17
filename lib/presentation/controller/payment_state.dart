@@ -7,11 +7,13 @@ class PaymentState extends Equatable {
   final LaunchCustomerModel? customerModel;
   final String errorMessage;
   final RequestState requestState;
-  const PaymentState(
-      {this.refNumber,
-      this.customerModel,
-      this.errorMessage = '',
-      this.requestState = RequestState.loading});
+
+  const PaymentState({
+    this.refNumber,
+    this.customerModel,
+    this.errorMessage = '',
+    this.requestState = RequestState.loading,
+  });
 
   @override
   List<Object?> get props =>

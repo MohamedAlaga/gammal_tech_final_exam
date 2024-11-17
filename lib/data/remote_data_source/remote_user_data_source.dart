@@ -23,6 +23,7 @@ abstract class BaseRemoteUserDataSource {
   Future<bool> logoutUser();
   Future<bool> validateUserToken();
   Future<LaunchCustomerModel> getUserPaymentInfo();
+  Future<LaunchCustomerModel> getUserCardsManagerInfo();
   Future<bool> recordUserPaymentInfo(String merRefNum);
   Future<bool> checkUserAttempts();
   Future<void> subtractAttempt();
@@ -140,17 +141,21 @@ class RemoteUserDataSource extends BaseRemoteUserDataSource {
         return await getUserData();
       } else {
         throw ServerException(
-            errorMessageModel: ErrorMessageModel(
-                message: "error updating user profile",
-                statusCode: result.statusCode,
-                success: false));
+          errorMessageModel: ErrorMessageModel(
+            message: "error updating user profile",
+            statusCode: result.statusCode,
+            success: false,
+          ),
+        );
       }
     } catch (e) {
       throw const ServerException(
-          errorMessageModel: ErrorMessageModel(
-              message: "error updating user profile",
-              statusCode: 400,
-              success: false));
+        errorMessageModel: ErrorMessageModel(
+          message: "error updating user profile",
+          statusCode: 400,
+          success: false,
+        ),
+      );
     }
   }
 
@@ -253,9 +258,10 @@ class RemoteUserDataSource extends BaseRemoteUserDataSource {
       if (result.statusCode == 200) {
         var user = jsonDecode(result.body);
         return LaunchCustomerModel(
-            customerName: user["name"],
-            customerEmail: user["email"],
-            customerMobile: user["phone"]);
+          customerName: user["name"],
+          customerEmail: user["email"],
+          customerMobile: user["phone"],
+        );
       } else {
         throw ServerException(
             errorMessageModel: ErrorMessageModel(
@@ -269,6 +275,39 @@ class RemoteUserDataSource extends BaseRemoteUserDataSource {
               message: "error accured getting user payment info",
               statusCode: 0,
               success: false));
+    }
+  }
+
+  @override
+  Future<LaunchCustomerModel> getUserCardsManagerInfo() async {
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      var result = await http.get(
+          Uri.parse("${baseUrl}users/${prefs.getString("userId").toString()}"));
+      if (result.statusCode == 200) {
+        var user = jsonDecode(result.body);
+        return LaunchCustomerModel(
+          customerName: user["name"],
+          customerEmail: user["email"],
+          customerMobile: user["phone"],
+        );
+      } else {
+        throw ServerException(
+          errorMessageModel: ErrorMessageModel(
+            message: "error accured getting user payment info",
+            statusCode: result.statusCode,
+            success: false,
+          ),
+        );
+      }
+    } catch (e) {
+      throw const ServerException(
+        errorMessageModel: ErrorMessageModel(
+          message: "error accured getting user payment info",
+          statusCode: 0,
+          success: false,
+        ),
+      );
     }
   }
 
