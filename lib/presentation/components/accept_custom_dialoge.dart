@@ -9,11 +9,13 @@ class AcceptCustomDialoge extends StatelessWidget {
     this.title = "Enter exam",
     this.body = "",
     this.textAlign = TextAlign.center,
+    this.onNoTap,
   });
   final void Function()? onTap;
   final String title;
   final String body;
   final TextAlign textAlign;
+  final Function()? onNoTap;
 
   @override
   Widget build(BuildContext context) {
@@ -28,8 +30,23 @@ class AcceptCustomDialoge extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              SourceSansText(
-                  text: title, fontsize: 22, fontWeight: FontWeight.w600),
+              Padding(
+                padding: const EdgeInsets.only( right: 24, left: 24),
+                child: Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    IconButton(
+                        onPressed: onNoTap ?? () => Navigator.pop(context),
+                        icon: const Icon(
+                          Icons.close,
+                          color: Color(0xFF094546),
+                          size: 24,
+                        )),
+                    SourceSansText(
+                        text: title, fontsize: 22, fontWeight: FontWeight.w600),
+                    const SizedBox(width: 24,),
+                  ],
+                ),
+              ),
               Padding(
                 padding: const EdgeInsets.only(top: 24.0, right: 24, left: 24),
                 child: SourceSansText(

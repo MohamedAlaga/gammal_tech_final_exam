@@ -47,7 +47,8 @@ class QuizPage extends StatelessWidget {
                   content:
                       'Are you sure you want to exit the exam?\nOne attempt will be deducted.',
                   onTap: () {
-                    BlocProvider.of<ExamsBloc>(context).add(SubmitAnswersEvent());
+                    BlocProvider.of<ExamsBloc>(context)
+                        .add(SubmitAnswersEvent());
                     BlocProvider.of<ExamsBloc>(context).add(ExitQuizEvent());
                     Navigator.pop(context);
                     Navigator.pop(context);
@@ -283,6 +284,11 @@ class QuizPage extends StatelessWidget {
                   BlocProvider.of<ExamsBloc>(context).add(StartQuizEvent());
                   countDownController.start();
                   Navigator.pop(context);
+                },
+                onNoTap: () {
+                  if (!BlocProvider.of<ExamsBloc>(context).state.isStarted) {
+                    Navigator.pop(context);
+                  }
                 },
                 body:
                     "the exam contains ${BlocProvider.of<ExamsBloc>(context).state.questions.length} questions \n you have ${BlocProvider.of<ExamsBloc>(context).state.duration} seconds to answer each question",

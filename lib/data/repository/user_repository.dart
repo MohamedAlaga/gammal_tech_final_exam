@@ -2,6 +2,8 @@
 /// This class is responsible for handling all the remote data sources for the user entity.
 library;
 
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 import 'package:fawry_sdk/model/launch_customer_model.dart';
 import 'package:gammal_tech_final_exam/core/error/exceptions.dart';
@@ -49,11 +51,10 @@ class UserRepository extends BaseUserRepository {
       String? email,
       String? phoneNumber,
       String? bio,
-      String? imageUrl,
       String? name) async {
     try {
       return right(await remoteUserDataSource.updateUserProfile(
-          university, email, phoneNumber, bio, imageUrl, name));
+          university, email, phoneNumber, bio, null, name));
     } on ServerException catch (faliure) {
       return Left(ServerFailure(faliure.errorMessageModel.message));
     }
@@ -138,6 +139,55 @@ class UserRepository extends BaseUserRepository {
   Future<Either<Failure, void>> subtractAttempt() async {
     try {
       return right(await remoteUserDataSource.subtractAttempt());
+    } on ServerException catch (faliure) {
+      return Left(ServerFailure(faliure.errorMessageModel.message));
+    }
+  }
+
+  @override
+  Future<Either<Failure, bool>> signupUser(
+      String email, String password, String name) async {
+    try {
+      return right(
+          await remoteUserDataSource.signupUser(email, password, name));
+    } on ServerException catch (faliure) {
+      return Left(ServerFailure(faliure.errorMessageModel.message));
+    }
+  }
+
+  @override
+  Future<Either<Failure, bool>> resetPasswordRequest(String email) async {
+    try {
+      return right(await remoteUserDataSource.resetPasswordRequest(email));
+    } on ServerException catch (faliure) {
+      return Left(ServerFailure(faliure.errorMessageModel.message));
+    }
+  }
+
+  @override
+  Future<Either<Failure, bool>> resetPassword(
+      String email, String code, String newPassword) async {
+    try {
+      return right(
+          await remoteUserDataSource.resetPassword(email, code, newPassword));
+    } on ServerException catch (faliure) {
+      return Left(ServerFailure(faliure.errorMessageModel.message));
+    }
+  }
+
+  @override
+  Future<Either<Failure, bool>> verifyOtp(String email, String code) async {
+    try {
+      return right(await remoteUserDataSource.verifyOtp(email, code));
+    } on ServerException catch (faliure) {
+      return Left(ServerFailure(faliure.errorMessageModel.message));
+    }
+  }
+
+  @override
+  Future<Either<Failure, bool>> updateImage(File image, String publicId) async {
+    try {
+      return right(await remoteUserDataSource.uploadImage(image, publicId));
     } on ServerException catch (faliure) {
       return Left(ServerFailure(faliure.errorMessageModel.message));
     }

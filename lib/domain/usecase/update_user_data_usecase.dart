@@ -19,8 +19,8 @@ class UpdateUserDataUsecase {
   /// [Failure] if there is an error
   /// [User] if the user data is updated successfully
   Future<Either<Failure, User>> execute(String? university, String? email,
-      String? phoneNumber, String? bio, String? imageUrl, String? name) async {
+      String? phoneNumber, String? bio, String? name) async {
     return await baseUserRepository.updateUserProfile(
-        university, email, phoneNumber, bio, imageUrl, name);
+        university, email, phoneNumber, bio,  name);
   }
 }

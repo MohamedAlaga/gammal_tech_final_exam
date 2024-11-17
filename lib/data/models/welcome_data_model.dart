@@ -17,7 +17,7 @@ class WelcomeDataModel extends WelcomeData {
   factory WelcomeDataModel.fromJson(Map<String, dynamic> json) {
     return WelcomeDataModel(
       title: json['name'],
-      imageUrl: json['imageUrl'] ?? "",
+      imageUrl: json['image_url'] ?? "",
       solvedExams: json['finished_exams'],
       points: json['total_points'],
       totalRanks: json['total_ranks'],

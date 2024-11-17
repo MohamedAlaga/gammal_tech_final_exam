@@ -32,14 +32,14 @@ class UserModel extends User {
     return UserModel(
       bio: json['bio'] ?? "Gammal Tech Learner Exploring Coding Challenges",
       collegeName: json['university'] ?? "user college",
-      imageUrl: json['imageUrl'] ?? "",
+      imageUrl: json['image_url'] ?? "",
       name: json['name'] ?? "user name",
       progress: progress,
       skills: skills,
-      totalPoints: json['total_points'],
+      totalPoints: json['total_points']??0,
       attemptsRemaining: json['attempts_remaining'],
       email: json['email'],
-      phone: json['phone'],
+      phone: json['phone']??"phone number",
     );
   }
 

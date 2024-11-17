@@ -1,3 +1,4 @@
+library;
 /// Topic entity class
 import 'package:equatable/equatable.dart';
 

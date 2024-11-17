@@ -40,17 +40,46 @@ class UserProfileScreen extends StatelessWidget {
           case RequestState.error:
             return const Center(child: Text('Error'));
           default:
+          print(state.currentUser.imageUrl);
             return SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.all(24),
                 child: Center(
                   child: Column(
                     children: [
-                      CircleAvatar(
-                        radius: 60,
-                        backgroundImage:
-                            _getImageProvider(state.currentUser.imageUrl),
-                        backgroundColor: Colors.grey[400],
+                      Stack(
+                        alignment: Alignment.bottomRight,
+                        children: [
+                          CircleAvatar(
+                            radius: 60,
+                            backgroundImage:
+                                _getImageProvider(state.currentUser.imageUrl),
+                            backgroundColor: Colors.grey[400],
+                          ),
+                          InkWell(
+                            onTap: () {
+                              BlocProvider.of<UserProfileBloc>(context).add(
+                                UpdateUserImageEvent(
+                                    context: context,
+                                    email: state.currentUser.email),
+                              );
+                            },
+                            child: Container(
+                              decoration: const BoxDecoration(
+                                color: Color(0xff094546),
+                                shape: BoxShape.circle,
+                              ),
+                              child: const Padding(
+                                padding: EdgeInsets.all(4.0),
+                                child: Icon(
+                                  Icons.edit,
+                                  size: 20,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          )
+                        ],
                       ),
                       const SizedBox(height: 12),
                       Row(
@@ -455,7 +484,8 @@ class UserProfileScreen extends StatelessWidget {
                           Navigator.pushAndRemoveUntil<dynamic>(
                             context,
                             MaterialPageRoute<dynamic>(
-                              builder: (BuildContext context) => const MainScreen(),
+                              builder: (BuildContext context) =>
+                                  const MainScreen(),
                             ),
                             (route) => false,
                           );

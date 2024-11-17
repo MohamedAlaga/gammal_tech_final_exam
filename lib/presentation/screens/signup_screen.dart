@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gammal_tech_final_exam/presentation/components/custom_text_field.dart';
+import 'package:gammal_tech_final_exam/presentation/components/custom_toast.dart';
+import 'package:gammal_tech_final_exam/presentation/controller/signup_bloc.dart';
+import 'package:gammal_tech_final_exam/presentation/controller/signup_events.dart';
 import 'package:gammal_tech_final_exam/presentation/screens/login_screen.dart';
 
 import '../components/custom_button.dart';
@@ -50,37 +54,44 @@ class SignUpScreen extends StatelessWidget {
                     controller: confirmPasswordController),
                 const SizedBox(height: 24),
                 CustomButton(
-                  text: "Login",
+                  text: "Signup",
                   textColor: Colors.white,
                   buttonColor: const Color(0xff094546),
                   borderColor: const Color(0xff094546),
                   fontSize: 20,
                   borderRadius: 8,
-                  onTap: () {},
+                  onTap: () {
+                    if (passwordController.text ==
+                        confirmPasswordController.text) {
+                      BlocProvider.of<SignupBloc>(context).add(StartSignupEvent(
+                          emailController.text,
+                          passwordController.text,
+                          userName.text,
+                          context));
+                    } else {
+                      showRedToast("passwords do not match");
+                    }
+                  },
                 ),
                 const SizedBox(height: 24),
-                Column(
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text("Already have an account?"),
-                        const SizedBox(width: 4),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => LoginScreen(),
-                              ),
-                            );
-                          },
-                          child: const Text(
-                            'Login',
-                            style: TextStyle(color: Color(0xff094546)),
+                    const Text("Already have an account?"),
+                    const SizedBox(width: 4),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => LoginScreen(),
                           ),
-                        ),
-                      ],
+                        );
+                      },
+                      child: const Text(
+                        'Login',
+                        style: TextStyle(color: Color(0xff094546)),
+                      ),
                     ),
                   ],
                 )

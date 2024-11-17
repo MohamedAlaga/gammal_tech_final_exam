@@ -6,6 +6,8 @@ import 'package:gammal_tech_final_exam/presentation/controller/exams_bloc.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/log_bloc.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/payment_bloc.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/rank_bloc.dart';
+import 'package:gammal_tech_final_exam/presentation/controller/reset_pass_bloc.dart';
+import 'package:gammal_tech_final_exam/presentation/controller/signup_bloc.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/topics_bloc.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/user_bloc.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/user_events.dart';
@@ -33,9 +35,11 @@ class MyApp extends StatelessWidget {
           BlocProvider<ExamsBloc>(create: (context) => sl<ExamsBloc>()),
           BlocProvider<UserRankBloc>(create: (context) => sl<UserRankBloc>()),
           BlocProvider<PaymentBloc>(create: (context) => sl<PaymentBloc>()),
+          BlocProvider<SignupBloc>(create: (context) => sl<SignupBloc>()),
           BlocProvider<UserProfileBloc>(
               create: (context) => sl<UserProfileBloc>()),
-          BlocProvider<LogBloc>(create: (context) => sl<LogBloc>())
+          BlocProvider<LogBloc>(create: (context) => sl<LogBloc>()),
+          BlocProvider<ResetPassBloc>(create: (context) => sl<ResetPassBloc>()),
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,

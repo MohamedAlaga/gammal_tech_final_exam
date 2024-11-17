@@ -2,6 +2,7 @@
 library;
 
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:fawry_sdk/model/launch_customer_model.dart';
 import 'package:gammal_tech_final_exam/core/error/error_message_model.dart';
@@ -25,6 +26,12 @@ abstract class BaseRemoteUserDataSource {
   Future<bool> recordUserPaymentInfo(String merRefNum);
   Future<bool> checkUserAttempts();
   Future<void> subtractAttempt();
+  Future<bool> signupUser(String email, String password, String name);
+  Future<bool> resetPassword(String email, String code, String newPassword);
+  Future<bool> resetPasswordRequest(String email);
+  Future<bool> verifyOtp(String email, String code);
+  Future<Map<String, dynamic>> getImageSignature(String publicId);
+  Future<bool> uploadImage(File image, String publicId);
 }
 
 /// RemoteUserDataSource class is responsible for handling all the remote data sources for the user entity.
@@ -148,11 +155,11 @@ class RemoteUserDataSource extends BaseRemoteUserDataSource {
   }
 
   /// login user to the server
-  /// 
+  ///
   /// try to login the user to the server using the email and password
   /// if the login success the user token will be saved in the shared preferences
   /// and the user id will be saved in the shared preferences
-  /// 
+  ///
   /// on success : return true
   /// on failure : throw ServerException contains the error message and code
   @override
@@ -197,7 +204,7 @@ class RemoteUserDataSource extends BaseRemoteUserDataSource {
   }
 
   /// validate user token
-  /// 
+  ///
   /// validate the user token by sending a request to the server
   /// if the token is valid the user id will be saved in the shared preferences
   ///
@@ -340,6 +347,165 @@ class RemoteUserDataSource extends BaseRemoteUserDataSource {
           errorMessageModel: ErrorMessageModel(
               message: "error accured subtracting user attempts",
               statusCode: result.statusCode,
+              success: false));
+    }
+  }
+
+  @override
+  Future<bool> signupUser(String email, String password, String name) async {
+    try {
+      var result = await http.post(Uri.parse("${baseUrl}auth/signup"),
+          body:
+              jsonEncode({"email": email, "password": password, "name": name}),
+          headers: {"Content-Type": "application/json"});
+      if (result.statusCode == 200) {
+        return true;
+      } else {
+        throw ServerException(
+            errorMessageModel: ErrorMessageModel(
+                message: "error signup user",
+                statusCode: result.statusCode,
+                success: false));
+      }
+    } catch (e) {
+      throw const ServerException(
+          errorMessageModel: ErrorMessageModel(
+              message: "error signup user", statusCode: 400, success: false));
+    }
+  }
+
+  @override
+  Future<bool> resetPasswordRequest(String email) async {
+    try {
+      var result = await http.post(
+          Uri.parse("${baseUrl}auth/request-reset-password"),
+          body: jsonEncode({"email": email}),
+          headers: {"Content-Type": "application/json"});
+      if (result.statusCode == 200) {
+        return true;
+      } else {
+        throw ServerException(
+            errorMessageModel: ErrorMessageModel(
+                message: "error reset password",
+                statusCode: result.statusCode,
+                success: false));
+      }
+    } catch (e) {
+      throw const ServerException(
+          errorMessageModel: ErrorMessageModel(
+              message: "error reset password",
+              statusCode: 400,
+              success: false));
+    }
+  }
+
+  @override
+  Future<bool> resetPassword(
+    String email,
+    String code,
+    String newPassword,
+  ) async {
+    try {
+      var result = await http.post(Uri.parse("${baseUrl}auth/reset-password"),
+          body: jsonEncode({
+            "email": email,
+            "new_password": newPassword,
+            "verification_code": code
+          }),
+          headers: {"Content-Type": "application/json"});
+      if (result.statusCode == 200) {
+        return true;
+      } else {
+        throw ServerException(
+            errorMessageModel: ErrorMessageModel(
+                message: "error reset password",
+                statusCode: result.statusCode,
+                success: false));
+      }
+    } catch (e) {
+      throw const ServerException(
+          errorMessageModel: ErrorMessageModel(
+              message: "error reset password",
+              statusCode: 400,
+              success: false));
+    }
+  }
+
+  @override
+  Future<bool> verifyOtp(String email, String code) async {
+    try {
+      var result = await http.post(Uri.parse("${baseUrl}auth/verify-code"),
+          body: jsonEncode({"email": email, "verification_code": code}),
+          headers: {"Content-Type": "application/json"});
+      if (result.statusCode == 200) {
+        return true;
+      } else {
+        throw ServerException(
+            errorMessageModel: ErrorMessageModel(
+                message: "error verify otp",
+                statusCode: result.statusCode,
+                success: false));
+      }
+    } catch (e) {
+      throw const ServerException(
+          errorMessageModel: ErrorMessageModel(
+              message: "error verify otp", statusCode: 400, success: false));
+    }
+  }
+
+  @override
+  Future<Map<String, dynamic>> getImageSignature(String publicId) async {
+    try {
+      var result = await http.get(Uri.parse(
+          "${localUrl}cloudinary/generate-signature?public_id=$publicId"));
+      if (result.statusCode == 200) {
+        return jsonDecode(result.body);
+      } else {
+        throw ServerException(
+            errorMessageModel: ErrorMessageModel(
+                message: "error getting image signature",
+                statusCode: result.statusCode,
+                success: false));
+      }
+    } catch (e) {
+      throw const ServerException(
+          errorMessageModel: ErrorMessageModel(
+              message: "error getting image signature",
+              statusCode: 404,
+              success: false));
+    }
+  }
+
+  @override
+  Future<bool> uploadImage(File image, String publicId) async {
+    try {
+      var signature = await getImageSignature(publicId);
+      final url = Uri.parse(
+          'https://api.cloudinary.com/v1_1/$imageCloudName/image/upload');
+      final request = http.MultipartRequest('POST', url)
+        ..fields["file"] = image.path
+        ..fields["public_id"] = publicId
+        ..fields["api_key"] = signature["api_key"]
+        ..fields["timestamp"] = signature["timestamp"].toString()
+        ..fields["signature"] = signature["signature"];
+      request.files.add(await http.MultipartFile.fromPath('file', image.path));
+      final response = await request.send();
+      if (response.statusCode == 200) {
+        String body = await response.stream.bytesToString();
+        updateUserProfile(null, null, null, null, jsonDecode(body)["url"], null);
+        return true;
+      } else {
+        throw ServerException(
+            errorMessageModel: ErrorMessageModel(
+                message: "error uploading image",
+                statusCode: response.statusCode,
+                success: false));
+      }
+    } catch (e) {
+      throw  ServerException(
+          errorMessageModel: ErrorMessageModel(
+              message: e.toString(),
+              statusCode: 404,
               success: false));
     }
   }

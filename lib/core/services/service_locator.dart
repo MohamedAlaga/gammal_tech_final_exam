@@ -30,15 +30,22 @@ import 'package:gammal_tech_final_exam/domain/usecase/get_user_payment_info_usec
 import 'package:gammal_tech_final_exam/domain/usecase/get_user_profile_data_usecase.dart';
 import 'package:gammal_tech_final_exam/domain/usecase/get_user_welcome_data_usecase.dart';
 import 'package:gammal_tech_final_exam/domain/usecase/login_user_usecase.dart';
+import 'package:gammal_tech_final_exam/domain/usecase/reset_password_request_usecase.dart';
+import 'package:gammal_tech_final_exam/domain/usecase/reset_password_usecase.dart';
 import 'package:gammal_tech_final_exam/domain/usecase/save_answer_usecase.dart';
+import 'package:gammal_tech_final_exam/domain/usecase/signup_user_usecase.dart';
 import 'package:gammal_tech_final_exam/domain/usecase/subtract_user_attempt_usecase.dart';
+import 'package:gammal_tech_final_exam/domain/usecase/update_image_usecase.dart';
 import 'package:gammal_tech_final_exam/domain/usecase/update_user_data_usecase.dart';
 import 'package:gammal_tech_final_exam/domain/usecase/validate_user_token_usecase.dart';
+import 'package:gammal_tech_final_exam/domain/usecase/verify_otp_usecase.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/courses_bloc.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/exams_bloc.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/log_bloc.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/rank_bloc.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/payment_bloc.dart';
+import 'package:gammal_tech_final_exam/presentation/controller/reset_pass_bloc.dart';
+import 'package:gammal_tech_final_exam/presentation/controller/signup_bloc.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/topics_bloc.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/user_bloc.dart';
 import 'package:gammal_tech_final_exam/presentation/controller/user_profile_bloc.dart';
@@ -48,23 +55,32 @@ import 'package:gammal_tech_final_exam/domain/repository/base_user_rank_reposito
 import 'package:gammal_tech_final_exam/domain/usecase/get_user_rank_data_usecase.dart';
 import 'package:get_it/get_it.dart';
 
-
 final GetIt sl = GetIt.instance;
-
 
 /// Service locator class to register all the services and dependencies
 class ServiceLocator {
   void init() {
     //blocs
+    sl.registerFactory<SignupBloc>(() => SignupBloc(sl(), sl()));
     sl.registerFactory<PaymentBloc>(() => PaymentBloc(sl(), sl()));
     sl.registerFactory<ExamsBloc>(() => ExamsBloc(sl(), sl(), sl(), sl()));
     sl.registerFactory<TopicsBloc>(() => TopicsBloc(sl(), sl()));
     sl.registerFactory<CoursesBloc>(() => CoursesBloc(sl(), sl(), sl()));
     sl.registerFactory<UserBloc>(() => UserBloc(sl(), sl(), sl()));
     sl.registerFactory<UserRankBloc>(() => UserRankBloc(sl()));
-    sl.registerFactory<UserProfileBloc>(() => UserProfileBloc(sl(), sl()));
+    sl.registerFactory<UserProfileBloc>(
+        () => UserProfileBloc(sl(), sl(), sl()));
     sl.registerFactory<LogBloc>(() => LogBloc(sl()));
+    sl.registerFactory<ResetPassBloc>(() => ResetPassBloc(sl(), sl(), sl()));
     //usecases
+    sl.registerLazySingleton<UpdateImageUsecase>(
+        () => UpdateImageUsecase(sl()));
+    sl.registerLazySingleton<VerifyOtpUsecase>(() => VerifyOtpUsecase(sl()));
+    sl.registerLazySingleton<ResetPasswordRequestUsecase>(
+        () => ResetPasswordRequestUsecase(sl()));
+    sl.registerLazySingleton<ResetPasswordUsecase>(
+        () => ResetPasswordUsecase(sl()));
+    sl.registerLazySingleton<SignupUserUsecase>(() => SignupUserUsecase(sl()));
     sl.registerLazySingleton<SubtractUserAttemptUsecase>(
         () => SubtractUserAttemptUsecase(sl()));
     sl.registerLazySingleton<CheckUserAttemptsUsecase>(
